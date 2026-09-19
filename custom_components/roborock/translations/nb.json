@@ -1,0 +1,264 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "Autentisering p\u00e5 nytt var vellykket"
+        },
+        "error": {
+            "invalid_url_format": "URL-en m\u00e5 starte med http:// eller https:// og inneholde en gyldig vert.",
+            "too_frequent_code_requests": "Du har fors\u00f8kt \u00e5 be om for mange koder. Pr\u00f8v igjen senere.",
+            "unknown": "Uventet feil"
+        },
+        "step": {
+            "custom_url": {
+                "data": {
+                    "roborock_server_url": "Roborock-server-URL"
+                },
+                "data_description": {
+                    "roborock_server_url": "URL-en til Roborock-serveren."
+                },
+                "description": "Skriv inn URL-en til Roborock-serveren du vil koble til."
+            },
+            "reauth_confirm": {
+                "title": "Autentisering er utl\u00f8pt for {name}"
+            },
+            "user": {
+                "data": {
+                    "username": "E-post"
+                }
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "empty_dustbin": {
+                "name": "T\u00f8m st\u00f8vposen"
+            },
+            "reset_dock_cleaning_brush_consumable": {
+                "name": "Tilbakestill forbruksvare for rengj\u00f8ringsb\u00f8rsten"
+            },
+            "reset_dock_strainer_consumable": {
+                "name": "Tilbakestill silens forbruksdel"
+            }
+        },
+        "number": {
+            "volume": {
+                "name": "Volum"
+            }
+        },
+        "select": {
+            "cleaning_route": {
+                "name": "Rengj\u00f8ringsrute",
+                "state": {
+                    "balanced": "Balansert",
+                    "deep": "Dyp"
+                }
+            },
+            "mop_intensity": {
+                "state": {
+                    "custom_water_flow": "Tilpasset vannstr\u00f8m",
+                    "max": "Maks",
+                    "off": "Av"
+                }
+            },
+            "program": {
+                "state": {
+                    "sportswear": "Sportskl\u00e6r",
+                    "stain_removal": "Flekkfjerning",
+                    "standard": "Standard",
+                    "synthetics": "Syntetiske stoffer",
+                    "t_shirts": "T-skjorter",
+                    "towels": "H\u00e5ndkl\u00e6r",
+                    "underwear": "Undert\u00f8y",
+                    "warming": "Oppvarming",
+                    "wool": "Ull"
+                }
+            },
+            "rinse_times": {
+                "name": "Skylletider"
+            },
+            "softener_type": {
+                "name": "Type mykner",
+                "state": {
+                    "empty": "T\u00f8mme",
+                    "high": "H\u00f8y",
+                    "low": "Lav",
+                    "medium": "Medium"
+                }
+            },
+            "spin_level": {
+                "name": "Sentrifugeringsniv\u00e5",
+                "state": {
+                    "high": "1000 o/min",
+                    "max": "1400 o/min",
+                    "mid": "800 o/min",
+                    "very_high": "1200 o/min",
+                    "very_low": "600 o/min"
+                }
+            },
+            "temperature": {
+                "name": "Vanntemperatur",
+                "state": {
+                    "auto": "Automatisk",
+                    "cold": "Kald"
+                }
+            }
+        },
+        "sensor": {
+            "a01_error": {
+                "state": {
+                    "clean_tank_empty": "Ren tank tom",
+                    "dirty_charging_contacts": "Rens ladekontaktene",
+                    "dirty_tank_full": "Skitten tank full",
+                    "low_battery": "Lavt batteri"
+                }
+            },
+            "a01_status": {
+                "state": {
+                    "drying": "T\u00f8rking",
+                    "fetch_failed": "Henting feilet",
+                    "fetching": "Henter",
+                    "mop_washing": "Vasker mopp"
+                }
+            },
+            "countdown": {
+                "name": "Nedtelling"
+            },
+            "filter_life": {
+                "name": "Filtertid brukt"
+            },
+            "main_brush_life": {
+                "name": "Hovedb\u00f8rstens tidsbruk"
+            },
+            "sensor_life": {
+                "name": "Sensortid brukt"
+            },
+            "side_brush_life": {
+                "name": "Sideb\u00f8rste bruk tid"
+            },
+            "status": {
+                "state": {
+                    "air_drying_stopping": "Luftt\u00f8rking stopper",
+                    "idle": "Inaktiv",
+                    "locked": "L\u00e5st",
+                    "mapping": "Kartlegging",
+                    "mopping": "Mopping",
+                    "paused": "Pauset",
+                    "relocating": "Flytting",
+                    "saving_map": "Lagrer kart",
+                    "sleeping": "Sovende",
+                    "sweep_and_mop": "Fei og mopp",
+                    "sweeping": "Feiing",
+                    "transitioning": "Overgang",
+                    "unknown": "Ukjent",
+                    "waiting_to_charge": "Venter p\u00e5 \u00e5 lade",
+                    "washing_the_mop": "Vasker mopp"
+                }
+            },
+            "times_after_clean": {
+                "name": "Tider etter rengj\u00f8ring"
+            },
+            "vacuum_error": {
+                "state": {
+                    "audio_error": "Lydfeil",
+                    "check_clean_carouse": "Sjekk rengj\u00f8ringskarusellen",
+                    "clean_carousel_exception": "Feil ved rengj\u00f8ring av karusell",
+                    "clean_carousel_water_full": "Rengj\u00f8ringskarusell vann fullt",
+                    "clear_brush_exception": "Kontroller at vannfilteret er riktig installert",
+                    "clear_water_box_exception": "Rentvannstanken er tom",
+                    "clear_water_box_hoare": "Sjekk rentvannstanken",
+                    "collect_dust_error_3": "Rengj\u00f8r dokken automatisk",
+                    "compass_error": "Sterkt magnetfelt oppdaget",
+                    "dirty_water_box_hoare": "Sjekk skittenvannstanken",
+                    "dock": "Dokken er ikke koblet til str\u00f8m",
+                    "drain_water_exception": "Unntak for avl\u00f8psvann",
+                    "filter_screen_exception": "Rengj\u00f8r dokkens vannfilter",
+                    "light_touch": "Veggsensorfeil",
+                    "mopping_roller_1": "Vaskerullen kan ha satt seg fast",
+                    "mopping_roller_error_2": "Vaskerullen er ikke senket ordentlig",
+                    "optical_flow_sensor_dirt": "Optisk str\u00f8mningssensor skitten",
+                    "sink_strainer_hoare": "Installer vannfilteret p\u00e5 nytt",
+                    "strainer_error": "Filteret er v\u00e5tt eller blokkert",
+                    "temperature_protection": "Temperaturbeskyttelse for enheten",
+                    "up_water_exception": "Unntak for vannforsyning",
+                    "visual_sensor": "Kamerafeil",
+                    "water_carriage_drop": "Vannvognen falt ned"
+                }
+            },
+            "zeo_error": {
+                "name": "Feil",
+                "state": {
+                    "temperature_error": "Temperaturfeil",
+                    "water_level_error": "Vannstandsfeil"
+                }
+            },
+            "zeo_state": {
+                "state": {
+                    "cooling": "Kj\u00f8ling",
+                    "done": "Ferdig",
+                    "drying": "T\u00f8rking",
+                    "rinsing": "Skylling",
+                    "soaking": "Bl\u00f8tlegging",
+                    "under_delay_start": "Utsatt start",
+                    "washing": "Vasking",
+                    "weighing": "Veier"
+                }
+            }
+        },
+        "switch": {
+            "dnd_switch": {
+                "name": "Ikke forstyrr"
+            },
+            "sound_setting": {
+                "name": "Lydinnstilling"
+            }
+        },
+        "vacuum": {
+            "roborock": {
+                "state_attributes": {
+                    "fan_speed": {
+                        "state": {
+                            "off": "Av"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "button_press_failed": {
+            "message": "Klarte ikke \u00e5 trykke p\u00e5 knappen"
+        },
+        "invalid_command": {
+            "message": "Ugyldig kommando {command}"
+        },
+        "invalid_fan_speed": {
+            "message": "Ugyldig viftehastighet: {fan_speed}"
+        },
+        "mqtt_unauthorized": {
+            "message": "Roborock MQTT-serverne avviste tilkoblingen p\u00e5 grunn av hastighetsbegrensning eller ugyldige p\u00e5loggingsinformasjoner. Du kan enten pr\u00f8ve \u00e5 autentisere p\u00e5 nytt eller vente og laste inn integrasjonen p\u00e5 nytt."
+        },
+        "no_coordinators": {
+            "message": "Ingen enheter kunne konfigureres"
+        },
+        "request_fail": {
+            "message": "Kunne ikke be om data"
+        },
+        "select_option_failed": {
+            "message": "Kunne ikke angi det valgte alternativet"
+        }
+    },
+    "options": {
+        "step": {
+            "drawables": {
+                "data": {
+                    "show_rooms": "Vis rom",
+                    "show_walls": "Vis vegger"
+                },
+                "data_description": {
+                    "show_rooms": "Vis rommene p\u00e5 kartet.",
+                    "show_walls": "Vis veggene p\u00e5 kartet."
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,896 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_account": "\u00da\u010det je u\u017e nakonfigurovan\u00fd",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9",
+            "wrong_account": "Nespr\u00e1vny \u00fa\u010det: Pros\u00edm, overte sa pomocou spr\u00e1vneho \u00fa\u010dtu."
+        },
+        "error": {
+            "invalid_code": "Zadan\u00fd k\u00f3d bol nespr\u00e1vny, skontrolujte ho a sk\u00faste to znova.",
+            "invalid_email": "K zadan\u00e9mu e-mailu nie je priraden\u00fd \u017eiadny \u00fa\u010det, sk\u00faste to znova.",
+            "invalid_email_format": "Vyskytol sa probl\u00e9m s form\u00e1tovan\u00edm v\u00e1\u0161ho e-mailu \u2013 sk\u00faste to znova.",
+            "invalid_email_or_region": "K zadan\u00e9mu e-mailu nie je priraden\u00e9 \u017eiadne konto alebo vo vybranej oblasti nie je \u017eiadne konto.",
+            "invalid_url_format": "URL adresa mus\u00ed za\u010d\u00edna\u0165 re\u0165azcom http:// alebo https:// a obsahova\u0165 platn\u00e9ho hostite\u013ea.",
+            "too_frequent_code_requests": "Pok\u00fasili ste sa po\u017eiada\u0165 o pr\u00edli\u0161 ve\u013ea k\u00f3dov. Sk\u00faste to nesk\u00f4r.",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba",
+            "unknown_roborock": "Vyskytla sa nezn\u00e1ma v\u00fdnimka Roborock - skontrolujte, pros\u00edm denn\u00edky.",
+            "unknown_url": "Vyskytol sa probl\u00e9m s ur\u010den\u00edm spr\u00e1vnej adresy URL v\u00e1\u0161ho \u00fa\u010dtu Roborock - skontrolujte, pros\u00edm denn\u00edky."
+        },
+        "step": {
+            "code": {
+                "data": {
+                    "code": "Overovac\u00ed k\u00f3d"
+                },
+                "data_description": {
+                    "code": "Overovac\u00ed k\u00f3d v\u00e1m bol zaslan\u00fd e-mailom."
+                },
+                "description": "Zadajte overovac\u00ed k\u00f3d odoslan\u00fd na v\u00e1\u0161 e-mail"
+            },
+            "custom_url": {
+                "data": {
+                    "roborock_server_url": "URL servera Roborock"
+                },
+                "data_description": {
+                    "roborock_server_url": "URL servera Roborock."
+                },
+                "description": "Zadajte URL servera Roborock, ku ktor\u00e9mu sa chcete pripoji\u0165."
+            },
+            "reauth_confirm": {
+                "description": "Integr\u00e1cia Roborock potrebuje op\u00e4tovn\u00e9 overenie v\u00e1\u0161ho \u00fa\u010dtu",
+                "title": "Vypr\u0161ala platnos\u0165 overenia pre {name}"
+            },
+            "user": {
+                "data": {
+                    "region": "Regi\u00f3n servera Roborock",
+                    "username": "Email"
+                },
+                "data_description": {
+                    "region": "Oblas\u0165 servera, v ktorej je zaregistrovan\u00e9 va\u0161e konto Roborock pri nastavovan\u00ed aplik\u00e1cie. Odpor\u00fa\u010da sa automatick\u00e1 vo\u013eba, pokia\u013e nem\u00e1te probl\u00e9my.",
+                    "username": "E-mailov\u00e1 adresa pou\u017eit\u00e1 na prihl\u00e1senie do aplik\u00e1cie Roborock."
+                },
+                "description": "Zadajte svoju e-mailov\u00fa adresu Roborock."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_box_empty": {
+                "name": "N\u00e1doba na \u010dist\u00fa vodu"
+            },
+            "clean_fluid_empty": {
+                "name": "\u010cistiaca kvapalina"
+            },
+            "detergent_empty": {
+                "name": "Prac\u00ed prostriedok",
+                "state": {
+                    "off": "Dostupn\u00e9",
+                    "on": "Pr\u00e1zdny"
+                }
+            },
+            "dirty_box_full": {
+                "name": "N\u00e1doba na \u0161pinav\u00fa vodu"
+            },
+            "in_cleaning": {
+                "name": "\u010cistenie"
+            },
+            "mop_attached": {
+                "name": "Mop je pripojen\u00fd"
+            },
+            "mop_drying_status": {
+                "name": "Mop sa su\u0161\u00ed"
+            },
+            "softener_empty": {
+                "name": "Zm\u00e4k\u010dova\u010d",
+                "state": {
+                    "off": "Dostupn\u00e9",
+                    "on": "Pr\u00e1zdny"
+                }
+            },
+            "water_box_attached": {
+                "name": "Z\u00e1sobn\u00edk na vodu je pripojen\u00fd"
+            },
+            "water_shortage": {
+                "name": "Nedostatok vody"
+            }
+        },
+        "button": {
+            "empty_dustbin": {
+                "name": "Pr\u00e1zdny smetn\u00fd k\u00f4\u0161"
+            },
+            "pause": {
+                "name": "Pozastavi\u0165"
+            },
+            "reset_air_filter_consumable": {
+                "name": "Resetujte vzduchov\u00fd filter"
+            },
+            "reset_dock_cleaning_brush_consumable": {
+                "name": "Reset spotrebn\u00e9ho materi\u00e1lu \u010distiacej kefy"
+            },
+            "reset_dock_strainer_consumable": {
+                "name": "Reset spotrebn\u00e9ho materi\u00e1lu sitka"
+            },
+            "reset_main_brush_consumable": {
+                "name": "Resetujte hlavn\u00fa kefu"
+            },
+            "reset_sensor_consumable": {
+                "name": "Resetujte sn\u00edma\u010d"
+            },
+            "reset_side_brush_consumable": {
+                "name": "Resetujte bo\u010dn\u00fa kefu"
+            },
+            "shutdown": {
+                "name": "Vypn\u00fa\u0165"
+            },
+            "start": {
+                "name": "Spusti\u0165"
+            }
+        },
+        "image": {
+            "map": {
+                "name": "Mapa"
+            }
+        },
+        "number": {
+            "volume": {
+                "name": "Hlasitos\u0165"
+            }
+        },
+        "select": {
+            "cleaning_mode": {
+                "name": "Re\u017eim \u010distenia",
+                "state": {
+                    "custom": "Vlastn\u00e9",
+                    "mop": "Iba mop",
+                    "smart_mode": "Smart",
+                    "vac_and_mop": "Vys\u00e1vanie a mopovanie",
+                    "vacuum": "Iba vys\u00e1va\u010d"
+                }
+            },
+            "cleaning_route": {
+                "name": "Trasa \u010distenia",
+                "state": {
+                    "balanced": "Vyv\u00e1\u017een\u00fd",
+                    "deep": "Hlbok\u00fd"
+                }
+            },
+            "detergent_type": {
+                "name": "Typ pracieho prostriedku",
+                "state": {
+                    "empty": "Pr\u00e1zdny",
+                    "high": "Vysok\u00e1",
+                    "low": "N\u00edzka",
+                    "medium": "Stredn\u00e1"
+                }
+            },
+            "drying_mode": {
+                "name": "Re\u017eim su\u0161enia",
+                "state": {
+                    "iron": "\u017dehlenie",
+                    "none": "\u017diadne su\u0161enie",
+                    "quick": "R\u00fdchly",
+                    "store": "Ulo\u017ei\u0165",
+                    "time_dry": "\u010cas su\u0161enia"
+                }
+            },
+            "dust_collection_mode": {
+                "name": "Pr\u00e1zdny re\u017eim",
+                "state": {
+                    "balanced": "Vyv\u00e1\u017een\u00fd",
+                    "light": "\u013dahk\u00fd",
+                    "max": "Max",
+                    "smart": "Inteligentn\u00fd"
+                }
+            },
+            "mode": {
+                "name": "Prev\u00e1dzkov\u00fd re\u017eim",
+                "state": {
+                    "drain": "Odvodnenie",
+                    "dry": "Su\u0161enie",
+                    "heavy": "\u0164a\u017ek\u00e9",
+                    "pre_wash": "Predpranie",
+                    "rinse_spin": "Opl\u00e1chnutie a odstredenie",
+                    "spin": "Kr\u00fatenie",
+                    "treatment": "Lie\u010dba",
+                    "wash": "Um\u00fdvanie",
+                    "wash_and_dry": "Um\u00fdvanie a su\u0161enie"
+                }
+            },
+            "mop_intensity": {
+                "name": "Intenzita mopovania",
+                "state": {
+                    "custom": "Vlastn\u00fd",
+                    "custom_water_flow": "Vlastn\u00fd prietok vody",
+                    "extreme": "Extr\u00e9mne",
+                    "high": "Vysok\u00e1",
+                    "intense": "Intenz\u00edvny",
+                    "low": "N\u00edzka",
+                    "max": "Max",
+                    "medium": "Stredn\u00e1",
+                    "mild": "\u013dahk\u00e1",
+                    "min": "Min",
+                    "moderate": "Mierna",
+                    "off": "Neakt\u00edvny",
+                    "slight": "Mierne",
+                    "smart_mode": "SmartPlan",
+                    "standard": "\u0160tandardn\u00fd",
+                    "vac_followed_by_mop": "Vys\u00e1vanie a n\u00e1sledn\u00e9 mopovanie"
+                }
+            },
+            "mop_mode": {
+                "name": "Re\u017eim mopovania",
+                "state": {
+                    "custom": "Vlastn\u00fd",
+                    "deep": "Hlbok\u00fd",
+                    "deep_plus": "Hlbok\u00fd+",
+                    "fast": "R\u00fdchly",
+                    "smart_mode": "SmartPlan",
+                    "standard": "\u0160tandardn\u00fd"
+                }
+            },
+            "program": {
+                "name": "Prac\u00ed program",
+                "state": {
+                    "air_refresh": "Osvie\u017eenie vzduchu",
+                    "anti_allergen": "Antialerg\u00e9nne",
+                    "anti_mites": "Proti rozto\u010dom",
+                    "baby_care": "Starostlivos\u0165 o die\u0165a",
+                    "bath_towel": "Osu\u0161ka",
+                    "bedding": "Poste\u013en\u00e1 bielize\u0148",
+                    "boiling_wash": "Varn\u00e9 um\u00fdvanie",
+                    "bra": "Podprsenka",
+                    "cotton_linen": "Bavlna/\u013dan",
+                    "custom": "Vlastn\u00e9",
+                    "deep_self_clean": "Hlbok\u00e9 samo\u010distenie",
+                    "descaling": "Odv\u00e1p\u0148ovanie",
+                    "down": "Dole",
+                    "down_clean": "\u010cist\u00e9 dole",
+                    "exo_40_60": "Eco 40/60",
+                    "flax": "\u013dan",
+                    "gentle": "Jemn\u00fd",
+                    "intensive": "Intenz\u00edvny",
+                    "jeans": "D\u017e\u00ednsy",
+                    "mixing": "Zmie\u0161an\u00e9",
+                    "new_clothes": "Nov\u00e9 oble\u010denie",
+                    "night": "Noc",
+                    "outdoor_jackets": "Vonkaj\u0161ie bundy",
+                    "outdoors": "Outdoorov\u00e9",
+                    "panties": "Nohavi\u010dky",
+                    "pet_care": "Starostlivos\u0165 o dom\u00e1ce zvierat\u00e1",
+                    "quick": "R\u00fdchly",
+                    "quilt_drying": "Su\u0161enie prikr\u00fdvok",
+                    "rack_drying": "Su\u0161enie na stojanach",
+                    "rinse_and_spin": "Opl\u00e1chnu\u0165 a odstredi\u0165",
+                    "sanitize": "Dezinfikova\u0165",
+                    "season": "Sez\u00f3na",
+                    "shirts": "Ko\u0161ele",
+                    "silk": "Hodv\u00e1b",
+                    "small_things": "Drobnosti",
+                    "small_things_drying": "Su\u0161enie drobnost\u00ed",
+                    "soaking": "Nam\u00e1\u010danie",
+                    "socks": "Pono\u017eky",
+                    "sport_shoes": "\u0160portov\u00e1 obuv",
+                    "sportswear": "\u0160portov\u00e9 oble\u010denie",
+                    "stain_removal": "Odstra\u0148ovanie \u0161kv\u0155n",
+                    "standard": "\u0160tandard",
+                    "steam_care": "Parn\u00e1 starostlivos\u0165",
+                    "suit": "Oblek",
+                    "summer_quilt": "Letn\u00e1 deka",
+                    "synthetics": "Syntetika",
+                    "t_shirts": "Tri\u010dk\u00e1",
+                    "timed_drying": "\u010casovan\u00e9 su\u0161enie",
+                    "towels": "Uter\u00e1ky",
+                    "twenty_c": "20\u00b0C",
+                    "underwear": "Spodn\u00e1 bielize\u0148",
+                    "warming": "Otep\u013eovanie",
+                    "wind_breaker": "Vetrovka",
+                    "wool": "Vlna",
+                    "yoga": "Oble\u010denie na jogu"
+                }
+            },
+            "rinse_times": {
+                "name": "\u010casy oplachovania",
+                "state": {
+                    "high": "4",
+                    "low": "2",
+                    "max": "5",
+                    "mid": "3",
+                    "min": "1",
+                    "none": "Predvolen\u00fd"
+                }
+            },
+            "selected_map": {
+                "name": "Vybran\u00e1 mapa"
+            },
+            "softener_type": {
+                "name": "Typ zm\u00e4k\u010dova\u010da",
+                "state": {
+                    "empty": "Pr\u00e1zdny",
+                    "high": "Vysok\u00e1",
+                    "low": "N\u00edzka",
+                    "medium": "Stredn\u00e1"
+                }
+            },
+            "spin_level": {
+                "name": "\u00darove\u0148 odstre\u010fovania",
+                "state": {
+                    "high": "1000 RPM",
+                    "max": "1400 RPM",
+                    "mid": "800 RPM",
+                    "none": "Predvolen\u00fd",
+                    "very_high": "1200 RPM",
+                    "very_low": "600 RPM"
+                }
+            },
+            "temperature": {
+                "name": "Teplota vody",
+                "state": {
+                    "30": "30\u00b0C",
+                    "40": "40\u00b0C",
+                    "60": "60\u00b0C",
+                    "90": "90\u00b0C",
+                    "auto": "Auto",
+                    "cold": "Studen\u00fd",
+                    "null": "Nezn\u00e1my"
+                }
+            },
+            "water_flow": {
+                "name": "Prietok vody",
+                "state": {
+                    "high": "Vysok\u00e1",
+                    "low": "N\u00edzka",
+                    "medium": "Stredn\u00e1"
+                }
+            }
+        },
+        "sensor": {
+            "a01_error": {
+                "name": "Chyba",
+                "state": {
+                    "battery_temperature_protection": "Teplotn\u00e1 ochrana bat\u00e9rie",
+                    "battery_temperature_protection_e0": "Teplotn\u00e1 ochrana",
+                    "battery_under_10": "Bat\u00e9ria pod 10 %",
+                    "clean_head_entangled": "Zamotan\u00e1 \u010distiaca hlava",
+                    "clean_head_too_hot": "\u010cistiaca hlava je pr\u00edli\u0161 hor\u00faca.",
+                    "clean_tank_empty": "N\u00e1doba na \u010dist\u00fa vodu je pr\u00e1zdna",
+                    "cleaning_head_blocked": "\u010cistiaca hlava je zablokovan\u00e1",
+                    "dirty_charging_contacts": "Vy\u010distite nab\u00edjacie kontakty",
+                    "dirty_tank_full": "N\u00e1doba na \u0161pinav\u00fa vodu je pln\u00e1",
+                    "fan_protection_e4": "Ochrana ventil\u00e1tora",
+                    "fan_protection_e5": "Ochrana ventil\u00e1tora",
+                    "fan_protection_e9": "Ochrana ventil\u00e1tora",
+                    "low_battery": "N\u00edzky stav bat\u00e9rie",
+                    "none": "\u017diadny",
+                    "power_adapter_error": "Chyba nap\u00e1jacieho adapt\u00e9ra",
+                    "temperature_protection": "Teplotn\u00e1 ochrana",
+                    "water_level_sensor_stuck": "Zaseknut\u00fd sn\u00edma\u010d hladiny vody."
+                }
+            },
+            "a01_status": {
+                "name": "Stav",
+                "state": {
+                    "charging": "Nab\u00edja sa",
+                    "drying": "Su\u0161\u00ed sa",
+                    "dusting_mode": "Re\u017eim utierania prachu",
+                    "fetch_failed": "Na\u010d\u00edtanie skon\u010dilo s chybou",
+                    "fetching": "Na\u010d\u00edtam",
+                    "mop_washing": "Um\u00fdvac\u00ed mop",
+                    "mop_washing_paused": "Um\u00fdvanie mopom pozastaven\u00e9",
+                    "ready": "Pripraven\u00e9",
+                    "reserving": "Rezervovanie",
+                    "self_clean_cleaning": "Samo\u010distenie",
+                    "self_clean_deep_cleaning": "H\u013abkov\u00e9 samo\u010distenie",
+                    "self_clean_dehydrating": "Samo\u010distiace su\u0161enie",
+                    "self_clean_rinsing": "Samo\u010distiace oplachovanie",
+                    "unknown": "Nezn\u00e1my",
+                    "updating": "Aktualizuje sa",
+                    "ventilating": "Vetranie",
+                    "washing": "Um\u00fdvanie"
+                }
+            },
+            "brush_remaining": {
+                "name": "Valec v\u013eavo"
+            },
+            "clean_percent": {
+                "name": "Priebeh upratovania"
+            },
+            "cleaning_area": {
+                "name": "Oblas\u0165 upratovania"
+            },
+            "cleaning_brush_time_left": {
+                "name": "Zost\u00e1va \u010das na \u00fadr\u017ebu kefky"
+            },
+            "cleaning_time": {
+                "name": "\u010cas upratovania"
+            },
+            "countdown": {
+                "name": "Odpo\u010det"
+            },
+            "current_room": {
+                "name": "Aktu\u00e1lna miestnos\u0165"
+            },
+            "dock_error": {
+                "name": "Chyba doku",
+                "state": {
+                    "cleaning_tank_full_or_blocked": "N\u00e1doba na \u010dist\u00fa vodu je pln\u00e1 alebo zablokovan\u00e1",
+                    "dirty_tank_latch_open": "Otvoren\u00e1 z\u00e1padka n\u00e1doby na \u0161pinav\u00fa vodu",
+                    "duct_blockage": "Upchat\u00e1 hadi\u010dka",
+                    "no_dustbin": "Ch\u00fdbaj\u00faci z\u00e1sobn\u00edk na prach",
+                    "ok": "Ok",
+                    "waste_water_tank_full": "N\u00e1doba na odpadov\u00fa vodu je pln\u00e1",
+                    "water_empty": "Ch\u00fdba voda"
+                }
+            },
+            "filter_life": {
+                "name": "Pou\u017eit\u00fd \u010das filtra"
+            },
+            "filter_time_left": {
+                "name": "Zost\u00e1vaj\u00faci \u010das filtra"
+            },
+            "last_clean_end": {
+                "name": "Koniec posledn\u00e9ho upratovania"
+            },
+            "last_clean_start": {
+                "name": "Za\u010diatok posledn\u00e9ho upratovania"
+            },
+            "main_brush_life": {
+                "name": "\u010cas pou\u017eitia hlavnej kefy"
+            },
+            "main_brush_time_left": {
+                "name": "Zost\u00e1vaj\u00faci \u010das hlavnej kefy"
+            },
+            "mop_drying_remaining_time": {
+                "name": "Zost\u00e1vaj\u00faci \u010das su\u0161enia mopu"
+            },
+            "mop_life_time_left": {
+                "name": "Zost\u00e1vaj\u00faca \u017eivotnos\u0165 mopu"
+            },
+            "q7_status": {
+                "name": "Stav",
+                "state": {
+                    "charging": "Nab\u00edja sa",
+                    "docking": "Dokovanie",
+                    "mop_airdrying": "Su\u0161enie mopu na vzduchu",
+                    "mop_cleaning": "\u010cistenie mopom",
+                    "moping": "Mopovanie",
+                    "paused": "Pozastaven\u00fd",
+                    "sleeping": "\u00dasporn\u00fd re\u017eim",
+                    "sweep_moping": "Zametanie mopom",
+                    "sweep_moping_2": "Zametanie mopom",
+                    "unknown": "Nezn\u00e1my",
+                    "updating": "Aktualizuje sa",
+                    "waiting_for_orders": "\u010cakanie na objedn\u00e1vky",
+                    "working_sleep": "Spanie po\u010das pr\u00e1ce"
+                }
+            },
+            "sensor_life": {
+                "name": "\u010cas pou\u017eitia sn\u00edma\u010da"
+            },
+            "sensor_time_left": {
+                "name": "Zost\u00e1vaj\u00faci \u010das sn\u00edma\u010da"
+            },
+            "side_brush_life": {
+                "name": "\u010cas pou\u017e\u00edvania bo\u010dnej kefy"
+            },
+            "side_brush_time_left": {
+                "name": "Zost\u00e1vaj\u00faci \u010das bo\u010dnej kefy"
+            },
+            "status": {
+                "name": "Stav",
+                "state": {
+                    "air_drying_stopping": "Zastavovanie su\u0161enia vzduchom",
+                    "attaching_the_mop": "Pripevnenie mopu",
+                    "charger_disconnected": "Nab\u00edja\u010dka je odpojen\u00e1",
+                    "charging": "Nab\u00edja sa",
+                    "charging_complete": "Nab\u00edjanie je dokon\u010den\u00e9",
+                    "charging_problem": "Probl\u00e9m s nab\u00edjan\u00edm",
+                    "cleaning": "Upratovanie",
+                    "detaching_the_mop": "Odpojenie mopu",
+                    "device_offline": "Zariadenie je offline",
+                    "docking": "Dokovanie",
+                    "egg_attack": "Re\u017eim Amor",
+                    "emptying_the_bin": "Vypr\u00e1zd\u0148ovanie ko\u0161a",
+                    "error": "Chyba",
+                    "going_to_target": "Presun k cie\u013eu",
+                    "going_to_wash_the_mop": "Idem umy\u0165 mop",
+                    "idle": "Ne\u010dinn\u00fd",
+                    "locked": "Zamknut\u00fd",
+                    "manual_mode": "Manu\u00e1lny re\u017eim",
+                    "mapping": "Mapovanie",
+                    "mopping": "Mopovanie",
+                    "paused": "Pozastaven\u00fd",
+                    "relocating": "S\u0165ahovanie",
+                    "remote_control_active": "Dia\u013ekov\u00e9 ovl\u00e1danie akt\u00edvne",
+                    "returning_home": "N\u00e1vrat domov",
+                    "saving_map": "Ukladanie mapy",
+                    "segment_cleaning": "\u010cistenie segmentov",
+                    "shutting_down": "Vyp\u00ednanie",
+                    "sleeping": "\u00dasporn\u00fd re\u017eim",
+                    "spot_cleaning": "Upratovanie miesta",
+                    "starting": "Sp\u00fa\u0161\u0165a sa",
+                    "sweep_and_mop": "Zametanie a vytieranie",
+                    "sweeping": "Zametanie",
+                    "transitioning": "Prechod",
+                    "unknown": "Nezn\u00e1my",
+                    "updating": "Aktualizuje sa",
+                    "waiting_to_charge": "\u010cakanie na nabitie",
+                    "washing_the_mop": "Um\u00fdvanie mopu",
+                    "zoned_cleaning": "Z\u00f3nov\u00e9 upratovanie"
+                }
+            },
+            "strainer_time_left": {
+                "name": "Zost\u00e1vaj\u00faci \u010das sitka"
+            },
+            "times_after_clean": {
+                "name": "\u010casy po \u010disten\u00ed"
+            },
+            "total_cleaning_area": {
+                "name": "Celkov\u00e1 plocha upratovania"
+            },
+            "total_cleaning_count": {
+                "name": "Celkov\u00fd po\u010det upratovan\u00ed"
+            },
+            "total_cleaning_time": {
+                "name": "Celkov\u00fd \u010das upratovania"
+            },
+            "vacuum_error": {
+                "name": "Chyba vys\u00e1va\u010da",
+                "state": {
+                    "audio_error": "Chyba zvuku",
+                    "battery_error": "Chyba bat\u00e9rie",
+                    "bumper_stuck": "Zaseknut\u00fd n\u00e1razn\u00edk",
+                    "cannot_cross_carpet": "Nemo\u017eno prejs\u0165 cez koberec",
+                    "charging_error": "Chyba nab\u00edjania",
+                    "check_clean_carouse": "Skontrolujte \u010distiaci karusel",
+                    "clean_carousel_exception": "Chyba \u010distenia karuselu",
+                    "clean_carousel_water_full": "\u010cistiaci karusel je pln\u00fd vody",
+                    "clear_brush_exception": "Skontrolujte, \u010di je vodn\u00fd filter spr\u00e1vne nain\u0161talovan\u00fd",
+                    "clear_brush_exception_2": "Chyba polohovacieho tla\u010didla",
+                    "clear_water_box_exception": "Pr\u00e1zdna n\u00e1doba na \u010dist\u00fa vodu",
+                    "clear_water_box_hoare": "Skontrolujte n\u00e1dobu na \u010dist\u00fa vodu",
+                    "cliff_sensor_error": "Chyba sn\u00edma\u010da p\u00e1du",
+                    "collect_dust_error_3": "Vy\u010distite n\u00e1dobu automatick\u00e9ho vypr\u00e1zd\u0148ovania",
+                    "collect_dust_error_4": "Chyba automatick\u00e9ho vypr\u00e1zdnenia doku",
+                    "compass_error": "Zisten\u00e9 siln\u00e9 magnetick\u00e9 pole",
+                    "dirty_water_box_hoare": "Skontrolujte n\u00e1dobu na \u0161pinav\u00fa vodu",
+                    "dock": "Dok nie je pripojen\u00fd k nap\u00e1janiu",
+                    "dock_locator_error": "Chyba lok\u00e1tora dokov",
+                    "drain_water_exception": "V\u00fdnimka pre vyp\u00fa\u0161\u0165anie vody",
+                    "fan_error": "Chyba ventil\u00e1tora",
+                    "filter_blocked": "Filter je zablokovan\u00fd",
+                    "filter_screen_exception": "Vy\u010distite vodn\u00fd filter doku",
+                    "internal_error": "Vn\u00fatorn\u00e1 chyba",
+                    "invisible_wall_detected": "Zisten\u00e1 nevidite\u013en\u00e1 stena",
+                    "lidar_blocked": "Lidar zablokovan\u00fd",
+                    "light_touch": "Chyba sn\u00edma\u010da steny",
+                    "low_battery": "N\u00edzky stav bat\u00e9rie",
+                    "main_brush_jammed": "Hlavn\u00e1 kefa sa zasekla",
+                    "mopping_roller_1": "Um\u00fdvac\u00ed valec m\u00f4\u017ee by\u0165 zaseknut\u00fd",
+                    "mopping_roller_error_2": "Um\u00fdvac\u00ed valec nie je spr\u00e1vne spusten\u00fd",
+                    "no_dustbin": "Ch\u00fdba z\u00e1sobn\u00edk na prach",
+                    "nogo_zone_detected": "Zisten\u00e1 z\u00f3na z\u00e1kazu vstupu",
+                    "none": "\u017diadny",
+                    "optical_flow_sensor_dirt": "Optick\u00fd sn\u00edma\u010d prietoku je zne\u010disten\u00fd",
+                    "return_to_dock_fail": "N\u00e1vrat do doku zlyhal",
+                    "robot_on_carpet": "Vys\u00e1va\u010d je na koberci",
+                    "robot_tilted": "Vys\u00e1va\u010d je naklonen\u00fd",
+                    "robot_trapped": "Vys\u00e1va\u010d je uv\u00e4znen\u00fd",
+                    "side_brush_error": "Chyba bo\u010dnej kefy",
+                    "side_brush_jammed": "Bo\u010dn\u00e1 kefa je zaseknut\u00e1",
+                    "sink_strainer_hoare": "Znovu nain\u0161talujte vodn\u00fd filter",
+                    "strainer_error": "Filter je mokr\u00fd alebo upchat\u00fd",
+                    "temperature_protection": "Teplotn\u00e1 ochrana jednotky",
+                    "up_water_exception": "V\u00fdnimka pre z\u00e1sobovanie vodou",
+                    "vertical_bumper_pressed": "Vertik\u00e1lny n\u00e1razn\u00edk stla\u010den\u00fd",
+                    "vibrarise_jammed": "VibraRise sa zasekol",
+                    "visual_sensor": "Chyba kamery",
+                    "wall_sensor_dirty": "Sn\u00edma\u010d steny je zne\u010disten\u00fd",
+                    "water_carriage_drop": "Voz\u00edk s vodou spadol",
+                    "wheels_jammed": "Zaseknut\u00e9 koles\u00e1",
+                    "wheels_suspended": "Koles\u00e1 s\u00fa vo vzduchu"
+                }
+            },
+            "washing_left": {
+                "name": "Zost\u00e1vaj\u00face um\u00fdvanie"
+            },
+            "zeo_error": {
+                "name": "Chyba",
+                "state": {
+                    "communication_error": "Chyba komunik\u00e1cie",
+                    "door_lock_error": "Chyba z\u00e1mku dver\u00ed",
+                    "drain_error": "Chyba odtoku",
+                    "drying_error": "Chyba su\u0161enia: skontrolujte sn\u00edma\u010d teploty na vstupe vzduchu",
+                    "drying_error_e_12": "Chyba su\u0161enia: skontrolujte sn\u00edma\u010d teploty na v\u00fdstupe vzduchu",
+                    "drying_error_e_13": "Chyba su\u0161enia E13",
+                    "drying_error_e_14": "Chyba su\u0161enia: skontrolujte sn\u00edma\u010d teploty vstupn\u00e9ho kondenz\u00e1tora",
+                    "drying_error_e_15": "Chyba su\u0161enia: skontrolujte vykurovacie teleso alebo oto\u010dn\u00fd st\u00f4l",
+                    "drying_error_e_16": "Chyba su\u0161enia: skontrolujte ventil\u00e1tor su\u0161enia",
+                    "drying_error_restart": "Chyba su\u0161enia: re\u0161tartujte pr\u00e1\u010dku",
+                    "drying_error_water_flow": "Chyba su\u0161enia: skontrolujte prietok vody",
+                    "heating_error": "Chyba zahrievania",
+                    "inverter_error": "Chyba meni\u010da",
+                    "none": "\u017diadny",
+                    "refill_error": "Chyba pri dop\u013a\u0148an\u00ed",
+                    "spin_error": "Zmeni\u0165 usporiadanie oble\u010denia",
+                    "temperature_error": "Chyba teploty",
+                    "water_level_error": "Chyba hladiny vody"
+                }
+            },
+            "zeo_state": {
+                "name": "Stav",
+                "state": {
+                    "aftercare": "N\u00e1sledn\u00e1 starostlivos\u0165",
+                    "cloth_ready": "Oble\u010denie pripraven\u00e9",
+                    "cooling": "Chladenie",
+                    "descaling": "Odv\u00e1p\u0148ovanie",
+                    "done": "Hotovo",
+                    "drying": "Su\u0161enie",
+                    "in_care": "V starostlivosti",
+                    "null": "Nezn\u00e1my",
+                    "pre_heat_complete": "Predohrev dokon\u010den\u00fd",
+                    "pre_heating": "Predohrev",
+                    "rinsing": "Pl\u00e1kanie",
+                    "soaking": "Nam\u00e1\u010danie",
+                    "spinning": "Odstre\u010fovanie",
+                    "standby": "Pohotovostn\u00fd re\u017eim",
+                    "steam_caring": "Starostlivos\u0165 o paru",
+                    "under_delay_start": "Oneskoren\u00fd \u0161tart",
+                    "updating": "Aktualizuje sa",
+                    "waiting_for_aftercare": "\u010cakanie na n\u00e1sledn\u00fa starostlivos\u0165",
+                    "waiting_for_drying": "\u010cakanie na su\u0161enie",
+                    "washing": "Pranie",
+                    "weighing": "V\u00e1\u017eenie"
+                }
+            }
+        },
+        "switch": {
+            "button_light": {
+                "name": "Kontrolka"
+            },
+            "child_lock": {
+                "name": "Detsk\u00fd z\u00e1mok"
+            },
+            "dnd_switch": {
+                "name": "Re\u017eim Neru\u0161i\u0165"
+            },
+            "dust_collection": {
+                "name": "Zber prachu"
+            },
+            "dust_emptying": {
+                "name": "Vypr\u00e1zd\u0148ovanie prachu"
+            },
+            "mop_drying": {
+                "name": "Su\u0161enie mopu"
+            },
+            "mop_washing": {
+                "name": "Um\u00fdvanie mopu"
+            },
+            "off_peak_switch": {
+                "name": "Nab\u00edjanie mimo \u0161pi\u010dky"
+            },
+            "sound_setting": {
+                "name": "Nastavenie zvuku"
+            },
+            "status_indicator": {
+                "name": "Kontrolka stavu"
+            }
+        },
+        "time": {
+            "dnd_end_time": {
+                "name": "Koniec re\u017eim Neru\u0161i\u0165"
+            },
+            "dnd_start_time": {
+                "name": "Za\u010diatok re\u017eimu Neru\u0161i\u0165"
+            },
+            "off_peak_end": {
+                "name": "Koniec \u010dasu mimo \u0161pi\u010dky"
+            },
+            "off_peak_start": {
+                "name": "Za\u010diatok \u010dasu mimo \u0161pi\u010dky"
+            }
+        },
+        "vacuum": {
+            "roborock": {
+                "state_attributes": {
+                    "fan_speed": {
+                        "state": {
+                            "auto": "Auto",
+                            "balanced": "Vyv\u00e1\u017een\u00fd",
+                            "custom": "Vlastn\u00fd",
+                            "gentle": "Jemn\u00fd",
+                            "max": "Max",
+                            "max_plus": "Max plus",
+                            "medium": "Stredn\u00e1",
+                            "off": "Neakt\u00edvny",
+                            "off_raise_main_brush": "Vypnut\u00e9 (zdvihnut\u00fd \u0161tetec)",
+                            "quiet": "Tich\u00fd",
+                            "silent": "Tich\u00fd",
+                            "smart_mode": "SmartPlan",
+                            "standard": "\u0160tandardn\u00fd",
+                            "turbo": "Turbo"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "button_press_failed": {
+            "message": "Nepodarilo sa stla\u010di\u0165 tla\u010didlo"
+        },
+        "command_failed": {
+            "message": "Chyba pri volan\u00ed {command}"
+        },
+        "home_data_fail": {
+            "message": "Nepodarilo sa z\u00edska\u0165 dom\u00e1ce \u00fadaje Roborock"
+        },
+        "invalid_command": {
+            "message": "Neplatn\u00fd pr\u00edkaz {command}"
+        },
+        "invalid_credentials": {
+            "message": "Neplatn\u00e9 poverenia."
+        },
+        "invalid_fan_speed": {
+            "message": "Neplatn\u00e1 r\u00fdchlos\u0165 ventil\u00e1tora: {fan_speed}"
+        },
+        "invalid_user_agreement": {
+            "message": "Pou\u017e\u00edvate\u013esk\u00e1 zmluva mus\u00ed by\u0165 znovu prijat\u00e1. Otvorte aplik\u00e1ciu Roborock a prijmite dohodu."
+        },
+        "map_failure": {
+            "message": "Pri vytv\u00e1ran\u00ed mapy sa nie\u010do pokazilo"
+        },
+        "mqtt_unauthorized": {
+            "message": "Servery Roborock MQTT odmietli pripojenie z d\u00f4vodu obmedzenia r\u00fdchlosti alebo neplatn\u00fdch poveren\u00ed. M\u00f4\u017eete sa pok\u00fasi\u0165 o op\u00e4tovn\u00e9 overenie alebo po\u010dka\u0165 a znovu na\u010d\u00edta\u0165 integr\u00e1ciu."
+        },
+        "no_coordinators": {
+            "message": "\u017diadne zariadenie sa nepodarilo \u00faspe\u0161ne nastavi\u0165"
+        },
+        "no_user_agreement": {
+            "message": "Nem\u00e1te platn\u00fa pou\u017e\u00edvate\u013esk\u00fa zmluvu. Otvorte aplik\u00e1ciu Roborock a prijmite dohodu."
+        },
+        "position_not_found": {
+            "message": "Polohu vys\u00e1va\u010da sa nepodarilo ur\u010di\u0165"
+        },
+        "request_fail": {
+            "message": "Nepodarilo sa vy\u017eiada\u0165 \u00fadaje"
+        },
+        "segment_id_parse_error": {
+            "message": "Neplatn\u00fd form\u00e1t ID segmentu: {segment_id}"
+        },
+        "select_option_failed": {
+            "message": "Nepodarilo sa nastavi\u0165 vybran\u00fa mo\u017enos\u0165"
+        },
+        "update_data_fail": {
+            "message": "Aktualiz\u00e1cia \u00fadajov zlyhala"
+        },
+        "update_options_failed": {
+            "message": "Nepodarilo sa aktualizova\u0165 mo\u017enosti Roborock"
+        }
+    },
+    "issues": {
+        "cloud_api_used": {
+            "description": "Integr\u00e1cia Roborock sa nedok\u00e1\u017ee pripoji\u0165 priamo k {device_name} a vracia sa sp\u00e4\u0165 k API cloudu. To sa neodpor\u00fa\u010da, preto\u017ee to m\u00f4\u017ee vies\u0165 k obmedzeniu r\u00fdchlosti. Pros\u00edm, spr\u00edstupnite vys\u00e1va\u010d v lok\u00e1lnej sieti in\u0161tanciou Home Assistant.",
+            "title": "Pou\u017eit\u00e9 cloudov\u00e9 API"
+        },
+        "deprecated_mop_drying": {
+            "description": "Bin\u00e1rny sn\u00edma\u010d `{entity_id}` ({entity_name}) je zastaran\u00fd a bol nahraden\u00fd prep\u00edna\u010dom **Su\u0161enie mopu**, ktor\u00fd hl\u00e1si rovnak\u00fd stav a navy\u0161e dok\u00e1\u017ee sp\u00fa\u0161\u0165a\u0165 a zastavova\u0165 su\u0161enie.\n\nAktualizujte v\u0161etky riadiace panely, \u0161abl\u00f3ny, automatiz\u00e1cie alebo skripty tak, aby pou\u017e\u00edvali nov\u00fa entitu prep\u00edna\u010da, a n\u00e1sledne deaktivujte `{entity_id}`, aby bol odstr\u00e1nen\u00fd.",
+            "title": "Bin\u00e1rny sn\u00edma\u010d su\u0161enia mopu Roborock je zastaran\u00fd"
+        },
+        "deprecated_mop_drying_scripts": {
+            "description": "Bin\u00e1rny sn\u00edma\u010d `{entity_id}` ({entity_name}) je zastaran\u00fd a bol nahraden\u00fd sp\u00edna\u010dom **Su\u0161enie mopu**, ktor\u00fd hl\u00e1si rovnak\u00fd stav a navy\u0161e dok\u00e1\u017ee spusti\u0165 aj zastavi\u0165 su\u0161enie.\n\nSt\u00e1le sa pou\u017e\u00edva v nasleduj\u00facich automatiz\u00e1ci\u00e1ch alebo skriptoch:\n{items}\n\nAktualizujte ich tak, aby pou\u017e\u00edvali nov\u00fa entitu prep\u00edna\u010da, a potom deaktivujte `{entity_id}`, aby bola odstr\u00e1nen\u00e1.",
+            "title": "Bin\u00e1rny sn\u00edma\u010d su\u0161enia mopu Roborock je zastaran\u00fd"
+        }
+    },
+    "options": {
+        "step": {
+            "drawables": {
+                "data": {
+                    "charger": "Nab\u00edja\u010dka",
+                    "cleaned_area": "Vy\u010disten\u00e1 oblas\u0165",
+                    "goto_path": "Cesta k cie\u013eu",
+                    "ignored_obstacles": "Ignorovan\u00e9 prek\u00e1\u017eky",
+                    "ignored_obstacles_with_photo": "Ignorovan\u00e9 prek\u00e1\u017eky s fotografiou",
+                    "mop_path": "Dr\u00e1ha mopu",
+                    "no_carpet_zones": "\u017diadne kobercov\u00e9 z\u00f3ny",
+                    "no_go_zones": "No-go z\u00f3ny",
+                    "no_mopping_zones": "\u017diadne mopovacie z\u00f3ny",
+                    "obstacles": "Prek\u00e1\u017eky",
+                    "obstacles_with_photo": "Prek\u00e1\u017eky s fotografiou",
+                    "path": "Cesta",
+                    "predicted_path": "Predpokladan\u00e1 cesta",
+                    "room_names": "Men\u00e1 izieb",
+                    "show_background": "Zobrazi\u0165 pozadie",
+                    "show_rooms": "Zobrazi\u0165 izby",
+                    "show_walls": "Zobrazi\u0165 steny",
+                    "vacuum_position": "Poloha vys\u00e1va\u010da",
+                    "virtual_walls": "Virtu\u00e1lne steny",
+                    "zones": "Z\u00f3ny"
+                },
+                "data_description": {
+                    "charger": "Zobrazi\u0165 nab\u00edja\u010dku na mape.",
+                    "cleaned_area": "Zobrazi\u0165 upratan\u00fa oblas\u0165 na mape.",
+                    "goto_path": "Zobrazi\u0165 cestu na mape.",
+                    "ignored_obstacles": "Zobrazi\u0165 ignorovan\u00e9 prek\u00e1\u017eky na mape.",
+                    "ignored_obstacles_with_photo": "Zobrazi\u0165 ignorovan\u00e9 prek\u00e1\u017eky s fotografiami na mape.",
+                    "mop_path": "Zobrazi\u0165 cestu mopu na mape.",
+                    "no_carpet_zones": "Zobrazi\u0165 na mape z\u00f3ny bez kobercov.",
+                    "no_go_zones": "Zobrazi\u0165 na mape z\u00f3ny so z\u00e1kazom vstupu.",
+                    "no_mopping_zones": "Zobrazi\u0165 na mape z\u00f3ny so z\u00e1kazom mopovania.",
+                    "obstacles": "Zobrazenie prek\u00e1\u017eok na mape.",
+                    "obstacles_with_photo": "Zobrazte prek\u00e1\u017eky s fotografiami na mape.",
+                    "path": "Zobrazi\u0165 cestu na mape.",
+                    "predicted_path": "Zobrazi\u0165 predpokladan\u00fa cestu na mape.",
+                    "room_names": "Zobrazi\u0165 men\u00e1 izieb na mape.",
+                    "show_background": "Pridanie pozadia do mapy.",
+                    "show_rooms": "Zobrazi\u0165 izby na mape.",
+                    "show_walls": "Zobrazte steny na mape.",
+                    "vacuum_position": "Zobrazi\u0165 polohu vys\u00e1va\u010da na mape.",
+                    "virtual_walls": "Zobrazi\u0165 virtu\u00e1lne steny na mape.",
+                    "zones": "Zobrazi\u0165 z\u00f3ny na mape."
+                },
+                "description": "Ur\u010dite, ktor\u00e9 prvky sa maj\u00fa na mape zobrazova\u0165."
+            }
+        }
+    },
+    "selector": {
+        "region": {
+            "options": {
+                "auto": "Auto",
+                "cn": "CN",
+                "custom": "Manu\u00e1lne",
+                "eu": "EU",
+                "ru": "RU",
+                "us": "US"
+            }
+        }
+    },
+    "services": {
+        "get_maps": {
+            "description": "Vyh\u013ead\u00e1 mapu a inform\u00e1cie o miestnosti v\u00e1\u0161ho zariadenia.",
+            "name": "Z\u00edska\u0165 mapy"
+        },
+        "get_vacuum_current_position": {
+            "description": "Na\u010d\u00edta aktu\u00e1lnu polohu vys\u00e1va\u010da.",
+            "name": "Z\u00edska\u0165 aktu\u00e1lnu polohu"
+        },
+        "set_vacuum_goto_position": {
+            "description": "Odo\u0161le vys\u00e1va\u010d na konkr\u00e9tne miesto.",
+            "fields": {
+                "x": {
+                    "description": "S\u00faradnice s\u00fa relat\u00edvne vo\u010di doku. x=25500,y=25500 je poloha doku.",
+                    "name": "X-ov\u00e1 s\u00faradnica"
+                },
+                "y": {
+                    "description": "S\u00faradnice s\u00fa relat\u00edvne vo\u010di doku. x=25500,y=25500 je poloha doku.",
+                    "name": "Y-ov\u00e1 s\u00faradnica"
+                }
+            },
+            "name": "Prejs\u0165 na poz\u00edciu"
+        },
+        "set_vacuum_zoned_cleaning": {
+            "description": "Spust\u00ed \u010distenie ur\u010denej z\u00f3ny.",
+            "fields": {
+                "repeats": {
+                    "description": "Po\u010det opakovan\u00ed \u010distenia z\u00f3ny. Hodnota '0' znamen\u00e1 jednorazov\u00e9 \u010distenie.",
+                    "name": "Opakovania"
+                },
+                "x1": {
+                    "description": "Prv\u00e1 x s\u00faradnica z\u00f3ny.",
+                    "name": "S\u00faradnica X1"
+                },
+                "x2": {
+                    "description": "Druh\u00e1 x s\u00faradnica z\u00f3ny.",
+                    "name": "S\u00faradnica X2"
+                },
+                "y1": {
+                    "description": "Prv\u00e1 y s\u00faradnica z\u00f3ny.",
+                    "name": "S\u00faradnica Y1"
+                },
+                "y2": {
+                    "description": "Druh\u00e1 y s\u00faradnica z\u00f3ny.",
+                    "name": "S\u00faradnica Y2"
+                }
+            },
+            "name": "\u010cist\u00e1 z\u00f3na"
+        }
+    }
+}

@@ -1,0 +1,896 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_account": "\u05ea\u05e6\u05d5\u05e8\u05ea \u05d4\u05d7\u05e9\u05d1\u05d5\u05df \u05db\u05d1\u05e8 \u05e0\u05e7\u05d1\u05e2\u05d4",
+            "reauth_successful": "\u05d4\u05d0\u05d9\u05de\u05d5\u05ea \u05de\u05d7\u05d3\u05e9 \u05d4\u05e6\u05dc\u05d9\u05d7",
+            "wrong_account": "\u05d7\u05e9\u05d1\u05d5\u05df \u05e9\u05d2\u05d5\u05d9: \u05d9\u05e9 \u05dc\u05d1\u05e6\u05e2 \u05d0\u05d9\u05de\u05d5\u05ea \u05d1\u05d0\u05de\u05e6\u05e2\u05d5\u05ea \u05d4\u05d7\u05e9\u05d1\u05d5\u05df \u05d4\u05e0\u05db\u05d5\u05df."
+        },
+        "error": {
+            "invalid_code": "\u05d4\u05e7\u05d5\u05d3 \u05e9\u05d4\u05d6\u05e0\u05ea \u05d4\u05d9\u05d4 \u05e9\u05d2\u05d5\u05d9, \u05d9\u05e9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05d5\u05ea\u05d5 \u05d5\u05dc\u05e0\u05e1\u05d5\u05ea \u05e9\u05d5\u05d1.",
+            "invalid_email": "\u05d0\u05d9\u05df \u05d7\u05e9\u05d1\u05d5\u05df \u05d4\u05de\u05e9\u05d5\u05d9\u05da \u05dc\u05d3\u05d5\u05d0\"\u05dc \u05e9\u05d4\u05d6\u05e0\u05ea, \u05d9\u05e9 \u05dc\u05e0\u05e1\u05d5\u05ea \u05e9\u05d5\u05d1.",
+            "invalid_email_format": "\u05d9\u05e9 \u05d1\u05e2\u05d9\u05d4 \u05d1\u05e2\u05d9\u05e6\u05d5\u05d1 \u05d4\u05d3\u05d5\u05d0\"\u05dc \u05e9\u05dc\u05da - \u05e0\u05d0 \u05dc\u05e0\u05e1\u05d5\u05ea \u05e9\u05d5\u05d1.",
+            "invalid_email_or_region": "\u05d0\u05d5 \u05e9\u05d0\u05d9\u05df \u05d7\u05e9\u05d1\u05d5\u05df \u05d4\u05de\u05e9\u05d5\u05d9\u05da \u05dc\u05db\u05ea\u05d5\u05d1\u05ea \u05d4\u05d0\u05d9\u05de\u05d9\u05d9\u05dc \u05e9\u05d4\u05d6\u05e0\u05ea, \u05d0\u05d5 \u05e9\u05d0\u05d9\u05df \u05d7\u05e9\u05d1\u05d5\u05df \u05d1\u05d0\u05d6\u05d5\u05e8 \u05e9\u05e0\u05d1\u05d7\u05e8.",
+            "invalid_url_format": "\u05db\u05ea\u05d5\u05d1\u05ea \u05d4\u05d0\u05ea\u05e8 \u05d7\u05d9\u05d9\u05d1\u05ea \u05dc\u05d4\u05ea\u05d7\u05d9\u05dc \u05d1-http:// \u05d0\u05d5 https:// \u05d5\u05dc\u05db\u05dc\u05d5\u05dc \u05de\u05d0\u05e8\u05d7 \u05d7\u05d5\u05e7\u05d9.",
+            "too_frequent_code_requests": "\u05e0\u05d9\u05e1\u05d9\u05ea \u05dc\u05d1\u05e7\u05e9 \u05d9\u05d5\u05ea\u05e8 \u05de\u05d3\u05d9 \u05e7\u05d5\u05d3\u05d9\u05dd. \u05d9\u05e9 \u05dc\u05e0\u05e1\u05d5\u05ea \u05e9\u05d5\u05d1 \u05de\u05d0\u05d5\u05d7\u05e8 \u05d9\u05d5\u05ea\u05e8.",
+            "unknown": "\u05e9\u05d2\u05d9\u05d0\u05d4 \u05d1\u05dc\u05ea\u05d9 \u05e6\u05e4\u05d5\u05d9\u05d4",
+            "unknown_roborock": "\u05d4\u05d9\u05d9\u05ea\u05d4 \u05d7\u05e8\u05d9\u05d2\u05d4 \u05dc\u05d0 \u05d9\u05d3\u05d5\u05e2\u05d4 \u05e9\u05dc roborock - \u05e0\u05d0 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05ea \u05d4\u05d9\u05d5\u05de\u05e0\u05d9\u05dd \u05e9\u05dc\u05da.",
+            "unknown_url": "\u05d4\u05d9\u05d9\u05ea\u05d4 \u05d1\u05e2\u05d9\u05d4 \u05d1\u05e7\u05d1\u05d9\u05e2\u05ea \u05db\u05ea\u05d5\u05d1\u05ea \u05d4\u05d0\u05ea\u05e8 \u05d4\u05e0\u05db\u05d5\u05e0\u05d4 \u05e2\u05d1\u05d5\u05e8 \u05d7\u05e9\u05d1\u05d5\u05df Roborock \u05e9\u05dc\u05da - \u05e0\u05d0 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05ea \u05d4\u05d9\u05d5\u05de\u05e0\u05d9\u05dd \u05e9\u05dc\u05da."
+        },
+        "step": {
+            "code": {
+                "data": {
+                    "code": "\u05e7\u05d5\u05d3 \u05d0\u05d9\u05de\u05d5\u05ea"
+                },
+                "data_description": {
+                    "code": "\u05e7\u05d5\u05d3 \u05d4\u05d0\u05d9\u05de\u05d5\u05ea \u05e9\u05e0\u05e9\u05dc\u05d7 \u05dc\u05d3\u05d5\u05d0\"\u05dc \u05e9\u05dc\u05da."
+                },
+                "description": "\u05d9\u05e9 \u05dc\u05d4\u05e7\u05dc\u05d9\u05d3 \u05d0\u05ea \u05e7\u05d5\u05d3 \u05d4\u05d0\u05d9\u05de\u05d5\u05ea \u05e9\u05e0\u05e9\u05dc\u05d7 \u05dc\u05d3\u05d5\u05d0\"\u05dc \u05e9\u05dc\u05da"
+            },
+            "custom_url": {
+                "data": {
+                    "roborock_server_url": "\u05db\u05ea\u05d5\u05d1\u05ea \u05d0\u05ea\u05e8 \u05e9\u05dc \u05e9\u05e8\u05ea Roborock"
+                },
+                "data_description": {
+                    "roborock_server_url": "\u05db\u05ea\u05d5\u05d1\u05ea \u05d4\u05d0\u05ea\u05e8 \u05e9\u05dc \u05e9\u05e8\u05ea Roborock."
+                },
+                "description": "\u05e0\u05d0 \u05dc\u05d4\u05d6\u05d9\u05df \u05d0\u05ea \u05db\u05ea\u05d5\u05d1\u05ea \u05d4\u05d0\u05ea\u05e8 \u05e9\u05dc \u05e9\u05e8\u05ea Roborock \u05db\u05d3\u05d9 \u05dc\u05d4\u05ea\u05d7\u05d1\u05e8 \u05d0\u05dc\u05d9\u05d5."
+            },
+            "reauth_confirm": {
+                "description": "\u05e9\u05d9\u05dc\u05d5\u05d1 Roborock \u05e6\u05e8\u05d9\u05da \u05dc\u05d0\u05de\u05ea \u05de\u05d7\u05d3\u05e9 \u05d0\u05ea \u05d7\u05e9\u05d1\u05d5\u05e0\u05da",
+                "title": "\u05e4\u05d2 \u05ea\u05d5\u05e7\u05e3 \u05d4\u05d0\u05d9\u05de\u05d5\u05ea \u05e2\u05d1\u05d5\u05e8 {name}"
+            },
+            "user": {
+                "data": {
+                    "region": "\u05d0\u05d6\u05d5\u05e8 \u05e9\u05e8\u05ea Roborock",
+                    "username": "\u05d3\u05d5\u05d0\"\u05dc"
+                },
+                "data_description": {
+                    "region": "\u05d0\u05d6\u05d5\u05e8 \u05d4\u05e9\u05e8\u05ea \u05e9\u05d1\u05d5 \u05d7\u05e9\u05d1\u05d5\u05df Roborock \u05e9\u05dc\u05da \u05e8\u05e9\u05d5\u05dd \u05d1\u05e2\u05ea \u05d4\u05d2\u05d3\u05e8\u05ea \u05d4\u05d0\u05e4\u05dc\u05d9\u05e7\u05e6\u05d9\u05d4. \u05de\u05d5\u05de\u05dc\u05e5 \u05dc\u05d4\u05e9\u05ea\u05de\u05e9 \u05d1\u05d0\u05e4\u05e9\u05e8\u05d5\u05ea \u05d0\u05d5\u05d8\u05d5\u05de\u05d8\u05d9\u05ea \u05d0\u05dc\u05d0 \u05d0\u05dd \u05db\u05df \u05e0\u05ea\u05e7\u05dc\u05ea \u05d1\u05d1\u05e2\u05d9\u05d5\u05ea.",
+                    "username": "\u05db\u05ea\u05d5\u05d1\u05ea \u05d4\u05d3\u05d5\u05d0\"\u05dc \u05e9\u05e9\u05d9\u05de\u05e9\u05d4 \u05dc\u05db\u05e0\u05d9\u05e1\u05d4 \u05dc\u05d9\u05d9\u05e9\u05d5\u05dd Roborock."
+                },
+                "description": "\u05d9\u05e9 \u05dc\u05d4\u05d6\u05d9\u05df \u05d0\u05ea \u05db\u05ea\u05d5\u05d1\u05ea \u05d4\u05d3\u05d5\u05d0\"\u05dc \u05e9\u05dc\u05da \u05d1-Roborock."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_box_empty": {
+                "name": "\u05de\u05d9\u05db\u05dc \u05de\u05d9\u05dd \u05e0\u05e7\u05d9"
+            },
+            "clean_fluid_empty": {
+                "name": "\u05e0\u05d5\u05d6\u05dc \u05e0\u05d9\u05e7\u05d5\u05d9"
+            },
+            "detergent_empty": {
+                "name": "\u05d7\u05d5\u05de\u05e8 \u05e0\u05d9\u05e7\u05d5\u05d9",
+                "state": {
+                    "off": "\u05d6\u05de\u05d9\u05df",
+                    "on": "\u05e8\u05d9\u05e7"
+                }
+            },
+            "dirty_box_full": {
+                "name": "\u05de\u05d9\u05db\u05dc \u05de\u05d9\u05dd \u05de\u05dc\u05d5\u05db\u05dc\u05db\u05d9\u05dd"
+            },
+            "in_cleaning": {
+                "name": "\u05de\u05e0\u05e7\u05d4"
+            },
+            "mop_attached": {
+                "name": "\u05de\u05d2\u05d1 \u05de\u05d7\u05d5\u05d1\u05e8"
+            },
+            "mop_drying_status": {
+                "name": "\u05d9\u05d9\u05d1\u05d5\u05e9 \u05de\u05d2\u05d1"
+            },
+            "softener_empty": {
+                "name": "\u05de\u05e8\u05db\u05da",
+                "state": {
+                    "off": "\u05d6\u05de\u05d9\u05df",
+                    "on": "\u05e8\u05d9\u05e7"
+                }
+            },
+            "water_box_attached": {
+                "name": "\u05de\u05d9\u05db\u05dc \u05de\u05d9\u05dd \u05de\u05d7\u05d5\u05d1\u05e8"
+            },
+            "water_shortage": {
+                "name": "\u05de\u05d7\u05e1\u05d5\u05e8 \u05d1\u05de\u05d9\u05dd"
+            }
+        },
+        "button": {
+            "empty_dustbin": {
+                "name": "\u05e8\u05d9\u05e7\u05d5\u05df \u05de\u05d9\u05db\u05dc \u05d4\u05d0\u05d1\u05e7"
+            },
+            "pause": {
+                "name": "\u05d4\u05e9\u05d4\u05d9\u05d4"
+            },
+            "reset_air_filter_consumable": {
+                "name": "\u05d0\u05d9\u05e4\u05d5\u05e1 \u05e9\u05d9\u05de\u05d5\u05e9 \u05d1\u05de\u05e1\u05e0\u05df \u05d0\u05d5\u05d5\u05d9\u05e8"
+            },
+            "reset_dock_cleaning_brush_consumable": {
+                "name": "\u05d0\u05d9\u05e4\u05d5\u05e1 \u05de\u05d5\u05e0\u05d4 \u05de\u05d1\u05e8\u05e9\u05ea \u05e0\u05d9\u05e7\u05d5\u05d9"
+            },
+            "reset_dock_strainer_consumable": {
+                "name": "\u05d0\u05d9\u05e4\u05d5\u05e1 \u05de\u05d5\u05e0\u05d4 \u05d4\u05de\u05e1\u05e0\u05df"
+            },
+            "reset_main_brush_consumable": {
+                "name": "\u05d0\u05d9\u05e4\u05d5\u05e1 \u05e9\u05d9\u05de\u05d5\u05e9 \u05d1\u05de\u05d1\u05e8\u05e9\u05ea \u05d4\u05e8\u05d0\u05e9\u05d9\u05ea"
+            },
+            "reset_sensor_consumable": {
+                "name": "\u05d0\u05d9\u05e4\u05d5\u05e1 \u05e9\u05d9\u05de\u05d5\u05e9 \u05d1\u05d7\u05d9\u05d9\u05e9\u05df"
+            },
+            "reset_side_brush_consumable": {
+                "name": "\u05d0\u05d9\u05e4\u05d5\u05e1 \u05e9\u05d9\u05de\u05d5\u05e9 \u05d1\u05de\u05d1\u05e8\u05e9\u05ea \u05d4\u05e6\u05d3"
+            },
+            "shutdown": {
+                "name": "\u05db\u05d9\u05d1\u05d5\u05d9"
+            },
+            "start": {
+                "name": "\u05d4\u05ea\u05d7\u05dc\u05d4"
+            }
+        },
+        "image": {
+            "map": {
+                "name": "\u05de\u05e4\u05d4"
+            }
+        },
+        "number": {
+            "volume": {
+                "name": "\u05e2\u05d5\u05e6\u05de\u05ea \u05d4\u05e7\u05d5\u05dc"
+            }
+        },
+        "select": {
+            "cleaning_mode": {
+                "name": "\u05de\u05e6\u05d1 \u05e0\u05d9\u05e7\u05d5\u05d9",
+                "state": {
+                    "custom": "\u05de\u05d5\u05ea\u05d0\u05dd \u05d0\u05d9\u05e9\u05d9\u05ea",
+                    "mop": "\u05e0\u05d9\u05d2\u05d5\u05d1 \u05d1\u05dc\u05d1\u05d3",
+                    "smart_mode": "\u05d7\u05db\u05dd",
+                    "vac_and_mop": "\u05e9\u05d0\u05d9\u05d1\u05d4 \u05d5\u05e0\u05d9\u05d2\u05d5\u05d1",
+                    "vacuum": "\u05e9\u05d0\u05d9\u05d1\u05d4 \u05d1\u05dc\u05d1\u05d3"
+                }
+            },
+            "cleaning_route": {
+                "name": "\u05de\u05e1\u05dc\u05d5\u05dc \u05e0\u05d9\u05e7\u05d5\u05d9",
+                "state": {
+                    "balanced": "\u05de\u05d0\u05d5\u05d6\u05df",
+                    "deep": "\u05e2\u05de\u05d5\u05e7"
+                }
+            },
+            "detergent_type": {
+                "name": "\u05e1\u05d5\u05d2 \u05d7\u05d5\u05de\u05e8 \u05e0\u05d9\u05e7\u05d5\u05d9",
+                "state": {
+                    "empty": "\u05e8\u05d9\u05e7",
+                    "high": "\u05d2\u05d1\u05d5\u05d4",
+                    "low": "\u05e0\u05de\u05d5\u05da",
+                    "medium": "\u05d1\u05d9\u05e0\u05d5\u05e0\u05d9"
+                }
+            },
+            "drying_mode": {
+                "name": "\u05de\u05e6\u05d1 \u05d9\u05d9\u05d1\u05d5\u05e9",
+                "state": {
+                    "iron": "\u05d2\u05d9\u05d4\u05d5\u05e5",
+                    "none": "\u05dc\u05dc\u05d0 \u05d9\u05d9\u05d1\u05d5\u05e9",
+                    "quick": "\u05de\u05d4\u05d9\u05e8",
+                    "store": "\u05d0\u05d7\u05e1\u05d5\u05df",
+                    "time_dry": "\u05d6\u05de\u05df \u05d9\u05d9\u05d1\u05d5\u05e9"
+                }
+            },
+            "dust_collection_mode": {
+                "name": "\u05de\u05e6\u05d1 \u05e8\u05d9\u05e7",
+                "state": {
+                    "balanced": "\u05de\u05d0\u05d5\u05d6\u05df",
+                    "light": "\u05e7\u05dc",
+                    "max": "\u05de\u05e7\u05e1\u05d9\u05de\u05d5\u05dd",
+                    "smart": "\u05d7\u05db\u05dd"
+                }
+            },
+            "mode": {
+                "name": "\u05de\u05e6\u05d1 \u05d4\u05e4\u05e2\u05dc\u05d4",
+                "state": {
+                    "drain": "\u05e0\u05d9\u05e7\u05d5\u05d6",
+                    "dry": "\u05d9\u05d9\u05d1\u05d5\u05e9",
+                    "heavy": "\u05db\u05d1\u05d3",
+                    "pre_wash": "\u05e9\u05d8\u05d9\u05e4\u05d4 \u05de\u05d5\u05e7\u05d3\u05de\u05ea",
+                    "rinse_spin": "\u05e9\u05d8\u05d9\u05e4\u05d4 \u05d5\u05e1\u05d7\u05d9\u05d8\u05d4",
+                    "spin": "\u05e1\u05d7\u05d9\u05d8\u05d4",
+                    "treatment": "\u05d8\u05d9\u05e4\u05d5\u05dc",
+                    "wash": "\u05e9\u05d8\u05d9\u05e4\u05d4",
+                    "wash_and_dry": "\u05e9\u05d8\u05d9\u05e4\u05d4 \u05d5\u05d9\u05d9\u05d1\u05d5\u05e9"
+                }
+            },
+            "mop_intensity": {
+                "name": "\u05e2\u05d5\u05e6\u05de\u05ea \u05d4\u05de\u05d2\u05d1",
+                "state": {
+                    "custom": "\u05de\u05d5\u05ea\u05d0\u05dd \u05d0\u05d9\u05e9\u05d9\u05ea",
+                    "custom_water_flow": "\u05d6\u05e8\u05d9\u05de\u05ea \u05de\u05d9\u05dd \u05de\u05d5\u05ea\u05d0\u05de\u05ea \u05d0\u05d9\u05e9\u05d9\u05ea",
+                    "extreme": "\u05d0\u05e7\u05e1\u05d8\u05e8\u05d9\u05dd",
+                    "high": "\u05d2\u05d1\u05d5\u05d4",
+                    "intense": "\u05d0\u05d9\u05e0\u05d8\u05e0\u05e1\u05d9\u05d1\u05d9",
+                    "low": "\u05e0\u05de\u05d5\u05da",
+                    "max": "\u05de\u05e7\u05e1\u05d9\u05de\u05d5\u05dd",
+                    "medium": "\u05d1\u05d9\u05e0\u05d5\u05e0\u05d9",
+                    "mild": "\u05de\u05ea\u05d5\u05df",
+                    "min": "\u05de\u05d9\u05e0\u05d9\u05de\u05dc\u05d9",
+                    "moderate": "\u05de\u05ea\u05d5\u05df",
+                    "off": "\u05db\u05d1\u05d5\u05d9",
+                    "slight": "\u05e2\u05d3\u05d9\u05df",
+                    "smart_mode": "SmartPlan",
+                    "standard": "\u05e8\u05d2\u05d9\u05dc",
+                    "vac_followed_by_mop": "\u05e9\u05d0\u05d9\u05d1\u05ea \u05d0\u05d1\u05e7 \u05d5\u05d0\u05d7\u05e8\u05d9\u05d4 \u05e0\u05d9\u05d2\u05d5\u05d1"
+                }
+            },
+            "mop_mode": {
+                "name": "\u05de\u05e6\u05d1 \u05de\u05d2\u05d1",
+                "state": {
+                    "custom": "\u05de\u05d5\u05ea\u05d0\u05dd \u05d0\u05d9\u05e9\u05d9\u05ea",
+                    "deep": "\u05e2\u05de\u05d5\u05e7",
+                    "deep_plus": "\u05e2\u05de\u05d5\u05e7+",
+                    "fast": "\u05de\u05d4\u05d9\u05e8",
+                    "smart_mode": "SmartPlan",
+                    "standard": "\u05e8\u05d2\u05d9\u05dc"
+                }
+            },
+            "program": {
+                "name": "\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05db\u05d1\u05d9\u05e1\u05d4",
+                "state": {
+                    "air_refresh": "\u05e8\u05e2\u05e0\u05d5\u05df \u05d0\u05d5\u05d5\u05d9\u05e8",
+                    "anti_allergen": "\u05d0\u05e0\u05d8\u05d9 \u05d0\u05dc\u05e8\u05d2\u05e0\u05d9",
+                    "anti_mites": "\u05e0\u05d2\u05d3 \u05e7\u05e8\u05e6\u05d9\u05d5\u05ea",
+                    "baby_care": "\u05d1\u05d2\u05d3\u05d9 \u05ea\u05d9\u05e0\u05d5\u05e7\u05d5\u05ea",
+                    "bath_towel": "\u05de\u05d2\u05d1\u05ea \u05d0\u05de\u05d1\u05d8\u05d9\u05d4",
+                    "bedding": "\u05de\u05e6\u05e2\u05d9\u05dd",
+                    "boiling_wash": "\u05e9\u05d8\u05d9\u05e4\u05d4 \u05e8\u05d5\u05ea\u05d7\u05ea",
+                    "bra": "\u05d7\u05d6\u05d9\u05d9\u05d4",
+                    "cotton_linen": "\u05db\u05d5\u05ea\u05e0\u05d4/\u05e4\u05e9\u05ea\u05df",
+                    "custom": "\u05de\u05d5\u05ea\u05d0\u05dd \u05d0\u05d9\u05e9\u05d9\u05ea",
+                    "deep_self_clean": "\u05e0\u05d9\u05e7\u05d5\u05d9 \u05e2\u05e6\u05de\u05d9 \u05e2\u05de\u05d5\u05e7",
+                    "descaling": "\u05d4\u05e1\u05e8\u05ea \u05d0\u05d1\u05e0\u05d9\u05ea",
+                    "down": "\u05e4\u05d5\u05da",
+                    "down_clean": "\u05db\u05d1\u05d9\u05e1\u05ea \u05e4\u05d5\u05da",
+                    "exo_40_60": "Eco 40/60",
+                    "flax": "\u05e4\u05e9\u05ea\u05df",
+                    "gentle": "\u05e2\u05d3\u05d9\u05df",
+                    "intensive": "\u05d0\u05d9\u05e0\u05d8\u05e0\u05e1\u05d9\u05d1\u05d9",
+                    "jeans": "\u05d2'\u05d9\u05e0\u05e1",
+                    "mixing": "\u05de\u05e2\u05d5\u05e8\u05d1",
+                    "new_clothes": "\u05d1\u05d2\u05d3\u05d9\u05dd \u05d7\u05d3\u05e9\u05d9\u05dd",
+                    "night": "\u05dc\u05d9\u05dc\u05d4",
+                    "outdoor_jackets": "\u05de\u05e2\u05d9\u05dc\u05d9 \u05d7\u05d5\u05e5",
+                    "outdoors": "\u05d1\u05d7\u05d5\u05e5",
+                    "panties": "\u05ea\u05d7\u05ea\u05d5\u05e0\u05d9 \u05e0\u05e9\u05d9\u05dd",
+                    "pet_care": "\u05d8\u05d9\u05e4\u05d5\u05dc \u05d1\u05d7\u05d9\u05d5\u05ea \u05de\u05d7\u05de\u05d3",
+                    "quick": "\u05de\u05d4\u05d9\u05e8",
+                    "quilt_drying": "\u05d9\u05d9\u05d1\u05d5\u05e9 \u05e9\u05de\u05d9\u05db\u05d5\u05ea",
+                    "rack_drying": "\u05d9\u05d9\u05d1\u05d5\u05e9 \u05dc\u05d0\u05d7\u05e1\u05d5\u05df",
+                    "rinse_and_spin": "\u05e9\u05d8\u05d9\u05e4\u05d4 \u05d5\u05e1\u05d7\u05d9\u05d8\u05d4",
+                    "sanitize": "\u05d7\u05d9\u05d8\u05d5\u05d9",
+                    "season": "\u05db\u05d1\u05d9\u05e1\u05d4 \u05e2\u05d5\u05e0\u05ea\u05d9\u05ea",
+                    "shirts": "\u05d7\u05d5\u05dc\u05e6\u05d5\u05ea",
+                    "silk": "\u05de\u05e9\u05d9",
+                    "small_things": "\u05d3\u05d1\u05e8\u05d9\u05dd \u05e7\u05d8\u05e0\u05d9\u05dd",
+                    "small_things_drying": "\u05d3\u05d1\u05e8\u05d9\u05dd \u05e7\u05d8\u05e0\u05d9\u05dd \u05de\u05ea\u05d9\u05d9\u05d1\u05e9\u05d9\u05dd",
+                    "soaking": "\u05d4\u05e9\u05e8\u05d9\u05d4",
+                    "socks": "\u05d2\u05e8\u05d1\u05d9\u05d9\u05dd",
+                    "sport_shoes": "\u05e0\u05e2\u05dc\u05d9 \u05e1\u05e4\u05d5\u05e8\u05d8",
+                    "sportswear": "\u05d1\u05d2\u05d3\u05d9 \u05e1\u05e4\u05d5\u05e8\u05d8",
+                    "stain_removal": "\u05d4\u05e1\u05e8\u05ea \u05db\u05ea\u05de\u05d9\u05dd",
+                    "standard": "\u05e1\u05d8\u05e0\u05d3\u05e8\u05d8\u05d9",
+                    "steam_care": "\u05d8\u05d9\u05e4\u05d5\u05dc \u05d1\u05d0\u05d3\u05d9\u05dd",
+                    "suit": "\u05d7\u05dc\u05d9\u05e4\u05d4",
+                    "summer_quilt": "\u05e9\u05de\u05d9\u05db\u05ea \u05e7\u05d9\u05e5",
+                    "synthetics": "\u05e1\u05d9\u05e0\u05ea\u05d8\u05d9",
+                    "t_shirts": "\u05d8\u05d9\u05e9\u05e8\u05d8",
+                    "timed_drying": "\u05d9\u05d9\u05d1\u05d5\u05e9 \u05de\u05ea\u05d5\u05d6\u05de\u05df",
+                    "towels": "\u05de\u05d2\u05d1\u05d5\u05ea",
+                    "twenty_c": "20\u00b0C",
+                    "underwear": "\u05d4\u05dc\u05d1\u05e9\u05d4 \u05ea\u05d7\u05ea\u05d5\u05e0\u05d4",
+                    "warming": "\u05de\u05d7\u05de\u05dd",
+                    "wind_breaker": "\u05de\u05e2\u05d9\u05dc \u05e8\u05d5\u05d7",
+                    "wool": "\u05e6\u05de\u05e8",
+                    "yoga": "\u05d1\u05d2\u05d3\u05d9 \u05d9\u05d5\u05d2\u05d4"
+                }
+            },
+            "rinse_times": {
+                "name": "\u05d6\u05de\u05e0\u05d9 \u05e9\u05d8\u05d9\u05e4\u05d4",
+                "state": {
+                    "high": "4",
+                    "low": "2",
+                    "max": "5",
+                    "mid": "3",
+                    "min": "1",
+                    "none": "\u05d1\u05e8\u05d9\u05e8\u05ea \u05de\u05d7\u05d3\u05dc"
+                }
+            },
+            "selected_map": {
+                "name": "\u05de\u05e4\u05d4 \u05e0\u05d1\u05d7\u05e8\u05ea"
+            },
+            "softener_type": {
+                "name": "\u05e1\u05d5\u05d2 \u05de\u05e8\u05db\u05da \u05de\u05d9\u05dd",
+                "state": {
+                    "empty": "\u05e8\u05d9\u05e7",
+                    "high": "\u05d2\u05d1\u05d5\u05d4",
+                    "low": "\u05e0\u05de\u05d5\u05da",
+                    "medium": "\u05d1\u05d9\u05e0\u05d5\u05e0\u05d9"
+                }
+            },
+            "spin_level": {
+                "name": "\u05d3\u05e8\u05d2\u05ea \u05e1\u05d7\u05d9\u05d8\u05d4",
+                "state": {
+                    "high": "1000 RPM",
+                    "max": "1400 RPM",
+                    "mid": "800 RPM",
+                    "none": "\u05d1\u05e8\u05d9\u05e8\u05ea \u05de\u05d7\u05d3\u05dc",
+                    "very_high": "1200 RPM",
+                    "very_low": "600 RPM"
+                }
+            },
+            "temperature": {
+                "name": "\u05d8\u05de\u05e4\u05e8\u05d8\u05d5\u05e8\u05ea \u05de\u05d9\u05dd",
+                "state": {
+                    "30": "30\u00b0C",
+                    "40": "40\u00b0C",
+                    "60": "60\u00b0C",
+                    "90": "90\u00b0C",
+                    "auto": "\u05d0\u05d5\u05d8\u05d5\u05de\u05d8\u05d9",
+                    "cold": "\u05e7\u05e8",
+                    "null": "\u05dc\u05d0 \u05d9\u05d3\u05d5\u05e2"
+                }
+            },
+            "water_flow": {
+                "name": "\u05d6\u05e8\u05d9\u05de\u05ea \u05de\u05d9\u05dd",
+                "state": {
+                    "high": "\u05d2\u05d1\u05d5\u05d4",
+                    "low": "\u05e0\u05de\u05d5\u05da",
+                    "medium": "\u05d1\u05d9\u05e0\u05d5\u05e0\u05d9"
+                }
+            }
+        },
+        "sensor": {
+            "a01_error": {
+                "name": "\u05e9\u05d2\u05d9\u05d0\u05d4",
+                "state": {
+                    "battery_temperature_protection": "\u05d4\u05d2\u05e0\u05d4 \u05e2\u05dc \u05d8\u05de\u05e4\u05e8\u05d8\u05d5\u05e8\u05ea \u05d4\u05e1\u05d5\u05dc\u05dc\u05d4",
+                    "battery_temperature_protection_e0": "\u05d4\u05d2\u05e0\u05ea \u05d8\u05de\u05e4\u05e8\u05d8\u05d5\u05e8\u05d4",
+                    "battery_under_10": "\u05e1\u05d5\u05dc\u05dc\u05d4 \u05de\u05ea\u05d7\u05ea \u05dc-10%",
+                    "clean_head_entangled": "\u05e8\u05d0\u05e9 \u05e0\u05d9\u05e7\u05d5\u05d9 \u05d4\u05e1\u05ea\u05d1\u05da",
+                    "clean_head_too_hot": "\u05e8\u05d0\u05e9 \u05e0\u05d9\u05e7\u05d5\u05d9 \u05d7\u05dd \u05de\u05d3\u05d9.",
+                    "clean_tank_empty": "\u05de\u05d9\u05db\u05dc \u05de\u05d9\u05dd \u05e0\u05e7\u05d9\u05d9\u05dd \u05e8\u05d9\u05e7",
+                    "cleaning_head_blocked": "\u05e8\u05d0\u05e9 \u05d4\u05e0\u05d9\u05e7\u05d5\u05d9 \u05d7\u05e1\u05d5\u05dd",
+                    "dirty_charging_contacts": "\u05d9\u05e9 \u05dc\u05e0\u05e7\u05d5\u05ea \u05de\u05d2\u05e2\u05d9 \u05d8\u05e2\u05d9\u05e0\u05d4",
+                    "dirty_tank_full": "\u05de\u05d9\u05db\u05dc \u05de\u05dc\u05d5\u05db\u05dc\u05da \u05de\u05dc\u05d0",
+                    "fan_protection_e4": "\u05d4\u05d2\u05e0\u05ea \u05de\u05d0\u05d5\u05d5\u05e8\u05e8",
+                    "fan_protection_e5": "\u05d4\u05d2\u05e0\u05ea \u05de\u05d0\u05d5\u05d5\u05e8\u05e8",
+                    "fan_protection_e9": "\u05d4\u05d2\u05e0\u05ea \u05de\u05d0\u05d5\u05d5\u05e8\u05e8",
+                    "low_battery": "\u05e1\u05d5\u05dc\u05dc\u05d4 \u05d7\u05dc\u05e9\u05d4",
+                    "none": "\u05dc\u05dc\u05d0",
+                    "power_adapter_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05de\u05ea\u05d0\u05dd \u05de\u05ea\u05d7",
+                    "temperature_protection": "\u05d4\u05d2\u05e0\u05ea \u05d8\u05de\u05e4\u05e8\u05d8\u05d5\u05e8\u05d4",
+                    "water_level_sensor_stuck": "\u05d7\u05d9\u05d9\u05e9\u05df \u05de\u05e4\u05dc\u05e1 \u05d4\u05de\u05d9\u05dd \u05e0\u05ea\u05e7\u05e2."
+                }
+            },
+            "a01_status": {
+                "name": "\u05de\u05e6\u05d1",
+                "state": {
+                    "charging": "\u05d8\u05e2\u05d9\u05e0\u05d4",
+                    "drying": "\u05d9\u05d9\u05d1\u05d5\u05e9",
+                    "dusting_mode": "\u05de\u05e6\u05d1 \u05d0\u05d1\u05e7",
+                    "fetch_failed": "\u05d4\u05d0\u05d7\u05d6\u05d5\u05e8 \u05e0\u05db\u05e9\u05dc",
+                    "fetching": "\u05d0\u05d7\u05d6\u05d5\u05e8",
+                    "mop_washing": "\u05db\u05d1\u05d9\u05e1\u05ea \u05de\u05d8\u05dc\u05d9\u05ea",
+                    "mop_washing_paused": "\u05e9\u05d8\u05d9\u05e4\u05ea \u05de\u05d8\u05dc\u05d9\u05ea \u05d4\u05d5\u05e9\u05d4\u05ea\u05d4",
+                    "ready": "\u05de\u05d5\u05db\u05df",
+                    "reserving": "\u05d4\u05d6\u05de\u05e0\u05d4",
+                    "self_clean_cleaning": "\u05e0\u05d9\u05e7\u05d5\u05d9 \u05e2\u05e6\u05de\u05d9",
+                    "self_clean_deep_cleaning": "\u05e0\u05d9\u05e7\u05d5\u05d9 \u05e2\u05e6\u05de\u05d9 \u05e2\u05de\u05d5\u05e7",
+                    "self_clean_dehydrating": "\u05d9\u05d9\u05d1\u05d5\u05e9 \u05d1\u05e0\u05d9\u05e7\u05d5\u05d9 \u05e2\u05e6\u05de\u05d9",
+                    "self_clean_rinsing": "\u05e9\u05d8\u05d9\u05e4\u05d4 \u05d1\u05e0\u05d9\u05e7\u05d5\u05d9 \u05e2\u05e6\u05de\u05d9",
+                    "unknown": "\u05dc\u05d0 \u05d9\u05d3\u05d5\u05e2",
+                    "updating": "\u05de\u05e2\u05d3\u05db\u05df",
+                    "ventilating": "\u05d0\u05d5\u05d5\u05e8\u05d5\u05e8",
+                    "washing": "\u05db\u05d1\u05d9\u05e1\u05d4"
+                }
+            },
+            "brush_remaining": {
+                "name": "\u05e0\u05d5\u05ea\u05e8 \u05dc\u05de\u05d1\u05e8\u05e9\u05ea"
+            },
+            "clean_percent": {
+                "name": "\u05d4\u05ea\u05e7\u05d3\u05de\u05d5\u05ea \u05d4\u05e0\u05d9\u05e7\u05d9\u05d5\u05df"
+            },
+            "cleaning_area": {
+                "name": "\u05de\u05e0\u05e7\u05d4 \u05d0\u05d6\u05d5\u05e8"
+            },
+            "cleaning_brush_time_left": {
+                "name": "\u05d6\u05de\u05df \u05e0\u05d5\u05ea\u05e8 \u05dc\u05ea\u05d7\u05d6\u05d5\u05e7\u05ea \u05de\u05d1\u05e8\u05e9\u05ea"
+            },
+            "cleaning_time": {
+                "name": "\u05d6\u05de\u05df \u05e0\u05d9\u05e7\u05d5\u05d9"
+            },
+            "countdown": {
+                "name": "\u05e1\u05e4\u05d9\u05e8\u05d4 \u05dc\u05d0\u05d7\u05d5\u05e8"
+            },
+            "current_room": {
+                "name": "\u05d7\u05d3\u05e8 \u05e0\u05d5\u05db\u05d7\u05d9"
+            },
+            "dock_error": {
+                "name": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05e2\u05d2\u05d9\u05e0\u05d4",
+                "state": {
+                    "cleaning_tank_full_or_blocked": "\u05de\u05d9\u05db\u05dc \u05e0\u05d9\u05e7\u05d5\u05d9 \u05de\u05dc\u05d0 \u05d0\u05d5 \u05d7\u05e1\u05d5\u05dd",
+                    "dirty_tank_latch_open": "\u05ea\u05e4\u05e1 \u05de\u05d9\u05db\u05dc \u05dc\u05db\u05dc\u05d5\u05da \u05e4\u05ea\u05d5\u05d7",
+                    "duct_blockage": "\u05d7\u05e1\u05d9\u05de\u05ea \u05e6\u05d9\u05e0\u05d5\u05e8",
+                    "no_dustbin": "\u05d0\u05d9\u05df \u05e4\u05d7 \u05d0\u05e9\u05e4\u05d4",
+                    "ok": "\u05d0\u05d9\u05e9\u05d5\u05e8",
+                    "waste_water_tank_full": "\u05de\u05d9\u05db\u05dc \u05d4\u05e9\u05e4\u05db\u05d9\u05dd \u05de\u05dc\u05d0",
+                    "water_empty": "\u05de\u05d9\u05dd \u05e8\u05d9\u05e7"
+                }
+            },
+            "filter_life": {
+                "name": "\u05d6\u05de\u05df \u05d4\u05e9\u05d9\u05de\u05d5\u05e9 \u05d1\u05de\u05e1\u05e0\u05df"
+            },
+            "filter_time_left": {
+                "name": "\u05d6\u05de\u05df \u05e9\u05e0\u05d5\u05ea\u05e8 \u05dc\u05de\u05e1\u05e0\u05df"
+            },
+            "last_clean_end": {
+                "name": "\u05e1\u05d9\u05d5\u05dd \u05d4\u05e0\u05d9\u05e7\u05d5\u05d9 \u05d4\u05d0\u05d7\u05e8\u05d5\u05df"
+            },
+            "last_clean_start": {
+                "name": "\u05d4\u05ea\u05d7\u05dc\u05ea \u05d4\u05e0\u05d9\u05e7\u05d5\u05d9 \u05d4\u05d0\u05d7\u05e8\u05d5\u05df"
+            },
+            "main_brush_life": {
+                "name": "\u05d6\u05de\u05df \u05d4\u05e9\u05d9\u05de\u05d5\u05e9 \u05d1\u05de\u05d1\u05e8\u05e9\u05ea \u05d4\u05e8\u05d0\u05e9\u05d9\u05ea"
+            },
+            "main_brush_time_left": {
+                "name": "\u05d6\u05de\u05df \u05e9\u05e0\u05d5\u05ea\u05e8 \u05dc\u05de\u05d1\u05e8\u05e9\u05ea \u05d4\u05e8\u05d0\u05e9\u05d9\u05ea"
+            },
+            "mop_drying_remaining_time": {
+                "name": "\u05d6\u05de\u05df \u05d9\u05d9\u05d1\u05d5\u05e9 \u05d4\u05de\u05d2\u05d1 \u05e9\u05e0\u05d5\u05ea\u05e8"
+            },
+            "mop_life_time_left": {
+                "name": "\u05d6\u05de\u05df \u05e9\u05e0\u05d5\u05ea\u05e8 \u05dc\u05e1\u05d7\u05d1\u05d4"
+            },
+            "q7_status": {
+                "name": "\u05de\u05e6\u05d1",
+                "state": {
+                    "charging": "\u05d8\u05e2\u05d9\u05e0\u05d4",
+                    "docking": "\u05d1\u05e2\u05d2\u05d9\u05e0\u05d4",
+                    "mop_airdrying": "\u05d9\u05d9\u05d1\u05d5\u05e9 \u05d4\u05e1\u05d7\u05d1\u05d4 \u05d1\u05d0\u05d5\u05d5\u05d9\u05e8",
+                    "mop_cleaning": "\u05e0\u05d9\u05e7\u05d5\u05d9 \u05e1\u05d7\u05d1\u05d5\u05ea",
+                    "moping": "\u05e0\u05d9\u05d2\u05d5\u05d1",
+                    "paused": "\u05de\u05d5\u05e9\u05d4\u05d4",
+                    "sleeping": "\u05d9\u05e9\u05df",
+                    "sweep_moping": "\u05e0\u05d9\u05e7\u05d5\u05d9 \u05e1\u05d7\u05d1\u05d5\u05ea",
+                    "sweep_moping_2": "\u05e0\u05d9\u05e7\u05d5\u05d9 \u05e1\u05d7\u05d1\u05d5\u05ea",
+                    "unknown": "\u05dc\u05d0 \u05d9\u05d3\u05d5\u05e2",
+                    "updating": "\u05de\u05e2\u05d3\u05db\u05df",
+                    "waiting_for_orders": "\u05de\u05de\u05ea\u05d9\u05df \u05dc\u05d4\u05d5\u05e8\u05d0\u05d5\u05ea",
+                    "working_sleep": "\u05e9\u05d9\u05e0\u05d4 \u05d1\u05d6\u05de\u05df \u05e2\u05d1\u05d5\u05d3\u05d4"
+                }
+            },
+            "sensor_life": {
+                "name": "\u05d6\u05de\u05df \u05e9\u05d9\u05de\u05d5\u05e9 \u05d4\u05d7\u05d9\u05d9\u05e9\u05df"
+            },
+            "sensor_time_left": {
+                "name": "\u05d6\u05de\u05df \u05e9\u05e0\u05d5\u05ea\u05e8 \u05dc\u05d7\u05d9\u05d9\u05e9\u05df"
+            },
+            "side_brush_life": {
+                "name": "\u05d6\u05de\u05df \u05d4\u05e9\u05d9\u05de\u05d5\u05e9 \u05d1\u05de\u05d1\u05e8\u05e9\u05ea \u05e6\u05d3"
+            },
+            "side_brush_time_left": {
+                "name": "\u05d6\u05de\u05df \u05e9\u05e0\u05d5\u05ea\u05e8 \u05dc\u05de\u05d1\u05e8\u05e9\u05ea \u05e6\u05d3"
+            },
+            "status": {
+                "name": "\u05de\u05e6\u05d1",
+                "state": {
+                    "air_drying_stopping": "\u05e2\u05e6\u05d9\u05e8\u05ea \u05d9\u05d9\u05d1\u05d5\u05e9 \u05d0\u05d5\u05d5\u05d9\u05e8",
+                    "attaching_the_mop": "\u05d7\u05d9\u05d1\u05d5\u05e8 \u05d4\u05e1\u05d7\u05d1\u05d4",
+                    "charger_disconnected": "\u05de\u05d8\u05e2\u05df \u05de\u05e0\u05d5\u05ea\u05e7",
+                    "charging": "\u05d8\u05e2\u05d9\u05e0\u05d4",
+                    "charging_complete": "\u05d4\u05d8\u05e2\u05d9\u05e0\u05d4 \u05d4\u05d5\u05e9\u05dc\u05de\u05d4",
+                    "charging_problem": "\u05d1\u05e2\u05d9\u05d9\u05ea \u05d8\u05e2\u05d9\u05e0\u05d4",
+                    "cleaning": "\u05de\u05e0\u05e7\u05d4",
+                    "detaching_the_mop": "\u05e0\u05d9\u05ea\u05d5\u05e7 \u05d4\u05e1\u05d7\u05d1\u05d4",
+                    "device_offline": "\u05de\u05db\u05e9\u05d9\u05e8 \u05dc\u05d0 \u05de\u05e7\u05d5\u05d5\u05df",
+                    "docking": "\u05d1\u05e2\u05d2\u05d9\u05e0\u05d4",
+                    "egg_attack": "\u05de\u05e6\u05d1 \u05e7\u05d5\u05e4\u05d9\u05d3\u05d5\u05df",
+                    "emptying_the_bin": "\u05de\u05e8\u05d5\u05e7\u05df \u05d0\u05ea \u05d4\u05e4\u05d7",
+                    "error": "\u05e9\u05d2\u05d9\u05d0\u05d4",
+                    "going_to_target": "\u05d4\u05d5\u05dc\u05da \u05dc\u05d9\u05e2\u05d3",
+                    "going_to_wash_the_mop": "\u05d4\u05d5\u05dc\u05da \u05dc\u05e9\u05d8\u05d5\u05e3 \u05d0\u05ea \u05d4\u05de\u05d2\u05d1",
+                    "idle": "\u05de\u05e6\u05d1 \u05e1\u05e8\u05e7",
+                    "locked": "\u05e0\u05e2\u05d5\u05dc",
+                    "manual_mode": "\u05de\u05e6\u05d1 \u05d9\u05d3\u05e0\u05d9",
+                    "mapping": "\u05e9\u05d5\u05d8\u05e3",
+                    "mopping": "\u05e0\u05d9\u05d2\u05d5\u05d1",
+                    "paused": "\u05de\u05d5\u05e9\u05d4\u05d4",
+                    "relocating": "\u05de\u05e2\u05d1\u05e8 \u05d3\u05d9\u05e8\u05d4",
+                    "remote_control_active": "\u05e9\u05dc\u05d8 \u05e8\u05d7\u05d5\u05e7 \u05e4\u05e2\u05d9\u05dc",
+                    "returning_home": "\u05d7\u05d5\u05d6\u05e8 \u05d4\u05d1\u05d9\u05ea\u05d4",
+                    "saving_map": "\u05e9\u05d5\u05de\u05e8 \u05de\u05e4\u05d4",
+                    "segment_cleaning": "\u05e0\u05d9\u05e7\u05d5\u05d9 \u05e1\u05d2\u05de\u05e0\u05d8",
+                    "shutting_down": "\u05db\u05d9\u05d1\u05d5\u05d9",
+                    "sleeping": "\u05d9\u05e9\u05df",
+                    "spot_cleaning": "\u05e0\u05d9\u05e7\u05d5\u05d9 \u05e0\u05e7\u05d5\u05d3\u05ea\u05d9",
+                    "starting": "\u05de\u05ea\u05d7\u05d9\u05dc",
+                    "sweep_and_mop": "\u05d8\u05d0\u05d8\u05d5\u05d0 \u05d5\u05e0\u05d9\u05d2\u05d5\u05d1",
+                    "sweeping": "\u05d8\u05d0\u05d8\u05d5\u05d0",
+                    "transitioning": "\u05de\u05e2\u05d1\u05e8",
+                    "unknown": "\u05dc\u05d0 \u05d9\u05d3\u05d5\u05e2",
+                    "updating": "\u05de\u05e2\u05d3\u05db\u05df",
+                    "waiting_to_charge": "\u05de\u05de\u05ea\u05d9\u05df \u05dc\u05d8\u05e2\u05d9\u05e0\u05d4",
+                    "washing_the_mop": "\u05e9\u05d5\u05d8\u05e3 \u05d0\u05ea \u05d4\u05de\u05d2\u05d1",
+                    "zoned_cleaning": "\u05e0\u05d9\u05e7\u05d5\u05d9 \u05d0\u05d6\u05d5\u05e8"
+                }
+            },
+            "strainer_time_left": {
+                "name": "\u05d6\u05de\u05df \u05e9\u05e0\u05d5\u05ea\u05e8 \u05dc\u05de\u05e1\u05e0\u05e0\u05ea"
+            },
+            "times_after_clean": {
+                "name": "\u05d6\u05de\u05e0\u05d9\u05dd \u05dc\u05d0\u05d7\u05e8 \u05e0\u05d9\u05e7\u05d5\u05d9"
+            },
+            "total_cleaning_area": {
+                "name": "\u05e9\u05d8\u05d7 \u05e0\u05d9\u05e7\u05d5\u05d9 \u05db\u05d5\u05dc\u05dc"
+            },
+            "total_cleaning_count": {
+                "name": "\u05e1\u05e4\u05d9\u05e8\u05ea \u05e0\u05d9\u05e7\u05d9\u05d5\u05df \u05db\u05d5\u05dc\u05dc\u05ea"
+            },
+            "total_cleaning_time": {
+                "name": "\u05d6\u05de\u05df \u05e0\u05d9\u05e7\u05d5\u05d9 \u05db\u05d5\u05dc\u05dc"
+            },
+            "vacuum_error": {
+                "name": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05e9\u05d5\u05d0\u05d1",
+                "state": {
+                    "audio_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d0\u05d5\u05d3\u05d9\u05d5",
+                    "battery_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05e1\u05d5\u05dc\u05dc\u05d4",
+                    "bumper_stuck": "\u05e4\u05d2\u05d5\u05e9 \u05ea\u05e7\u05d5\u05e2",
+                    "cannot_cross_carpet": "\u05dc\u05d0 \u05e0\u05d9\u05ea\u05df \u05dc\u05d7\u05e6\u05d5\u05ea \u05e9\u05d8\u05d9\u05d7",
+                    "charging_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d8\u05e2\u05d9\u05e0\u05d4",
+                    "check_clean_carouse": "\u05d9\u05e9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05ea \u05e7\u05e8\u05d5\u05e1\u05dc\u05ea \u05d4\u05e0\u05d9\u05e7\u05d5\u05d9",
+                    "clean_carousel_exception": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05e0\u05d9\u05e7\u05d5\u05d9 \u05e7\u05e8\u05d5\u05e1\u05dc\u05d4",
+                    "clean_carousel_water_full": "\u05de\u05db\u05dc \u05de\u05d9 \u05d4\u05e9\u05d8\u05d9\u05e4\u05d4 \u05de\u05dc\u05d0",
+                    "clear_brush_exception": "\u05d9\u05e9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05e9\u05de\u05e1\u05e0\u05df \u05d4\u05de\u05d9\u05dd \u05d4\u05d5\u05ea\u05e7\u05df \u05db\u05d4\u05dc\u05db\u05d4",
+                    "clear_brush_exception_2": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05dc\u05d7\u05e6\u05df \u05de\u05d9\u05e7\u05d5\u05dd",
+                    "clear_water_box_exception": "\u05e0\u05d9\u05e7\u05d5\u05d9 \u05de\u05d9\u05db\u05dc \u05de\u05d9\u05dd \u05e8\u05d9\u05e7",
+                    "clear_water_box_hoare": "\u05d9\u05e9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05ea \u05de\u05d9\u05db\u05dc \u05d4\u05de\u05d9\u05dd \u05d4\u05e0\u05e7\u05d9\u05d9\u05dd",
+                    "cliff_sensor_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d7\u05d9\u05d9\u05e9\u05df \u05e6\u05d5\u05e7",
+                    "collect_dust_error_3": "\u05e0\u05d9\u05e7\u05d5\u05d9 \u05ea\u05d7\u05e0\u05ea \u05e2\u05d2\u05d9\u05e0\u05d4 \u05e2\u05dd \u05e8\u05d9\u05e7\u05d5\u05df \u05d0\u05d5\u05d8\u05d5\u05de\u05d8\u05d9",
+                    "collect_dust_error_4": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05de\u05ea\u05d7 \u05d1\u05ea\u05d7\u05e0\u05ea \u05d4\u05e8\u05d9\u05e7\u05d5\u05df",
+                    "compass_error": "\u05d6\u05d5\u05d4\u05d4 \u05e9\u05d3\u05d4 \u05de\u05d2\u05e0\u05d8\u05d9 \u05d7\u05d6\u05e7",
+                    "dirty_water_box_hoare": "\u05d9\u05e9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05ea \u05de\u05d9\u05db\u05dc \u05d4\u05de\u05d9\u05dd \u05d4\u05de\u05dc\u05d5\u05db\u05dc\u05db\u05d9\u05dd",
+                    "dock": "\u05ea\u05d7\u05e0\u05ea \u05e2\u05d2\u05d9\u05e0\u05d4 \u05d0\u05d9\u05e0\u05d4 \u05de\u05d7\u05d5\u05d1\u05e8\u05ea \u05dc\u05d7\u05e9\u05de\u05dc",
+                    "dock_locator_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d0\u05d9\u05ea\u05d5\u05e8 \u05e2\u05d2\u05d9\u05e0\u05d4",
+                    "drain_water_exception": "\u05d7\u05e8\u05d9\u05d2\u05ea \u05e0\u05d9\u05e7\u05d5\u05d6 \u05de\u05d9\u05dd",
+                    "fan_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05de\u05d0\u05d5\u05d5\u05e8\u05e8",
+                    "filter_blocked": "\u05de\u05e1\u05e0\u05df \u05d7\u05e1\u05d5\u05dd",
+                    "filter_screen_exception": "\u05d9\u05e9 \u05dc\u05e0\u05e7\u05d5\u05ea \u05d0\u05ea \u05de\u05e1\u05e0\u05df \u05d4\u05de\u05d9\u05dd \u05e9\u05dc \u05ea\u05d7\u05e0\u05ea \u05d4\u05e2\u05d2\u05d9\u05e0\u05d4",
+                    "internal_error": "\u05e9\u05d2\u05d9\u05d0\u05d4 \u05e4\u05e0\u05d9\u05de\u05d9\u05ea",
+                    "invisible_wall_detected": "\u05d6\u05d5\u05d4\u05d4 \u05e7\u05d9\u05e8 \u05d1\u05dc\u05ea\u05d9 \u05e0\u05e8\u05d0\u05d4",
+                    "lidar_blocked": "\u05dc\u05d9\u05d3\u05d0\u05e8 \u05e0\u05d7\u05e1\u05dd",
+                    "light_touch": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d7\u05d9\u05d9\u05e9\u05df \u05e7\u05d9\u05e8",
+                    "low_battery": "\u05e1\u05d5\u05dc\u05dc\u05d4 \u05d7\u05dc\u05e9\u05d4",
+                    "main_brush_jammed": "\u05de\u05d1\u05e8\u05e9\u05ea \u05e8\u05d0\u05e9\u05d9\u05ea \u05ea\u05e7\u05d5\u05e2\u05d4",
+                    "mopping_roller_1": "\u05d9\u05d9\u05ea\u05db\u05df \u05e9\u05d2\u05dc\u05d2\u05dc\u05ea \u05d4\u05e9\u05d8\u05d9\u05e4\u05d4 \u05e0\u05ea\u05e7\u05e2\u05d4",
+                    "mopping_roller_error_2": "\u05d2\u05dc\u05d2\u05dc\u05ea \u05d4\u05e9\u05d8\u05d9\u05e4\u05d4 \u05dc\u05d0 \u05d4\u05d5\u05e0\u05de\u05db\u05d4 \u05db\u05e8\u05d0\u05d5\u05d9",
+                    "no_dustbin": "\u05d0\u05d9\u05df \u05e4\u05d7 \u05d0\u05e9\u05e4\u05d4",
+                    "nogo_zone_detected": "\u05d6\u05d5\u05d4\u05d4 \u05d0\u05d6\u05d5\u05e8 \u05d0\u05e1\u05d5\u05e8 \u05dc\u05e0\u05e1\u05d9\u05e2\u05d4",
+                    "none": "\u05dc\u05dc\u05d0",
+                    "optical_flow_sensor_dirt": "\u05d7\u05d9\u05d9\u05e9\u05df \u05d6\u05e8\u05d9\u05de\u05d4 \u05d0\u05d5\u05e4\u05d8\u05d9 \u05de\u05dc\u05d5\u05db\u05dc\u05da",
+                    "return_to_dock_fail": "\u05db\u05e9\u05dc \u05d1\u05d7\u05d6\u05e8\u05d4 \u05dc\u05e2\u05d2\u05d9\u05e0\u05d4",
+                    "robot_on_carpet": "\u05e8\u05d5\u05d1\u05d5\u05d8 \u05e2\u05dc \u05e9\u05d8\u05d9\u05d7",
+                    "robot_tilted": "\u05e8\u05d5\u05d1\u05d5\u05d8 \u05de\u05d5\u05d8\u05d4",
+                    "robot_trapped": "\u05e8\u05d5\u05d1\u05d5\u05d8 \u05dc\u05db\u05d5\u05d3",
+                    "side_brush_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05de\u05d1\u05e8\u05e9\u05ea \u05e6\u05d3",
+                    "side_brush_jammed": "\u05de\u05d1\u05e8\u05e9\u05ea \u05e6\u05d3 \u05e0\u05ea\u05e7\u05e2\u05d4",
+                    "sink_strainer_hoare": "\u05d9\u05e9 \u05dc\u05d4\u05ea\u05e7\u05d9\u05df \u05de\u05d7\u05d3\u05e9 \u05d0\u05ea \u05de\u05e1\u05e0\u05df \u05d4\u05de\u05d9\u05dd",
+                    "strainer_error": "\u05d4\u05de\u05e1\u05e0\u05df \u05e8\u05d8\u05d5\u05d1 \u05d0\u05d5 \u05d7\u05e1\u05d5\u05dd",
+                    "temperature_protection": "\u05d4\u05d2\u05e0\u05ea \u05d8\u05de\u05e4\u05e8\u05d8\u05d5\u05e8\u05ea \u05d4\u05d9\u05d7\u05d9\u05d3\u05d4",
+                    "up_water_exception": "\u05d7\u05e8\u05d9\u05d2\u05ea \u05d0\u05e1\u05e4\u05e7\u05ea \u05de\u05d9\u05dd",
+                    "vertical_bumper_pressed": "\u05e4\u05d2\u05d5\u05e9 \u05d0\u05e0\u05db\u05d9 \u05dc\u05d7\u05d5\u05e5",
+                    "vibrarise_jammed": "VibraRise \u05ea\u05e7\u05d5\u05e2",
+                    "visual_sensor": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05de\u05e6\u05dc\u05de\u05d4",
+                    "wall_sensor_dirty": "\u05d7\u05d9\u05d9\u05e9\u05df \u05e7\u05d9\u05e8 \u05de\u05dc\u05d5\u05db\u05dc\u05da",
+                    "water_carriage_drop": "\u05de\u05db\u05dc \u05d4\u05de\u05d9\u05dd \u05e0\u05e4\u05dc",
+                    "wheels_jammed": "\u05d2\u05dc\u05d2\u05dc\u05d9\u05dd \u05ea\u05e7\u05d5\u05e2\u05d9\u05dd",
+                    "wheels_suspended": "\u05d2\u05dc\u05d2\u05dc\u05d9\u05dd \u05ea\u05dc\u05d5\u05d9\u05d9\u05dd"
+                }
+            },
+            "washing_left": {
+                "name": "\u05e0\u05d5\u05ea\u05e8 \u05dc\u05db\u05d1\u05d9\u05e1\u05d4"
+            },
+            "zeo_error": {
+                "name": "\u05e9\u05d2\u05d9\u05d0\u05d4",
+                "state": {
+                    "communication_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05ea\u05e7\u05e9\u05d5\u05e8\u05ea",
+                    "door_lock_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05e0\u05e2\u05d9\u05dc\u05ea \u05d3\u05dc\u05ea",
+                    "drain_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05e0\u05d9\u05e7\u05d5\u05d6",
+                    "drying_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d9\u05d9\u05d1\u05d5\u05e9: \u05d9\u05e9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05ea \u05d7\u05d9\u05d9\u05e9\u05df \u05d8\u05de\u05e4\u05e8\u05d8\u05d5\u05e8\u05ea \u05db\u05e0\u05d9\u05e1\u05ea \u05d4\u05d0\u05d5\u05d5\u05d9\u05e8",
+                    "drying_error_e_12": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d9\u05d9\u05d1\u05d5\u05e9: \u05d9\u05e9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05ea \u05d7\u05d9\u05d9\u05e9\u05df \u05d8\u05de\u05e4\u05e8\u05d8\u05d5\u05e8\u05ea \u05d9\u05e6\u05d9\u05d0\u05ea \u05d4\u05d0\u05d5\u05d5\u05d9\u05e8",
+                    "drying_error_e_13": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d9\u05d9\u05d1\u05d5\u05e9 E13",
+                    "drying_error_e_14": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d9\u05d9\u05d1\u05d5\u05e9: \u05d9\u05e9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05ea \u05d7\u05d9\u05d9\u05e9\u05df \u05d8\u05de\u05e4\u05e8\u05d8\u05d5\u05e8\u05ea \u05de\u05e2\u05d1\u05d4 \u05d4\u05db\u05e0\u05d9\u05e1\u05d4",
+                    "drying_error_e_15": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d9\u05d9\u05d1\u05d5\u05e9: \u05d9\u05e9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05ea \u05d2\u05d5\u05e3 \u05d4\u05d7\u05d9\u05de\u05d5\u05dd \u05d0\u05d5 \u05de\u05e9\u05d8\u05d7 \u05d4\u05e1\u05d9\u05d1\u05d5\u05d1",
+                    "drying_error_e_16": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d9\u05d9\u05d1\u05d5\u05e9: \u05d9\u05e9 \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05ea \u05de\u05d0\u05d5\u05d5\u05e8\u05e8 \u05d4\u05d9\u05d9\u05d1\u05d5\u05e9",
+                    "drying_error_restart": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d9\u05d9\u05d1\u05d5\u05e9: \u05d9\u05e9 \u05dc\u05d4\u05e4\u05e2\u05d9\u05dc \u05de\u05d7\u05d3\u05e9 \u05d0\u05ea \u05de\u05db\u05d5\u05e0\u05ea \u05d4\u05db\u05d1\u05d9\u05e1\u05d4",
+                    "drying_error_water_flow": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d9\u05d9\u05d1\u05d5\u05e9: \u05d1\u05d3\u05d9\u05e7\u05ea \u05d6\u05e8\u05d9\u05de\u05ea \u05de\u05d9\u05dd",
+                    "heating_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d7\u05d9\u05de\u05d5\u05dd",
+                    "inverter_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d0\u05d9\u05e0\u05d5\u05d5\u05e8\u05d8\u05e8",
+                    "none": "\u05dc\u05dc\u05d0",
+                    "refill_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05de\u05d9\u05dc\u05d5\u05d9 \u05de\u05d7\u05d3\u05e9",
+                    "spin_error": "\u05e1\u05d9\u05d3\u05d5\u05e8 \u05de\u05d7\u05d3\u05e9 \u05e9\u05dc \u05d1\u05d2\u05d3\u05d9\u05dd",
+                    "temperature_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05d8\u05de\u05e4\u05e8\u05d8\u05d5\u05e8\u05d4",
+                    "water_level_error": "\u05e9\u05d2\u05d9\u05d0\u05ea \u05de\u05e4\u05dc\u05e1 \u05d4\u05de\u05d9\u05dd"
+                }
+            },
+            "zeo_state": {
+                "name": "\u05de\u05e6\u05d1",
+                "state": {
+                    "aftercare": "\u05d8\u05d9\u05e4\u05d5\u05dc \u05dc\u05d0\u05d7\u05e8 \u05db\u05d1\u05d9\u05e1\u05d4",
+                    "cloth_ready": "\u05d1\u05d2\u05d3\u05d9\u05dd \u05de\u05d5\u05db\u05e0\u05d9\u05dd",
+                    "cooling": "\u05e7\u05d9\u05e8\u05d5\u05e8",
+                    "descaling": "\u05d4\u05e1\u05e8\u05ea \u05d0\u05d1\u05e0\u05d9\u05ea",
+                    "done": "\u05d1\u05d5\u05e6\u05e2",
+                    "drying": "\u05d9\u05d9\u05d1\u05d5\u05e9",
+                    "in_care": "\u05d1\u05d8\u05d9\u05e4\u05d5\u05dc",
+                    "null": "\u05dc\u05d0 \u05d9\u05d3\u05d5\u05e2",
+                    "pre_heat_complete": "\u05d7\u05d9\u05de\u05d5\u05dd \u05de\u05e7\u05d3\u05d9\u05dd \u05d4\u05d5\u05e9\u05dc\u05dd",
+                    "pre_heating": "\u05d7\u05d9\u05de\u05d5\u05dd \u05de\u05e7\u05d3\u05d9\u05dd",
+                    "rinsing": "\u05e9\u05d8\u05d9\u05e4\u05d4",
+                    "soaking": "\u05d4\u05e9\u05e8\u05d9\u05d4",
+                    "spinning": "\u05e1\u05d7\u05d9\u05d8\u05d4",
+                    "standby": "\u05d1\u05d4\u05de\u05ea\u05e0\u05d4",
+                    "steam_caring": "\u05d8\u05d9\u05e4\u05d5\u05dc \u05d1\u05d0\u05d3\u05d9\u05dd",
+                    "under_delay_start": "\u05d4\u05ea\u05d7\u05dc\u05d4 \u05de\u05d5\u05e9\u05d4\u05d9\u05ea",
+                    "updating": "\u05de\u05e2\u05d3\u05db\u05df",
+                    "waiting_for_aftercare": "\u05de\u05d7\u05db\u05d4 \u05dc\u05d8\u05d9\u05e4\u05d5\u05dc \u05dc\u05d0\u05d7\u05e8 \u05db\u05d1\u05d9\u05e1\u05d4",
+                    "waiting_for_drying": "\u05de\u05de\u05ea\u05d9\u05df \u05dc\u05d9\u05d9\u05d1\u05d5\u05e9",
+                    "washing": "\u05db\u05d1\u05d9\u05e1\u05d4",
+                    "weighing": "\u05e9\u05e7\u05d9\u05dc\u05d4"
+                }
+            }
+        },
+        "switch": {
+            "button_light": {
+                "name": "\u05e0\u05d5\u05e8\u05d9\u05ea \u05d7\u05d9\u05d5\u05d5\u05d9"
+            },
+            "child_lock": {
+                "name": "\u05e0\u05e2\u05d9\u05dc\u05ea \u05d9\u05dc\u05d3\u05d9\u05dd"
+            },
+            "dnd_switch": {
+                "name": "\u05e0\u05d0 \u05dc\u05d0 \u05dc\u05d4\u05e4\u05e8\u05d9\u05e2"
+            },
+            "dust_collection": {
+                "name": "\u05d0\u05d9\u05e1\u05d5\u05e3 \u05d0\u05d1\u05e7"
+            },
+            "dust_emptying": {
+                "name": "\u05e8\u05d9\u05e7\u05d5\u05df \u05d0\u05d1\u05e7"
+            },
+            "mop_drying": {
+                "name": "\u05d9\u05d9\u05d1\u05d5\u05e9 \u05de\u05d8\u05dc\u05d9\u05d5\u05ea"
+            },
+            "mop_washing": {
+                "name": "\u05e9\u05d8\u05d9\u05e4\u05ea \u05de\u05d8\u05dc\u05d9\u05d5\u05ea"
+            },
+            "off_peak_switch": {
+                "name": "\u05d8\u05e2\u05d9\u05e0\u05d4 \u05de\u05d7\u05d5\u05e5 \u05dc\u05e9\u05d9\u05d0"
+            },
+            "sound_setting": {
+                "name": "\u05d4\u05d2\u05d3\u05e8\u05ea \u05e6\u05dc\u05d9\u05dc"
+            },
+            "status_indicator": {
+                "name": "\u05e0\u05d5\u05e8\u05d9\u05ea \u05d7\u05d9\u05d5\u05d5\u05d9 \u05de\u05e6\u05d1"
+            }
+        },
+        "time": {
+            "dnd_end_time": {
+                "name": "\u05e1\u05d9\u05d5\u05dd \u05e0\u05d0 \u05dc\u05d0 \u05dc\u05d4\u05e4\u05e8\u05d9\u05e2"
+            },
+            "dnd_start_time": {
+                "name": "\u05d4\u05ea\u05d7\u05dc\u05ea \u05e0\u05d0 \u05dc\u05d0 \u05dc\u05d4\u05e4\u05e8\u05d9\u05e2"
+            },
+            "off_peak_end": {
+                "name": "\u05e1\u05d5\u05e3 \u05de\u05d7\u05d5\u05e5 \u05dc\u05e9\u05d9\u05d0"
+            },
+            "off_peak_start": {
+                "name": "\u05d4\u05ea\u05d7\u05dc\u05d4 \u05de\u05d7\u05d5\u05e5 \u05dc\u05e9\u05d9\u05d0"
+            }
+        },
+        "vacuum": {
+            "roborock": {
+                "state_attributes": {
+                    "fan_speed": {
+                        "state": {
+                            "auto": "\u05d0\u05d5\u05d8\u05d5\u05de\u05d8\u05d9",
+                            "balanced": "\u05de\u05d0\u05d5\u05d6\u05df",
+                            "custom": "\u05de\u05d5\u05ea\u05d0\u05dd \u05d0\u05d9\u05e9\u05d9\u05ea",
+                            "gentle": "\u05e2\u05d3\u05d9\u05df",
+                            "max": "\u05de\u05e7\u05e1\u05d9\u05de\u05d5\u05dd",
+                            "max_plus": "\u05de\u05e7\u05e1\u05d9\u05de\u05d5\u05dd \u05e4\u05dc\u05d5\u05e1",
+                            "medium": "\u05d1\u05d9\u05e0\u05d5\u05e0\u05d9",
+                            "off": "\u05db\u05d1\u05d5\u05d9",
+                            "off_raise_main_brush": "\u05db\u05d1\u05d5\u05d9 (\u05de\u05d1\u05e8\u05e9\u05ea \u05de\u05d5\u05e8\u05de\u05ea)",
+                            "quiet": "\u05e9\u05e7\u05d8",
+                            "silent": "\u05e9\u05e7\u05d8",
+                            "smart_mode": "SmartPlan",
+                            "standard": "\u05e8\u05d2\u05d9\u05dc",
+                            "turbo": "\u05d8\u05d5\u05e8\u05d1\u05d5"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "button_press_failed": {
+            "message": "\u05dc\u05d7\u05d9\u05e6\u05ea \u05d4\u05dc\u05d7\u05e6\u05df \u05e0\u05db\u05e9\u05dc\u05d4"
+        },
+        "command_failed": {
+            "message": "\u05e9\u05d2\u05d9\u05d0\u05d4 \u05d1\u05e2\u05ea \u05e7\u05e8\u05d9\u05d0\u05d4 \u05dc-{command}"
+        },
+        "home_data_fail": {
+            "message": "\u05d4\u05e9\u05d2\u05ea \u05e0\u05ea\u05d5\u05e0\u05d9 \u05d4\u05d1\u05d9\u05ea \u05e9\u05dc Roborock \u05e0\u05db\u05e9\u05dc\u05d4"
+        },
+        "invalid_command": {
+            "message": "\u05e4\u05e7\u05d5\u05d3\u05d4 \u05dc\u05d0 \u05d7\u05d5\u05e7\u05d9\u05ea {command}"
+        },
+        "invalid_credentials": {
+            "message": "\u05d0\u05d9\u05e9\u05d5\u05e8\u05d9\u05dd \u05dc\u05d0 \u05d7\u05d5\u05e7\u05d9\u05d9\u05dd."
+        },
+        "invalid_fan_speed": {
+            "message": "\u05de\u05d4\u05d9\u05e8\u05d5\u05ea \u05de\u05d0\u05d5\u05d5\u05e8\u05e8 \u05dc\u05d0 \u05d7\u05d5\u05e7\u05d9\u05ea: {fan_speed}"
+        },
+        "invalid_user_agreement": {
+            "message": "\u05d9\u05e9 \u05dc\u05d0\u05e9\u05e8 \u05e9\u05d5\u05d1 \u05d0\u05ea \u05d4\u05e1\u05db\u05dd \u05d4\u05de\u05e9\u05ea\u05de\u05e9. \u05e0\u05d3\u05e8\u05e9 \u05dc\u05e4\u05ea\u05d5\u05d7 \u05d0\u05ea \u05d9\u05d9\u05e9\u05d5\u05dd \u05e8\u05d5\u05d1\u05d5\u05e8\u05d5\u05e7 \u05e9\u05dc\u05da \u05d5\u05dc\u05e7\u05d1\u05dc \u05d0\u05ea \u05d4\u05d4\u05e1\u05db\u05dd."
+        },
+        "map_failure": {
+            "message": "\u05de\u05e9\u05d4\u05d5 \u05d4\u05e9\u05ea\u05d1\u05e9 \u05d1\u05d9\u05e6\u05d9\u05e8\u05ea \u05d4\u05de\u05e4\u05d4"
+        },
+        "mqtt_unauthorized": {
+            "message": "\u05e9\u05e8\u05ea\u05d9 Roborock MQTT \u05d3\u05d7\u05d5 \u05d0\u05ea \u05d4\u05d7\u05d9\u05d1\u05d5\u05e8 \u05e2\u05e7\u05d1 \u05de\u05d2\u05d1\u05dc\u05ea \u05e7\u05e6\u05d1 \u05d0\u05d5 \u05d0\u05d9\u05e9\u05d5\u05e8\u05d9\u05dd \u05dc\u05d0 \u05d7\u05d5\u05e7\u05d9\u05d9\u05dd. \u05d1\u05d0\u05e4\u05e9\u05e8\u05d5\u05ea\u05da \u05dc\u05e0\u05e1\u05d5\u05ea \u05dc\u05d0\u05de\u05ea \u05de\u05d7\u05d3\u05e9 \u05d0\u05d5 \u05dc\u05d4\u05de\u05ea\u05d9\u05df \u05d5\u05dc\u05d8\u05e2\u05d5\u05df \u05de\u05d7\u05d3\u05e9 \u05d0\u05ea \u05d4\u05e9\u05d9\u05dc\u05d5\u05d1."
+        },
+        "no_coordinators": {
+            "message": "\u05d0\u05e3 \u05de\u05db\u05e9\u05d9\u05e8 \u05dc\u05d0 \u05d4\u05e6\u05dc\u05d9\u05d7 \u05dc\u05d4\u05d9\u05d5\u05ea \u05de\u05d5\u05d2\u05d3\u05e8 \u05d1\u05d4\u05e6\u05dc\u05d7\u05d4"
+        },
+        "no_user_agreement": {
+            "message": "\u05d0\u05d9\u05df \u05dc\u05da \u05d4\u05e1\u05db\u05dd \u05de\u05e9\u05ea\u05de\u05e9 \u05ea\u05e7\u05e3. \u05d9\u05e9 \u05dc\u05e4\u05ea\u05d5\u05d7 \u05d0\u05ea \u05d9\u05d9\u05e9\u05d5\u05dd \u05e8\u05d5\u05d1\u05d5\u05e8\u05d5\u05e7 \u05e9\u05dc\u05da \u05d5\u05dc\u05e7\u05d1\u05dc \u05d0\u05ea \u05d4\u05d4\u05e1\u05db\u05dd."
+        },
+        "position_not_found": {
+            "message": "\u05de\u05d9\u05e7\u05d5\u05dd \u05d4\u05e8\u05d5\u05d1\u05d5\u05d8 \u05dc\u05d0 \u05e0\u05de\u05e6\u05d0"
+        },
+        "request_fail": {
+            "message": "\u05d1\u05e7\u05e9\u05ea \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e0\u05db\u05e9\u05dc\u05d4"
+        },
+        "segment_id_parse_error": {
+            "message": "\u05e4\u05d5\u05e8\u05de\u05d8 \u05d6\u05d9\u05d4\u05d5\u05d9 \u05e7\u05d8\u05e2 \u05dc\u05d0 \u05d7\u05d5\u05e7\u05d9: {segment_id}"
+        },
+        "select_option_failed": {
+            "message": "\u05e0\u05db\u05e9\u05dc\u05d4 \u05d4\u05d2\u05d3\u05e8\u05ea \u05d4\u05d0\u05e4\u05e9\u05e8\u05d5\u05ea \u05e9\u05e0\u05d1\u05d7\u05e8\u05d4"
+        },
+        "update_data_fail": {
+            "message": "\u05e2\u05d3\u05db\u05d5\u05df \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e0\u05db\u05e9\u05dc"
+        },
+        "update_options_failed": {
+            "message": "\u05e2\u05d3\u05db\u05d5\u05df \u05d0\u05e4\u05e9\u05e8\u05d5\u05d9\u05d5\u05ea Roborock \u05e0\u05db\u05e9\u05dc"
+        }
+    },
+    "issues": {
+        "cloud_api_used": {
+            "description": "\u05d4\u05e9\u05d9\u05dc\u05d5\u05d1 \u05e9\u05dc Roborock \u05d0\u05d9\u05e0\u05d5 \u05de\u05e6\u05dc\u05d9\u05d7 \u05dc\u05d4\u05ea\u05d7\u05d1\u05e8 \u05d9\u05e9\u05d9\u05e8\u05d5\u05ea \u05d0\u05dc {device_name} \u05d5\u05d7\u05d6\u05e8\u05d4 \u05dc\u05de\u05de\u05e9\u05e7 \u05d4-API \u05e9\u05dc \u05d4\u05e2\u05e0\u05df. \u05e4\u05e2\u05d5\u05dc\u05d4 \u05d6\u05d5 \u05d0\u05d9\u05e0\u05d4 \u05de\u05d5\u05de\u05dc\u05e6\u05ea \u05de\u05db\u05d9\u05d5\u05d5\u05df \u05e9\u05d4\u05d9\u05d0 \u05e2\u05dc\u05d5\u05dc\u05d4 \u05dc\u05d4\u05d5\u05d1\u05d9\u05dc \u05dc\u05d4\u05d2\u05d1\u05dc\u05ea \u05e7\u05e6\u05d1. \u05e0\u05d0 \u05dc\u05d4\u05e4\u05d5\u05da \u05d0\u05ea \u05e9\u05d5\u05d0\u05d1 \u05d4\u05d0\u05d1\u05e7 \u05e9\u05dc\u05da \u05dc\u05e0\u05d2\u05d9\u05e9 \u05d1\u05e8\u05e9\u05ea \u05d4\u05de\u05e7\u05d5\u05de\u05d9\u05ea \u05e2\u05dc \u05d9\u05d3\u05d9 \u05de\u05d5\u05e4\u05e2 Home Assistant \u05e9\u05dc\u05da.",
+            "title": "\u05de\u05de\u05e9\u05e7 API \u05dc\u05e2\u05e0\u05df \u05d1\u05e9\u05d9\u05de\u05d5\u05e9"
+        },
+        "deprecated_mop_drying": {
+            "description": "\u05d4-`{entity_id}` ({entity_name} \u05d7\u05d9\u05d9\u05e9\u05df \u05d1\u05d9\u05e0\u05d0\u05e8\u05d9) \u05d4\u05d5\u05e6\u05d0 \u05de\u05e9\u05d9\u05de\u05d5\u05e9 \u05d5\u05d4\u05d5\u05d7\u05dc\u05e3 \u05e2\u05dc \u05d9\u05d3\u05d9 \u05de\u05ea\u05d2 **\u05d9\u05d9\u05d1\u05d5\u05e9 \u05de\u05d8\u05dc\u05d9\u05d5\u05ea**, \u05d0\u05e9\u05e8 \u05de\u05d3\u05d5\u05d5\u05d7 \u05e2\u05dc \u05d0\u05d5\u05ea\u05d5 \u05de\u05e6\u05d1 \u05d5\u05d9\u05db\u05d5\u05dc \u05d2\u05dd \u05dc\u05d4\u05ea\u05d7\u05d9\u05dc \u05d5\u05dc\u05d4\u05e4\u05e1\u05d9\u05e7 \u05d9\u05d9\u05d1\u05d5\u05e9.\n\n\u05d9\u05e9 \u05dc\u05e2\u05d3\u05db\u05df \u05d0\u05ea \u05db\u05dc \u05dc\u05d5\u05d7\u05d5\u05ea \u05d4\u05de\u05d7\u05d5\u05d5\u05e0\u05d9\u05dd, \u05d4\u05ea\u05d1\u05e0\u05d9\u05d5\u05ea, \u05d4\u05d0\u05d5\u05d8\u05d5\u05de\u05e6\u05d9\u05d5\u05ea \u05d0\u05d5 \u05d4\u05e1\u05e7\u05e8\u05d9\u05e4\u05d8\u05d9\u05dd \u05db\u05d3\u05d9 \u05dc\u05d4\u05e9\u05ea\u05de\u05e9 \u05d1\u05d9\u05e9\u05d5\u05ea \u05d4\u05de\u05ea\u05d2 \u05d4\u05d7\u05d3\u05e9\u05d4, \u05d5\u05dc\u05d0\u05d7\u05e8 \u05de\u05db\u05df \u05dc\u05d4\u05e9\u05d1\u05d9\u05ea \u05d0\u05ea `{entity_id} \u05db\u05d3\u05d9 \u05dc\u05d4\u05e1\u05d9\u05e8 \u05d0\u05d5\u05ea\u05d5.",
+            "title": "\u05d7\u05d9\u05d9\u05e9\u05df \u05d4\u05d1\u05d9\u05e0\u05d0\u05e8\u05d9 \u05e9\u05dc \u05d9\u05d9\u05d1\u05d5\u05e9 \u05de\u05d8\u05dc\u05d9\u05d5\u05ea \u05e9\u05dc \u05e8\u05d5\u05d1\u05d5\u05e8\u05d5\u05e7 \u05d4\u05d5\u05e6\u05d0 \u05de\u05e9\u05d9\u05de\u05d5\u05e9"
+        },
+        "deprecated_mop_drying_scripts": {
+            "description": "\u05d4-`{entity_id}` ({entity_name} \u05d7\u05d9\u05d9\u05e9\u05df \u05d1\u05d9\u05e0\u05d0\u05e8\u05d9) \u05d4\u05d5\u05e6\u05d0 \u05de\u05e9\u05d9\u05de\u05d5\u05e9 \u05d5\u05d4\u05d5\u05d7\u05dc\u05e3 \u05e2\u05dc \u05d9\u05d3\u05d9 \u05de\u05ea\u05d2 **\u05d9\u05d9\u05d1\u05d5\u05e9 \u05de\u05d8\u05dc\u05d9\u05d5\u05ea**, \u05d0\u05e9\u05e8 \u05de\u05d3\u05d5\u05d5\u05d7 \u05e2\u05dc \u05d0\u05d5\u05ea\u05d5 \u05de\u05e6\u05d1 \u05d5\u05d9\u05db\u05d5\u05dc \u05d2\u05dd \u05dc\u05d4\u05ea\u05d7\u05d9\u05dc \u05d5\u05dc\u05d4\u05e4\u05e1\u05d9\u05e7 \u05d9\u05d9\u05d1\u05d5\u05e9.\n\n\u05d4\u05d5\u05d0 \u05e2\u05d3\u05d9\u05d9\u05df \u05d1\u05e9\u05d9\u05de\u05d5\u05e9 \u05d1\u05d0\u05d5\u05d8\u05d5\u05de\u05e6\u05d9\u05d5\u05ea \u05d0\u05d5 \u05d1\u05e1\u05e7\u05e8\u05d9\u05e4\u05d8\u05d9\u05dd \u05d4\u05d1\u05d0\u05d9\u05dd:\n{items}\n\n\u05d9\u05e9 \u05dc\u05e2\u05d3\u05db\u05df \u05d0\u05d5\u05ea\u05dd \u05dc\u05e9\u05d9\u05de\u05d5\u05e9 \u05d1\u05d9\u05e9\u05d5\u05ea \u05d4\u05de\u05ea\u05d2 \u05d4\u05d7\u05d3\u05e9\u05d4, \u05dc\u05d0\u05d7\u05e8 \u05de\u05db\u05df \u05dc\u05d4\u05e9\u05d1\u05d9\u05ea \u05d0\u05ea `{entity_id} \u05db\u05d3\u05d9 \u05dc\u05d4\u05e1\u05d9\u05e8 \u05d0\u05d5\u05ea\u05d5.",
+            "title": "\u05d7\u05d9\u05d9\u05e9\u05df \u05d4\u05d1\u05d9\u05e0\u05d0\u05e8\u05d9 \u05e9\u05dc \u05d9\u05d9\u05d1\u05d5\u05e9 \u05de\u05d8\u05dc\u05d9\u05d5\u05ea \u05e9\u05dc \u05e8\u05d5\u05d1\u05d5\u05e8\u05d5\u05e7 \u05d4\u05d5\u05e6\u05d0 \u05de\u05e9\u05d9\u05de\u05d5\u05e9"
+        }
+    },
+    "options": {
+        "step": {
+            "drawables": {
+                "data": {
+                    "charger": "\u05de\u05d8\u05e2\u05df",
+                    "cleaned_area": "\u05d0\u05d6\u05d5\u05e8 \u05e9\u05e0\u05d5\u05e7\u05d4",
+                    "goto_path": "\u05de\u05e2\u05d1\u05e8 \u05dc\u05e0\u05ea\u05d9\u05d1",
+                    "ignored_obstacles": "\u05d4\u05ea\u05e2\u05dc\u05de\u05d5\u05ea \u05de\u05de\u05db\u05e9\u05d5\u05dc\u05d9\u05dd",
+                    "ignored_obstacles_with_photo": "\u05d4\u05ea\u05e2\u05dc\u05de\u05d5\u05ea \u05de\u05de\u05db\u05e9\u05d5\u05dc\u05d9\u05dd \u05e2\u05dd \u05ea\u05de\u05d5\u05e0\u05d4",
+                    "mop_path": "\u05e0\u05ea\u05d9\u05d1 \u05de\u05d8\u05dc\u05d9\u05ea",
+                    "no_carpet_zones": "\u05d0\u05d9\u05df \u05d0\u05d6\u05d5\u05e8\u05d9 \u05e9\u05d8\u05d9\u05d7\u05d9\u05dd",
+                    "no_go_zones": "\u05d0\u05d6\u05d5\u05e8\u05d9\u05dd \u05de\u05d7\u05d5\u05e5 \u05dc\u05db\u05e0\u05d9\u05e1\u05d4",
+                    "no_mopping_zones": "\u05d0\u05d9\u05df \u05d0\u05d6\u05d5\u05e8\u05d9 \u05e0\u05d9\u05e7\u05d5\u05d9",
+                    "obstacles": "\u05de\u05db\u05e9\u05d5\u05dc\u05d9\u05dd",
+                    "obstacles_with_photo": "\u05de\u05db\u05e9\u05d5\u05dc\u05d9\u05dd \u05e2\u05dd \u05ea\u05de\u05d5\u05e0\u05d4",
+                    "path": "\u05e0\u05ea\u05d9\u05d1",
+                    "predicted_path": "\u05e0\u05ea\u05d9\u05d1 \u05d7\u05d6\u05d5\u05d9",
+                    "room_names": "\u05e9\u05de\u05d5\u05ea \u05d7\u05d3\u05e8\u05d9\u05dd",
+                    "show_background": "\u05d4\u05e6\u05d2\u05ea \u05e8\u05e7\u05e2",
+                    "show_rooms": "\u05d4\u05e6\u05d2\u05ea \u05d7\u05d3\u05e8\u05d9\u05dd",
+                    "show_walls": "\u05d4\u05e6\u05d2\u05ea \u05e7\u05d9\u05e8\u05d5\u05ea",
+                    "vacuum_position": "\u05de\u05d9\u05e7\u05d5\u05dd \u05e9\u05d5\u05d0\u05d1",
+                    "virtual_walls": "\u05e7\u05d9\u05e8\u05d5\u05ea \u05d5\u05d9\u05e8\u05d8\u05d5\u05d0\u05dc\u05d9\u05d9\u05dd",
+                    "zones": "\u05d0\u05d6\u05d5\u05e8\u05d9\u05dd"
+                },
+                "data_description": {
+                    "charger": "\u05d4\u05e6\u05d2\u05ea \u05d4\u05de\u05d8\u05e2\u05df \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "cleaned_area": "\u05d4\u05e6\u05d2\u05ea \u05d4\u05d0\u05d6\u05d5\u05e8 \u05d4\u05e0\u05e7\u05d9 \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "goto_path": "\u05d4\u05e6\u05d2\u05ea \u05e0\u05ea\u05d9\u05d1 \u05dc\u05da-\u05d0\u05dc \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "ignored_obstacles": "\u05d4\u05e6\u05d2\u05ea \u05de\u05db\u05e9\u05d5\u05dc\u05d9\u05dd \u05e9\u05d4\u05ea\u05e2\u05dc\u05de\u05d5 \u05de\u05d4\u05dd \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "ignored_obstacles_with_photo": "\u05d4\u05e6\u05d2\u05ea \u05de\u05db\u05e9\u05d5\u05dc\u05d9\u05dd \u05e9\u05d4\u05ea\u05e2\u05dc\u05de\u05ea \u05de\u05d4\u05dd \u05e2\u05dd \u05ea\u05de\u05d5\u05e0\u05d5\u05ea \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "mop_path": "\u05d4\u05e6\u05d2\u05ea \u05e0\u05ea\u05d9\u05d1 \u05d4\u05de\u05d2\u05d1 \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "no_carpet_zones": "\u05d4\u05e6\u05d2\u05ea \u05d4\u05d0\u05d6\u05d5\u05e8\u05d9\u05dd \u05dc\u05dc\u05d0 \u05e9\u05d8\u05d9\u05d7\u05d9\u05dd \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "no_go_zones": "\u05d4\u05e6\u05d2\u05ea \u05d4\u05d0\u05d6\u05d5\u05e8\u05d9\u05dd \u05d4\u05d0\u05e1\u05d5\u05e8\u05d9\u05dd \u05d1\u05db\u05e0\u05d9\u05e1\u05d4 \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "no_mopping_zones": "\u05d4\u05e6\u05d2\u05ea \u05d4\u05d0\u05d6\u05d5\u05e8\u05d9\u05dd \u05dc\u05dc\u05d0 \u05de\u05d2\u05d1 \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "obstacles": "\u05d4\u05e6\u05d2\u05ea \u05de\u05db\u05e9\u05d5\u05dc\u05d9\u05dd \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "obstacles_with_photo": "\u05d4\u05e6\u05d2\u05ea \u05de\u05db\u05e9\u05d5\u05dc\u05d9\u05dd \u05e2\u05dd \u05ea\u05de\u05d5\u05e0\u05d5\u05ea \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "path": "\u05d4\u05e6\u05d2\u05ea \u05d4\u05e0\u05ea\u05d9\u05d1 \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "predicted_path": "\u05d4\u05e6\u05d2\u05ea \u05d4\u05e0\u05ea\u05d9\u05d1 \u05d4\u05d7\u05d6\u05d5\u05d9 \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "room_names": "\u05d4\u05e6\u05d2\u05ea \u05e9\u05de\u05d5\u05ea \u05d4\u05d7\u05d3\u05e8\u05d9\u05dd \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "show_background": "\u05d4\u05d5\u05e1\u05e4\u05ea \u05e8\u05e7\u05e2 \u05dc\u05de\u05e4\u05d4.",
+                    "show_rooms": "\u05d4\u05e6\u05d2\u05ea \u05d4\u05d7\u05d3\u05e8\u05d9\u05dd \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "show_walls": "\u05d4\u05e6\u05d2\u05ea \u05d4\u05e7\u05d9\u05e8\u05d5\u05ea \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "vacuum_position": "\u05d4\u05e6\u05d2\u05ea \u05de\u05d9\u05e7\u05d5\u05dd \u05d4\u05e9\u05d5\u05d0\u05d1 \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "virtual_walls": "\u05d4\u05e6\u05d2\u05ea \u05e7\u05d9\u05e8\u05d5\u05ea \u05d5\u05d9\u05e8\u05d8\u05d5\u05d0\u05dc\u05d9\u05d9\u05dd \u05e2\u05dc \u05d4\u05de\u05e4\u05d4.",
+                    "zones": "\u05d4\u05e6\u05d2\u05ea \u05d0\u05d6\u05d5\u05e8\u05d9\u05dd \u05d1\u05de\u05e4\u05d4."
+                },
+                "description": "\u05e6\u05d9\u05d5\u05df \u05d0\u05d9\u05dc\u05d5 \u05ea\u05db\u05d5\u05e0\u05d5\u05ea \u05dc\u05e6\u05d9\u05d9\u05e8 \u05d1\u05de\u05e4\u05d4."
+            }
+        }
+    },
+    "selector": {
+        "region": {
+            "options": {
+                "auto": "\u05d0\u05d5\u05d8\u05d5\u05de\u05d8\u05d9",
+                "cn": "CN",
+                "custom": "\u05d9\u05d3\u05e0\u05d9",
+                "eu": "EU",
+                "ru": "RU",
+                "us": "US"
+            }
+        }
+    },
+    "services": {
+        "get_maps": {
+            "description": "\u05de\u05d0\u05d7\u05d6\u05e8 \u05d0\u05ea \u05e4\u05e8\u05d8\u05d9 \u05d4\u05de\u05e4\u05d4 \u05d5\u05d4\u05d7\u05d3\u05e8 \u05e9\u05dc \u05d4\u05de\u05db\u05e9\u05d9\u05e8 \u05e9\u05dc\u05da.",
+            "name": "\u05e7\u05d1\u05dc\u05ea \u05de\u05e4\u05d5\u05ea"
+        },
+        "get_vacuum_current_position": {
+            "description": "\u05de\u05d0\u05d7\u05d6\u05e8 \u05d0\u05ea \u05d4\u05de\u05d9\u05e7\u05d5\u05dd \u05d4\u05e0\u05d5\u05db\u05d7\u05d9 \u05e9\u05dc \u05d4\u05e9\u05d5\u05d0\u05d1.",
+            "name": "\u05e7\u05d1\u05dc\u05ea \u05d4\u05de\u05d9\u05e7\u05d5\u05dd \u05d4\u05e0\u05d5\u05db\u05d7\u05d9"
+        },
+        "set_vacuum_goto_position": {
+            "description": "\u05e9\u05d5\u05dc\u05d7 \u05d0\u05ea \u05d4\u05e9\u05d5\u05d0\u05d1 \u05dc\u05de\u05d9\u05e7\u05d5\u05dd \u05e1\u05e4\u05e6\u05d9\u05e4\u05d9.",
+            "fields": {
+                "x": {
+                    "description": "\u05d4\u05e7\u05d5\u05d0\u05d5\u05e8\u05d3\u05d9\u05e0\u05d8\u05d5\u05ea \u05d4\u05df \u05d1\u05d9\u05d7\u05e1 \u05dc\u05e2\u05d2\u05d9\u05e0\u05d4. x=25500,y=25500 \u05d4\u05d5\u05d0 \u05de\u05d9\u05e7\u05d5\u05dd \u05d4\u05de\u05e2\u05d2\u05df.",
+                    "name": "\u05e7\u05d5\u05d0\u05d5\u05e8\u05d3\u05d9\u05e0\u05d8\u05ea X"
+                },
+                "y": {
+                    "description": "\u05d4\u05e7\u05d5\u05d0\u05d5\u05e8\u05d3\u05d9\u05e0\u05d8\u05d5\u05ea \u05d4\u05df \u05d1\u05d9\u05d7\u05e1 \u05dc\u05e2\u05d2\u05d9\u05e0\u05d4. x=25500,y=25500 \u05d4\u05d5\u05d0 \u05de\u05d9\u05e7\u05d5\u05dd \u05d4\u05de\u05e2\u05d2\u05df.",
+                    "name": "\u05e7\u05d5\u05d0\u05d5\u05e8\u05d3\u05d9\u05e0\u05d8\u05ea Y"
+                }
+            },
+            "name": "\u05dc\u05da \u05dc\u05e2\u05de\u05d3\u05d4"
+        },
+        "set_vacuum_zoned_cleaning": {
+            "description": "\u05de\u05ea\u05d7\u05d9\u05dc \u05e0\u05d9\u05e7\u05d5\u05d9 \u05d4\u05d0\u05d6\u05d5\u05e8 \u05e9\u05e6\u05d5\u05d9\u05df.",
+            "fields": {
+                "repeats": {
+                    "description": "\u05de\u05e1\u05e4\u05e8 \u05d4\u05e4\u05e2\u05de\u05d9\u05dd \u05e9\u05e0\u05d9\u05e7\u05d5\u05d9 \u05d4\u05d0\u05d6\u05d5\u05e8 \u05d7\u05d5\u05d6\u05e8 \u05e2\u05dc \u05e2\u05e6\u05de\u05d5. '0' \u05d4\u05d5\u05d0 \u05e0\u05d9\u05e7\u05d5\u05d9 \u05e4\u05e2\u05dd \u05d0\u05d7\u05ea \u05d1\u05dc\u05d1\u05d3.",
+                    "name": "\u05d7\u05d6\u05e8\u05d5\u05ea"
+                },
+                "x1": {
+                    "description": "\u05e7\u05d5\u05d0\u05d5\u05e8\u05d3\u05d9\u05e0\u05d8\u05ea \u05d4-x \u05d4\u05e8\u05d0\u05e9\u05d5\u05e0\u05d4 \u05e9\u05dc \u05d4\u05d0\u05d6\u05d5\u05e8.",
+                    "name": "\u05e7\u05d5\u05d0\u05d5\u05e8\u05d3\u05d9\u05e0\u05d8\u05ea X1"
+                },
+                "x2": {
+                    "description": "\u05e7\u05d5\u05d0\u05d5\u05e8\u05d3\u05d9\u05e0\u05d8\u05ea \u05d4-x \u05d4\u05e9\u05e0\u05d9\u05d9\u05d4 \u05e9\u05dc \u05d4\u05d0\u05d6\u05d5\u05e8.",
+                    "name": "\u05e7\u05d5\u05d0\u05d5\u05e8\u05d3\u05d9\u05e0\u05d8\u05ea X2"
+                },
+                "y1": {
+                    "description": "\u05e7\u05d5\u05d0\u05d5\u05e8\u05d3\u05d9\u05e0\u05d8\u05ea \u05d4-y \u05d4\u05e8\u05d0\u05e9\u05d5\u05e0\u05d4 \u05e9\u05dc \u05d4\u05d0\u05d6\u05d5\u05e8.",
+                    "name": "\u05e7\u05d5\u05d0\u05d5\u05e8\u05d3\u05d9\u05e0\u05d8\u05ea Y1"
+                },
+                "y2": {
+                    "description": "\u05e7\u05d5\u05d0\u05d5\u05e8\u05d3\u05d9\u05e0\u05d8\u05ea \u05d4-y \u05d4\u05e9\u05e0\u05d9\u05d9\u05d4 \u05e9\u05dc \u05d4\u05d0\u05d6\u05d5\u05e8.",
+                    "name": "\u05e7\u05d5\u05d0\u05d5\u05e8\u05d3\u05d9\u05e0\u05d8\u05ea Y2"
+                }
+            },
+            "name": "\u05e0\u05d9\u05e7\u05d5\u05d9 \u05d0\u05d6\u05d5\u05e8"
+        }
+    }
+}

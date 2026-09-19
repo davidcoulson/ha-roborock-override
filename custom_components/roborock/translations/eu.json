@@ -1,0 +1,265 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_account": "Kontua dagoeneko konfiguratuta dago",
+            "reauth_successful": "Berrautortzea arrakastatsua izan da"
+        },
+        "error": {
+            "unknown": "Ustekabeko errorea"
+        },
+        "step": {
+            "code": {
+                "data": {
+                    "code": "Egiaztapen kodea"
+                },
+                "data_description": {
+                    "code": "Egiaztapen kodea zure posta elektronikora bidali da."
+                }
+            },
+            "reauth_confirm": {
+                "title": "{name}-entzako autortza iraungi da"
+            },
+            "user": {
+                "data": {
+                    "username": "Posta elektronikoa"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "detergent_empty": {
+                "state": {
+                    "off": "Erabilgarri",
+                    "on": "Hutsik"
+                }
+            },
+            "softener_empty": {
+                "state": {
+                    "on": "Hutsik"
+                }
+            }
+        },
+        "button": {
+            "pause": {
+                "name": "Pausatu"
+            },
+            "start": {
+                "name": "Hasi"
+            }
+        },
+        "number": {
+            "volume": {
+                "name": "Bolumena"
+            }
+        },
+        "select": {
+            "cleaning_mode": {
+                "state": {
+                    "custom": "Pertsonalizatua",
+                    "smart_mode": "Adimentsua"
+                }
+            },
+            "cleaning_route": {
+                "state": {
+                    "balanced": "Orekatua"
+                }
+            },
+            "detergent_type": {
+                "state": {
+                    "empty": "Hutsik",
+                    "high": "Altua",
+                    "low": "Baxua",
+                    "medium": "Ertaina"
+                }
+            },
+            "dust_collection_mode": {
+                "state": {
+                    "balanced": "Orekatua",
+                    "max": "Max",
+                    "smart": "Adimentsua"
+                }
+            },
+            "mode": {
+                "state": {
+                    "dry": "Lehorra",
+                    "wash": "Garbitu"
+                }
+            },
+            "mop_intensity": {
+                "state": {
+                    "custom": "Pertsonalizatua",
+                    "high": "Altua",
+                    "low": "Baxua",
+                    "max": "Max",
+                    "medium": "Ertaina",
+                    "min": "Min"
+                }
+            },
+            "mop_mode": {
+                "state": {
+                    "custom": "Pertsonalizatua"
+                }
+            },
+            "program": {
+                "state": {
+                    "custom": "Pertsonalizatua",
+                    "down": "Behera",
+                    "night": "Gaua",
+                    "wool": "Artilea"
+                }
+            },
+            "rinse_times": {
+                "state": {
+                    "none": "Lehenetsia"
+                }
+            },
+            "softener_type": {
+                "state": {
+                    "empty": "Hutsik",
+                    "high": "Altua",
+                    "low": "Baxua",
+                    "medium": "Ertaina"
+                }
+            },
+            "spin_level": {
+                "state": {
+                    "high": "1000 RPM",
+                    "max": "1400 RPM",
+                    "mid": "800 RPM",
+                    "none": "Lehenetsia",
+                    "very_high": "1200 RPM",
+                    "very_low": "600 RPM"
+                }
+            },
+            "temperature": {
+                "state": {
+                    "auto": "Automatikoa"
+                }
+            },
+            "water_flow": {
+                "state": {
+                    "high": "Altua",
+                    "low": "Baxua",
+                    "medium": "Ertaina"
+                }
+            }
+        },
+        "sensor": {
+            "a01_error": {
+                "state": {
+                    "battery_under_10": "Bateria %10 azpitik",
+                    "none": "Bat ere ez"
+                }
+            },
+            "a01_status": {
+                "name": "Egoera",
+                "state": {
+                    "charging": "Kargatzen",
+                    "ready": "Prest"
+                }
+            },
+            "q7_status": {
+                "name": "Egoera",
+                "state": {
+                    "charging": "Kargatzen",
+                    "paused": "Pausatuta"
+                }
+            },
+            "status": {
+                "name": "Egoera",
+                "state": {
+                    "charging": "Kargatzen",
+                    "error": "Errorea",
+                    "idle": "Inaktiboa",
+                    "locked": "Itxita",
+                    "paused": "Pausatuta",
+                    "starting": "Hasten"
+                }
+            },
+            "vacuum_error": {
+                "state": {
+                    "light_touch": "Horma sentsorearen errorea",
+                    "none": "Bat ere ez",
+                    "wall_sensor_dirty": "Horma sentsore zikina"
+                }
+            },
+            "zeo_error": {
+                "state": {
+                    "none": "Bat ere ez"
+                }
+            },
+            "zeo_state": {
+                "name": "Egoera",
+                "state": {
+                    "done": "Eginda"
+                }
+            }
+        },
+        "switch": {
+            "child_lock": {
+                "name": "Haur-blokeoa"
+            }
+        },
+        "vacuum": {
+            "roborock": {
+                "state_attributes": {
+                    "fan_speed": {
+                        "state": {
+                            "auto": "Automatikoa",
+                            "balanced": "Orekatua",
+                            "custom": "Pertsonalizatua",
+                            "max": "Max",
+                            "medium": "Ertaina"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "no_coordinators": {
+            "message": "Ezin izan da gailurik arrakastaz konfiguratu"
+        }
+    },
+    "issues": {
+        "deprecated_mop_drying_scripts": {
+            "description": "{entity_name} (`{entity_id}`) sentsorea **Fregona lehorgailua** hautaketa entitatearekin ordezkatu delako zaharkituta dago; entite berriak lehorgailua hasierazi eta gelditu dezake.\n\nOndorengo automatizazio eta script-etan erabiltzen da:\n{items}\n\nEgunera itzazu hautaketa entitate berria erabiltzeko, ondoren {entity_id} desgaitu ezazu, sistematik kendu dadin."
+        }
+    },
+    "options": {
+        "step": {
+            "drawables": {
+                "data": {
+                    "path": "Bidea"
+                }
+            }
+        }
+    },
+    "selector": {
+        "region": {
+            "options": {
+                "custom": "Eskuzkoa"
+            }
+        }
+    },
+    "services": {
+        "set_vacuum_goto_position": {
+            "fields": {
+                "x": {
+                    "name": "X-kordenatua"
+                },
+                "y": {
+                    "name": "Y-kordenatua"
+                }
+            }
+        },
+        "set_vacuum_zoned_cleaning": {
+            "fields": {
+                "repeats": {
+                    "name": "Errepikapenak"
+                }
+            }
+        }
+    }
+}

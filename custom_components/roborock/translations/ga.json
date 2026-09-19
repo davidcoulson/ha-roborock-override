@@ -1,0 +1,885 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_account": "T\u00e1 an cuntas cumraithe cheana f\u00e9in",
+            "reauth_successful": "D'\u00e9irigh leis an athfh\u00edordheimhni\u00fa",
+            "wrong_account": "Cuntas m\u00edcheart: F\u00edordheimhnigh leis an gcuntas ceart le do thoil."
+        },
+        "error": {
+            "invalid_code": "Bh\u00ed an c\u00f3d a chuir t\u00fa isteach m\u00edcheart, seice\u00e1il \u00e9 agus d\u00e9an iarracht ar\u00eds.",
+            "invalid_email": "N\u00edl aon chuntas bainteach leis an r\u00edomhphost a chuir t\u00fa isteach, d\u00e9an iarracht ar\u00eds.",
+            "invalid_email_format": "T\u00e1 fadhb ann le form\u00e1idi\u00fa do r\u00edomhphoist - d\u00e9an iarracht ar\u00eds.",
+            "invalid_email_or_region": "N\u00edl aon chuntas bainteach leis an r\u00edomhphost a chuir t\u00fa isteach, n\u00f3 n\u00edl aon chuntas sa r\u00e9igi\u00fan roghnaithe.",
+            "invalid_url_format": "N\u00ed m\u00f3r don URL tos\u00fa le http:// n\u00f3 https:// agus \u00f3stach bail\u00ed a \u00e1ireamh.",
+            "too_frequent_code_requests": "T\u00e1 iarracht d\u00e9anta agat an iomarca c\u00f3id a iarraidh. D\u00e9an iarracht ar\u00eds ar ball.",
+            "unknown": "Earr\u00e1id gan choinne",
+            "unknown_roborock": "Bh\u00ed eisceacht anaithnid Roborock ann - seice\u00e1il do loga\u00ed le do thoil.",
+            "unknown_url": "Bh\u00ed fadhb ann agus an URL ceart \u00e1 chinneadh do do chuntas Roborock - seice\u00e1il do loga\u00ed le do thoil."
+        },
+        "step": {
+            "code": {
+                "data": {
+                    "code": "C\u00f3d f\u00edoraithe"
+                },
+                "data_description": {
+                    "code": "An c\u00f3d f\u00edoraithe a seoladh chuig do r-phost."
+                },
+                "description": "Cl\u00f3scr\u00edobh an c\u00f3d f\u00edoraithe a seoladh chuig do r-phost"
+            },
+            "custom_url": {
+                "data": {
+                    "roborock_server_url": "URL Freastala\u00ed Roborock"
+                },
+                "data_description": {
+                    "roborock_server_url": "URL an fhreastala\u00ed Roborock."
+                },
+                "description": "Cuir isteach URL an fhreastala\u00ed Roborock le ceangal leis."
+            },
+            "reauth_confirm": {
+                "description": "Caithfidh comhth\u00e1th\u00fa Roborock do chuntas a athfh\u00edordheimhni\u00fa",
+                "title": "T\u00e1 an f\u00edordheimhni\u00fa imithe in \u00e9ag do {name}"
+            },
+            "user": {
+                "data": {
+                    "region": "R\u00e9igi\u00fan freastala\u00ed Roborock",
+                    "username": "R\u00edomhphost"
+                },
+                "data_description": {
+                    "region": "An r\u00e9igi\u00fan freastala\u00ed ina bhfuil do chuntas Roborock cl\u00e1raithe agus an aip \u00e1 bun\u00fa. Moltar Uathoibr\u00edoch mura bhfuil fadhbanna agat.",
+                    "username": "An seoladh r\u00edomhphoist a \u00fas\u00e1ideadh chun s\u00edni\u00fa isteach san aip Roborock."
+                },
+                "description": "Cuir isteach do sheoladh r\u00edomhphoist Roborock."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_box_empty": {
+                "name": "Bosca uisce glan"
+            },
+            "clean_fluid_empty": {
+                "name": "Sreabh\u00e1n glantach\u00e1in"
+            },
+            "detergent_empty": {
+                "name": "Glantach",
+                "state": {
+                    "off": "Ar f\u00e1il",
+                    "on": "Folamh"
+                }
+            },
+            "dirty_box_full": {
+                "name": "Bosca uisce salach"
+            },
+            "in_cleaning": {
+                "name": "Glanadh"
+            },
+            "mop_attached": {
+                "name": "Mopa ceangailte"
+            },
+            "mop_drying_status": {
+                "name": "Triom\u00fa mopa"
+            },
+            "softener_empty": {
+                "name": "Bogth\u00f3ir",
+                "state": {
+                    "off": "Ar f\u00e1il",
+                    "on": "Folamh"
+                }
+            },
+            "water_box_attached": {
+                "name": "Bosca uisce ceangailte"
+            },
+            "water_shortage": {
+                "name": "Ganntanas uisce"
+            }
+        },
+        "button": {
+            "empty_dustbin": {
+                "name": "Bosca bruscair folamh"
+            },
+            "pause": {
+                "name": "Sos"
+            },
+            "reset_air_filter_consumable": {
+                "name": "Athshocraigh inchaite scagaire aeir"
+            },
+            "reset_dock_cleaning_brush_consumable": {
+                "name": "Athshocraigh scuab glantach\u00e1in inchaite"
+            },
+            "reset_dock_strainer_consumable": {
+                "name": "Athshocraigh an scagaire inchaite"
+            },
+            "reset_main_brush_consumable": {
+                "name": "Athshocraigh an pr\u00edomh-scuab inchaite"
+            },
+            "reset_sensor_consumable": {
+                "name": "Athshocraigh inchaite braiteora"
+            },
+            "reset_side_brush_consumable": {
+                "name": "Athshocraigh inchaite scuab taobh"
+            },
+            "start": {
+                "name": "Tosaigh"
+            }
+        },
+        "image": {
+            "map": {
+                "name": "L\u00e9arsc\u00e1il"
+            }
+        },
+        "number": {
+            "volume": {
+                "name": "Toirt"
+            }
+        },
+        "select": {
+            "cleaning_mode": {
+                "name": "M\u00f3d glantach\u00e1in",
+                "state": {
+                    "custom": "Saincheaptha",
+                    "mop": "Mopa amh\u00e1in",
+                    "smart_mode": "Cliste",
+                    "vac_and_mop": "Fol\u00fasghlant\u00f3ir agus mop",
+                    "vacuum": "Fol\u00fasghlant\u00f3ir amh\u00e1in"
+                }
+            },
+            "cleaning_route": {
+                "name": "Bealach glantach\u00e1in",
+                "state": {
+                    "balanced": "Cothrom",
+                    "deep": "Doimhin"
+                }
+            },
+            "detergent_type": {
+                "name": "Cine\u00e1l glantaigh",
+                "state": {
+                    "empty": "Folamh",
+                    "high": "Ard",
+                    "low": "\u00cdseal",
+                    "medium": "Me\u00e1nach"
+                }
+            },
+            "drying_mode": {
+                "name": "M\u00f3d triom\u00fa",
+                "state": {
+                    "iron": "Iarann",
+                    "none": "No drying",
+                    "quick": "Tapa",
+                    "store": "Siopa",
+                    "time_dry": "Time dry"
+                }
+            },
+            "dust_collection_mode": {
+                "name": "M\u00f3d folamh",
+                "state": {
+                    "balanced": "Cothrom",
+                    "light": "Solas",
+                    "max": "Uasmh\u00e9id",
+                    "smart": "Cliste"
+                }
+            },
+            "mode": {
+                "name": "Modh oibri\u00fach\u00e1in",
+                "state": {
+                    "drain": "Draein",
+                    "dry": "Tirim",
+                    "heavy": "Trom",
+                    "pre_wash": "R\u00e9amh-nigh",
+                    "rinse_spin": "Sruthlaigh & sn\u00edomh",
+                    "spin": "Casadh",
+                    "treatment": "C\u00f3ire\u00e1il",
+                    "wash": "Nigh",
+                    "wash_and_dry": "Nigh agus triomaigh"
+                }
+            },
+            "mop_intensity": {
+                "name": "D\u00e9ine mop\u00e1la",
+                "state": {
+                    "custom": "Saincheaptha",
+                    "custom_water_flow": "Sreabhadh uisce saincheaptha",
+                    "extreme": "Foircneach",
+                    "high": "Ard",
+                    "intense": "Dian",
+                    "low": "\u00cdseal",
+                    "max": "Uasmh\u00e9id",
+                    "medium": "Me\u00e1nach",
+                    "mild": "\u00c9adrom",
+                    "min": "Min",
+                    "moderate": "Measartha",
+                    "off": "As",
+                    "slight": "Beag\u00e1n",
+                    "smart_mode": "Plean Cliste",
+                    "standard": "Caighde\u00e1nach",
+                    "vac_followed_by_mop": "Fol\u00fasghlanadh agus mop ina dhiaidh sin"
+                }
+            },
+            "mop_mode": {
+                "name": "M\u00f3d mop\u00e1la",
+                "state": {
+                    "custom": "Saincheaptha",
+                    "deep": "Doimhin",
+                    "deep_plus": "domhain+",
+                    "fast": "Tapa",
+                    "smart_mode": "Plean Cliste",
+                    "standard": "Caighde\u00e1nach"
+                }
+            },
+            "program": {
+                "name": "Cl\u00e1r n\u00edoch\u00e1in",
+                "state": {
+                    "air_refresh": "Athnuachan aeir",
+                    "anti_allergen": "Frith-aill\u00e9irgin",
+                    "anti_mites": "Frith-mh\u00edleoga",
+                    "baby_care": "C\u00faram leana\u00ed",
+                    "bath_towel": "Tu\u00e1ille folctha",
+                    "bedding": "Leaba",
+                    "boiling_wash": "Nigh fiuchta",
+                    "bra": "Bra",
+                    "cotton_linen": "Cad\u00e1s/L\u00edn\u00e9adach",
+                    "custom": "Saincheaptha",
+                    "deep_self_clean": "Glanadh f\u00e9in domhain",
+                    "descaling": "D\u00ed-sc\u00e1l\u00fa",
+                    "down": "S\u00edos",
+                    "down_clean": "Glan s\u00edos",
+                    "exo_40_60": "Exo 40/60",
+                    "flax": "L\u00edon",
+                    "gentle": "M\u00edn",
+                    "intensive": "Dian",
+                    "jeans": "Jeans",
+                    "mixing": "Measctha",
+                    "new_clothes": "\u00c9ada\u00ed nua",
+                    "night": "O\u00edche",
+                    "outdoor_jackets": "Seaic\u00e9id lasmuigh",
+                    "outdoors": "Lasmuigh",
+                    "panties": "Fo-\u00e9ada\u00ed",
+                    "pet_care": "C\u00faram peata\u00ed",
+                    "quick": "Tapa",
+                    "quilt_drying": "Triom\u00fa cuilteanna",
+                    "rack_drying": "Triom\u00fa raca",
+                    "rinse_and_spin": "Sruthlaigh agus sn\u00edomh",
+                    "sanitize": "Sl\u00e1intigh",
+                    "season": "S\u00e9as\u00far",
+                    "shirts": "L\u00e9inte",
+                    "silk": "S\u00edoda",
+                    "small_things": "Ruda\u00ed beaga",
+                    "small_things_drying": "Ruda\u00ed beaga ag triom\u00fa",
+                    "soaking": "Ag s\u00e1ithi\u00fa",
+                    "socks": "Stoca\u00ed",
+                    "sport_shoes": "Br\u00f3ga sp\u00f3irt",
+                    "sportswear": "\u00c9ada\u00ed Sp\u00f3irt",
+                    "stain_removal": "Baint stain",
+                    "standard": "Standard",
+                    "steam_care": "C\u00faram gaile",
+                    "suit": "Culaith",
+                    "summer_quilt": "Cuilt samhraidh",
+                    "synthetics": "Sint\u00e9iseacha",
+                    "t_shirts": "L\u00e9inte T",
+                    "timed_drying": "Triom\u00fa uainithe",
+                    "towels": "Tu\u00e1ill\u00ed",
+                    "twenty_c": "20\u00b0C",
+                    "underwear": "Fo-\u00e9ada\u00ed",
+                    "warming": "T\u00e9amh",
+                    "wind_breaker": "Briste gaoithe",
+                    "wool": "Olann",
+                    "yoga": "Caitheamh i\u00f3ga"
+                }
+            },
+            "rinse_times": {
+                "name": "Amanna sruthlaithe",
+                "state": {
+                    "high": "4",
+                    "low": "2",
+                    "max": "5",
+                    "mid": "3",
+                    "min": "1",
+                    "none": "R\u00e9amhshocr\u00fa"
+                }
+            },
+            "selected_map": {
+                "name": "L\u00e9arsc\u00e1il roghnaithe"
+            },
+            "softener_type": {
+                "name": "Cine\u00e1l maolaitheora",
+                "state": {
+                    "empty": "Folamh",
+                    "high": "Ard",
+                    "low": "\u00cdseal",
+                    "medium": "Me\u00e1nach"
+                }
+            },
+            "spin_level": {
+                "name": "Leibh\u00e9al sn\u00edomh",
+                "state": {
+                    "high": "1000 RPM",
+                    "max": "1400 RPM",
+                    "mid": "800 RPM",
+                    "none": "R\u00e9amhshocr\u00fa",
+                    "very_high": "1200 RPM",
+                    "very_low": "600 RPM"
+                }
+            },
+            "temperature": {
+                "name": "Teocht an uisce",
+                "state": {
+                    "30": "30\u00b0C",
+                    "40": "40\u00b0C",
+                    "60": "60\u00b0C",
+                    "90": "90\u00b0C",
+                    "auto": "Uath",
+                    "cold": "Fuar",
+                    "null": "Anaithnid"
+                }
+            },
+            "water_flow": {
+                "name": "Sreabhadh uisce",
+                "state": {
+                    "high": "Ard",
+                    "low": "\u00cdseal",
+                    "medium": "Me\u00e1nach"
+                }
+            }
+        },
+        "sensor": {
+            "a01_error": {
+                "name": "Earr\u00e1id",
+                "state": {
+                    "battery_temperature_protection": "Cosaint teochta ceallra\u00ed",
+                    "battery_temperature_protection_e0": "Cosaint teochta",
+                    "battery_under_10": "Ceallra\u00ed faoi bhun 10%",
+                    "clean_head_entangled": "Ceann glantach\u00e1in i bhfost\u00fa",
+                    "clean_head_too_hot": "Ceann glantach\u00e1in r\u00f3-the.",
+                    "clean_tank_empty": "Glan an umar folamh",
+                    "cleaning_head_blocked": "Ceann glantach\u00e1in bloc\u00e1ilte",
+                    "dirty_charging_contacts": "Glan na teagmh\u00e1lacha muirir",
+                    "dirty_tank_full": "Umar salach l\u00e1n",
+                    "fan_protection_e4": "Cosaint lucht lean\u00fana",
+                    "fan_protection_e5": "Cosaint lucht lean\u00fana",
+                    "fan_protection_e9": "Cosaint lucht lean\u00fana",
+                    "low_battery": "Ceallra\u00ed \u00edseal",
+                    "none": "Dada",
+                    "power_adapter_error": "Earr\u00e1id oiri\u00fant\u00f3ra cumhachta",
+                    "temperature_protection": "Cosaint teochta",
+                    "water_level_sensor_stuck": "Braiteoir leibh\u00e9al uisce s\u00e1ite."
+                }
+            },
+            "a01_status": {
+                "name": "St\u00e1das",
+                "state": {
+                    "charging": "Muirear\u00fa",
+                    "drying": "Triom\u00fa",
+                    "dusting_mode": "M\u00f3d deannaigh",
+                    "fetch_failed": "Theip ar an aisghabh\u00e1il",
+                    "fetching": "Ag f\u00e1il",
+                    "mop_washing": "Mop n\u00edoch\u00e1in",
+                    "mop_washing_paused": "Nigh mopa curtha ar sos",
+                    "ready": "R\u00e9idh",
+                    "reserving": "\u00c1irithint",
+                    "self_clean_cleaning": "Glanadh f\u00e9inghlanadh",
+                    "self_clean_deep_cleaning": "Glanadh domhain f\u00e9inghlanadh",
+                    "self_clean_dehydrating": "Triom\u00fa f\u00e9inghlanadh",
+                    "self_clean_rinsing": "Sruthl\u00fa f\u00e9inghlanta",
+                    "unknown": "Anaithnid",
+                    "updating": "Nuashonr\u00fa",
+                    "ventilating": "Aer\u00e1il",
+                    "washing": "N\u00edoch\u00e1n"
+                }
+            },
+            "brush_remaining": {
+                "name": "Sorc\u00f3ir ar chl\u00e9"
+            },
+            "clean_percent": {
+                "name": "Dul chun cinn glantach\u00e1in"
+            },
+            "cleaning_area": {
+                "name": "Limist\u00e9ar glantach\u00e1in"
+            },
+            "cleaning_brush_time_left": {
+                "name": "Am scuab cothabh\u00e1la at\u00e1 f\u00e1gtha"
+            },
+            "cleaning_time": {
+                "name": "Am glantach\u00e1in"
+            },
+            "countdown": {
+                "name": "Comhaireamh s\u00edos"
+            },
+            "current_room": {
+                "name": "Seomra reatha"
+            },
+            "dock_error": {
+                "name": "Earr\u00e1id duga",
+                "state": {
+                    "cleaning_tank_full_or_blocked": "Umar glantach\u00e1in l\u00e1n n\u00f3 bloc\u00e1ilte",
+                    "dirty_tank_latch_open": "Laiste umar salach oscailte",
+                    "duct_blockage": "Bac duchtanna",
+                    "no_dustbin": "Gan bosca bruscair",
+                    "ok": "Ceart go leor",
+                    "waste_water_tank_full": "Umar fu\u00edolluisce l\u00e1n",
+                    "water_empty": "Uisce folamh"
+                }
+            },
+            "filter_life": {
+                "name": "Am scagaire a \u00fas\u00e1ideadh"
+            },
+            "filter_time_left": {
+                "name": "Am scagaire at\u00e1 f\u00e1gtha"
+            },
+            "last_clean_end": {
+                "name": "Deireadh glan deiridh"
+            },
+            "last_clean_start": {
+                "name": "T\u00fas glantach\u00e1in dheireanach"
+            },
+            "main_brush_life": {
+                "name": "Am an phr\u00edomhscuab a \u00fas\u00e1ideadh"
+            },
+            "main_brush_time_left": {
+                "name": "Am f\u00e1gtha ag an bpr\u00edomhscuab"
+            },
+            "mop_drying_remaining_time": {
+                "name": "An t-am at\u00e1 f\u00e1gtha le haghaidh triom\u00fa mopa"
+            },
+            "mop_life_time_left": {
+                "name": "Saolr\u00e9 mopa at\u00e1 f\u00e1gtha"
+            },
+            "q7_status": {
+                "name": "St\u00e1das",
+                "state": {
+                    "charging": "Muirear\u00fa",
+                    "docking": "Dugaireacht",
+                    "mop_airdrying": "Triom\u00fa aeir mopa",
+                    "mop_cleaning": "Glanadh mopa",
+                    "moping": "Mop\u00e1il",
+                    "paused": "Sosaithe",
+                    "sleeping": "Codladh",
+                    "sweep_moping": "Scuabadh mop\u00e1la",
+                    "sweep_moping_2": "Scuabadh mop\u00e1la",
+                    "unknown": "Anaithnid",
+                    "updating": "Nuashonr\u00fa",
+                    "waiting_for_orders": "Ag fanacht le horduithe",
+                    "working_sleep": "Codladh agus t\u00fa ag obair"
+                }
+            },
+            "sensor_life": {
+                "name": "Am braiteora a \u00fas\u00e1ideadh"
+            },
+            "sensor_time_left": {
+                "name": "Am braiteora at\u00e1 f\u00e1gtha"
+            },
+            "side_brush_life": {
+                "name": "Am scuab taobh a \u00fas\u00e1ideadh"
+            },
+            "side_brush_time_left": {
+                "name": "Am f\u00e1gtha don scuab taobh"
+            },
+            "status": {
+                "name": "St\u00e1das",
+                "state": {
+                    "air_drying_stopping": "Stad a chur le triom\u00fa aeir",
+                    "attaching_the_mop": "Ag ceangal an mhop",
+                    "charger_disconnected": "Luchtaire d\u00edcheangailte",
+                    "charging": "Muirear\u00fa",
+                    "charging_complete": "Muirear\u00fa cr\u00edochnaithe",
+                    "charging_problem": "Fadhb muirir",
+                    "cleaning": "Glanadh",
+                    "detaching_the_mop": "Ag baint an mhop",
+                    "device_offline": "Gl\u00e9as as l\u00edne",
+                    "docking": "Dugaireacht",
+                    "egg_attack": "M\u00f3d Cupid",
+                    "emptying_the_bin": "Ag folmh\u00fa an bhosca bruscair",
+                    "error": "Earr\u00e1id",
+                    "going_to_target": "Ag dul chun sprice",
+                    "going_to_wash_the_mop": "Ag dul a n\u00ed an mopa",
+                    "idle": "D\u00edomhaoin",
+                    "locked": "Faoi ghlas",
+                    "manual_mode": "M\u00f3d l\u00e1imhe",
+                    "mapping": "Map\u00e1il",
+                    "mopping": "Mop\u00e1il",
+                    "paused": "Sosaithe",
+                    "relocating": "Ag athlonn\u00fa",
+                    "remote_control_active": "Rial\u00fa cianda gn\u00edomhach",
+                    "returning_home": "Ag filleadh abhaile",
+                    "saving_map": "S\u00e1bh\u00e1il l\u00e9arsc\u00e1il",
+                    "segment_cleaning": "Glanadh deighleog",
+                    "shutting_down": "Ag m\u00fachadh",
+                    "sleeping": "Codladh",
+                    "spot_cleaning": "Glanadh spota",
+                    "starting": "Ag tos\u00fa",
+                    "sweep_and_mop": "Scuab agus mop\u00e1il",
+                    "sweeping": "Ag scuabadh",
+                    "transitioning": "Ag aistri\u00fa",
+                    "unknown": "Anaithnid",
+                    "updating": "Nuashonr\u00fa",
+                    "waiting_to_charge": "Ag fanacht le muirear\u00fa",
+                    "washing_the_mop": "Ag n\u00edoch\u00e1n an mhop",
+                    "zoned_cleaning": "Glanadh criosaithe"
+                }
+            },
+            "strainer_time_left": {
+                "name": "Am scagaire at\u00e1 f\u00e1gtha"
+            },
+            "times_after_clean": {
+                "name": "Amanna tar \u00e9is glanadh"
+            },
+            "total_cleaning_area": {
+                "name": "Limist\u00e9ar glantach\u00e1in ioml\u00e1n"
+            },
+            "total_cleaning_count": {
+                "name": "L\u00edon ioml\u00e1n glantach\u00e1in"
+            },
+            "total_cleaning_time": {
+                "name": "Am glantach\u00e1in ioml\u00e1n"
+            },
+            "vacuum_error": {
+                "name": "Earr\u00e1id fol\u00fais",
+                "state": {
+                    "audio_error": "Earr\u00e1id fuaime",
+                    "battery_error": "Earr\u00e1id ceallra\u00ed",
+                    "bumper_stuck": "Tuairteoir greamaithe",
+                    "cannot_cross_carpet": "N\u00ed f\u00e9idir dul trasna an chairp\u00e9ad",
+                    "charging_error": "Earr\u00e1id luchtaithe",
+                    "check_clean_carouse": "Seice\u00e1il an car\u00fasal glantach\u00e1in",
+                    "clean_carousel_exception": "Earr\u00e1id glantach\u00e1in car\u00fas\u00e9il",
+                    "clean_carousel_water_full": "Glanadh car\u00fasail uisce l\u00e1n",
+                    "clear_brush_exception": "Seice\u00e1il go bhfuil an scagaire uisce suite\u00e1ilte i gceart",
+                    "clear_brush_exception_2": "Earr\u00e1id cnaipe suite",
+                    "clear_water_box_exception": "Umar uisce glan folamh",
+                    "clear_water_box_hoare": "Seice\u00e1il an umar uisce glan",
+                    "cliff_sensor_error": "Earr\u00e1id braiteora aille",
+                    "collect_dust_error_3": "Glan an duga uathoibr\u00edoch-fholamh",
+                    "compass_error": "R\u00e9imse maighn\u00e9adach l\u00e1idir braite",
+                    "dirty_water_box_hoare": "Seice\u00e1il an umar uisce salach",
+                    "dock": "N\u00edl an duga ceangailte leis an gcumhacht",
+                    "dock_locator_error": "Earr\u00e1id aimsitheora duga",
+                    "drain_water_exception": "Eisceacht uisce draen\u00e1la",
+                    "fan_error": "Earr\u00e1id fean",
+                    "filter_blocked": "Scagaire bloc\u00e1ilte",
+                    "filter_screen_exception": "Glan scagaire uisce an duga",
+                    "internal_error": "Earr\u00e1id inmhe\u00e1nach",
+                    "invisible_wall_detected": "Balla dofheicthe braite",
+                    "lidar_blocked": "Balla dofheicthe braite",
+                    "light_touch": "Earr\u00e1id braiteora balla",
+                    "low_battery": "Ceallra\u00ed \u00edseal",
+                    "main_brush_jammed": "Pr\u00edomh-scuab s\u00e1ite",
+                    "mopping_roller_1": "B\u2019fh\u00e9idir go bhfuil an sorc\u00f3ir n\u00edoch\u00e1in s\u00e1ite",
+                    "mopping_roller_error_2": "N\u00edl an sorc\u00f3ir n\u00edoch\u00e1in \u00edslithe i gceart",
+                    "no_dustbin": "Gan bosca bruscair",
+                    "nogo_zone_detected": "Crios toirmiscthe braite",
+                    "none": "Dada",
+                    "optical_flow_sensor_dirt": "Braiteoir sreabhadh opt\u00fail salach",
+                    "return_to_dock_fail": "Fill ar theip duga",
+                    "robot_on_carpet": "R\u00f3bat ar chairp\u00e9ad",
+                    "robot_tilted": "R\u00f3bat claonta",
+                    "robot_trapped": "R\u00f3bat gafa",
+                    "side_brush_error": "Earr\u00e1id scuab taobh",
+                    "side_brush_jammed": "Scuab taobh s\u00e1ite",
+                    "sink_strainer_hoare": "Athshuite\u00e1il an scagaire uisce",
+                    "strainer_error": "T\u00e1 an scagaire fliuch n\u00f3 bloc\u00e1ilte",
+                    "temperature_protection": "Cosaint teochta aonaid",
+                    "up_water_exception": "Eisceacht sol\u00e1thair uisce",
+                    "vertical_bumper_pressed": "Br\u00faitear tuairteoir ingearach",
+                    "vibrarise_jammed": "T\u00e1 VibraRise s\u00e1ite",
+                    "visual_sensor": "Earr\u00e1id ceamara",
+                    "wall_sensor_dirty": "Braiteoir balla salach",
+                    "water_carriage_drop": "Carr\u00e1iste uisce tite",
+                    "wheels_jammed": "Rotha\u00ed s\u00e1ite",
+                    "wheels_suspended": "Rotha\u00ed ar fionra\u00ed"
+                }
+            },
+            "washing_left": {
+                "name": "N\u00edoch\u00e1n ar chl\u00e9"
+            },
+            "zeo_error": {
+                "name": "Earr\u00e1id",
+                "state": {
+                    "communication_error": "Earr\u00e1id chumars\u00e1ide",
+                    "door_lock_error": "Earr\u00e1id glas\u00e1la dorais",
+                    "drain_error": "Earr\u00e1id draen\u00e1la",
+                    "drying_error_e_13": "Earr\u00e1id thriom\u00fa E13",
+                    "heating_error": "Earr\u00e1id t\u00e9imh",
+                    "inverter_error": "Earr\u00e1id inbh\u00e9art\u00f3ra",
+                    "none": "Dada",
+                    "refill_error": "Earr\u00e1id athl\u00edonta",
+                    "spin_error": "Ath-eagraigh \u00e9ada\u00ed",
+                    "temperature_error": "Earr\u00e1id teochta",
+                    "water_level_error": "Earr\u00e1id leibh\u00e9al uisce"
+                }
+            },
+            "zeo_state": {
+                "name": "St\u00e1t",
+                "state": {
+                    "aftercare": "C\u00faram ina dhiaidh sin",
+                    "cloth_ready": "\u00c9ada\u00ed r\u00e9idh",
+                    "cooling": "Fuar\u00fa",
+                    "descaling": "D\u00ed-sc\u00e1l\u00fa",
+                    "done": "D\u00e9anta",
+                    "drying": "Triom\u00fa",
+                    "in_care": "I gc\u00faram",
+                    "null": "Anaithnid",
+                    "pre_heat_complete": "R\u00e9amhth\u00e9amh cr\u00edochnaithe",
+                    "pre_heating": "R\u00e9amhth\u00e9amh",
+                    "rinsing": "Sruthl\u00fa",
+                    "soaking": "Ag s\u00e1ithi\u00fa",
+                    "spinning": "Ag sn\u00edomh",
+                    "standby": "Fuireachas",
+                    "steam_caring": "C\u00faram gaile",
+                    "under_delay_start": "T\u00fas moillithe",
+                    "updating": "Nuashonr\u00fa",
+                    "waiting_for_aftercare": "Ag fanacht le c\u00faram iar-",
+                    "waiting_for_drying": "Ag fanacht le triom\u00fa",
+                    "washing": "N\u00edoch\u00e1n",
+                    "weighing": "Ag me\u00e1"
+                }
+            }
+        },
+        "switch": {
+            "button_light": {
+                "name": "Solas t\u00e1scaire"
+            },
+            "child_lock": {
+                "name": "Glas leana\u00ed"
+            },
+            "dnd_switch": {
+                "name": "N\u00e1 cuir isteach"
+            },
+            "dust_collection": {
+                "name": "Baili\u00fa deannaigh"
+            },
+            "dust_emptying": {
+                "name": "Folmh\u00fa deannaigh"
+            },
+            "mop_drying": {
+                "name": "Triom\u00fa mopa"
+            },
+            "mop_washing": {
+                "name": "Nigh mopa"
+            },
+            "off_peak_switch": {
+                "name": "Muirear\u00fa lasmuigh de bhuaic"
+            },
+            "sound_setting": {
+                "name": "Socr\u00fa fuaime"
+            },
+            "status_indicator": {
+                "name": "Solas t\u00e1scaire st\u00e1dais"
+            }
+        },
+        "time": {
+            "dnd_end_time": {
+                "name": "N\u00e1 cuir isteach ar dheireadh"
+            },
+            "dnd_start_time": {
+                "name": "N\u00e1 cuir isteach ar thosach"
+            },
+            "off_peak_end": {
+                "name": "Deireadh lasmuigh de bhuaic"
+            },
+            "off_peak_start": {
+                "name": "T\u00fas lasmuigh de bhuaicthr\u00e1th"
+            }
+        },
+        "vacuum": {
+            "roborock": {
+                "state_attributes": {
+                    "fan_speed": {
+                        "state": {
+                            "auto": "Uath",
+                            "balanced": "Cothrom",
+                            "custom": "Saincheaptha",
+                            "gentle": "Caoin",
+                            "max": "Uasmh\u00e9id",
+                            "max_plus": "Uasmh\u00e9id m\u00f3ide",
+                            "medium": "Me\u00e1nach",
+                            "off": "As",
+                            "off_raise_main_brush": "As (scuab ardaithe)",
+                            "quiet": "Ci\u00fain",
+                            "silent": "Ci\u00fain",
+                            "smart_mode": "Plean Cliste",
+                            "standard": "Caighde\u00e1nach",
+                            "turbo": "Turb\u00f3"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "button_press_failed": {
+            "message": "Theip ar an gcnaipe a bhr\u00fa"
+        },
+        "command_failed": {
+            "message": "Earr\u00e1id agus {command} \u00e1 ghlaoch"
+        },
+        "home_data_fail": {
+            "message": "Theip ar shonra\u00ed baile Roborock a fh\u00e1il"
+        },
+        "invalid_command": {
+            "message": "Ord\u00fa neamhbhail\u00ed {command}"
+        },
+        "invalid_credentials": {
+            "message": "Dinti\u00fair neamhbhail\u00ed."
+        },
+        "invalid_fan_speed": {
+            "message": "Luas neamhbhail\u00ed lucht lean\u00fana: {fan_speed}"
+        },
+        "invalid_user_agreement": {
+            "message": "N\u00ed m\u00f3r glacadh leis an gcomhaont\u00fa \u00fas\u00e1ideora ar\u00eds. Oscail d'aip Roborock agus glac leis an gcomhaont\u00fa."
+        },
+        "map_failure": {
+            "message": "Chuaigh rud \u00e9igin m\u00edcheart agus an l\u00e9arsc\u00e1il \u00e1 cruth\u00fa"
+        },
+        "mqtt_unauthorized": {
+            "message": "Dhi\u00faltaigh freastalaithe MQTT Roborock don nasc mar gheall ar theorainn r\u00e1ta n\u00f3 dinti\u00fair neamhbhail\u00ed. F\u00e9adfaidh t\u00fa iarracht a dh\u00e9anamh athfh\u00edordheimhni\u00fa n\u00f3 fanacht agus an comhth\u00e1th\u00fa a athl\u00f3d\u00e1il."
+        },
+        "no_coordinators": {
+            "message": "N\u00edor \u00e9irigh le haon fheist\u00ed a chur ar bun go rath\u00fail"
+        },
+        "no_user_agreement": {
+            "message": "N\u00edl comhaont\u00fa \u00fas\u00e1ideora bail\u00ed agat. Oscail d'aip Roborock agus glac leis an gcomhaont\u00fa."
+        },
+        "position_not_found": {
+            "message": "N\u00edor aims\u00edodh su\u00edomh an r\u00f3bait"
+        },
+        "request_fail": {
+            "message": "Theip ar an iarratas sonra\u00ed"
+        },
+        "segment_id_parse_error": {
+            "message": "Form\u00e1id aitheantais deighleoige neamhbhail\u00ed: {segment_id}"
+        },
+        "select_option_failed": {
+            "message": "Theip ar an rogha roghnaithe a shocr\u00fa"
+        },
+        "update_data_fail": {
+            "message": "Theip ar shonra\u00ed a nuashonr\u00fa"
+        },
+        "update_options_failed": {
+            "message": "Theip ar roghanna Roborock a nuashonr\u00fa"
+        }
+    },
+    "issues": {
+        "cloud_api_used": {
+            "description": "N\u00ed f\u00e9idir leis an gcomhth\u00e1th\u00fa Roborock ceangal go d\u00edreach le {device_name} agus t\u00e9ann s\u00e9 ar ais chuig API an scamall. N\u00ed mholtar \u00e9 seo mar d\u2019fh\u00e9adfadh s\u00e9 teorainn a chur leis an r\u00e1ta. D\u00e9an do fhol\u00fasghlant\u00f3ir inrochtana ar an l\u00edonra \u00e1iti\u00fail tr\u00ed d\u2019eisp\u00e9ireas Home Assistant.",
+            "title": "API scamall a \u00fas\u00e1ideadh"
+        },
+        "deprecated_mop_drying": {
+            "description": "T\u00e1 an braiteoir d\u00e9n\u00e1rtha `{entity_id}` ({entity_name}) imithe i l\u00e9ig agus t\u00e1 an lasc **Mop drying** ina \u00e1it, a thuairisc\u00edonn an staid ch\u00e9anna agus is f\u00e9idir leis triom\u00fa a thos\u00fa agus a stopadh freisin.\n\nNuashonraigh aon phain\u00e9il rialaithe, teimpl\u00e9id, uathoibrithe n\u00f3 scripteanna chun an t-eintiteas lasctha nua a \u00fas\u00e1id, ansin d\u00edchumasaigh `{entity_id}` chun \u00e9 a bhaint.",
+            "title": "T\u00e1 an braiteoir d\u00e9n\u00e1rtha triom\u00fa mopa Roborock imithe i l\u00e9ig"
+        },
+        "deprecated_mop_drying_scripts": {
+            "description": "T\u00e1 an braiteoir d\u00e9n\u00e1rtha `{entity_id}` ({entity_name}) imithe i l\u00e9ig agus t\u00e1 an lasc **Mop drying** ina \u00e1it, a thuairisc\u00edonn an staid ch\u00e9anna agus is f\u00e9idir leis triom\u00fa a thos\u00fa agus a stopadh freisin.\n\n\u00das\u00e1idtear \u00e9 f\u00f3s sna huathoibrithe n\u00f3 sna scripteanna seo a leanas:\n{items}\n\nNuashonraigh iad chun an t-eintiteas lasctha nua a \u00fas\u00e1id, ansin d\u00edchumasaigh `{entity_id}` chun \u00e9 a bhaint.",
+            "title": "T\u00e1 an braiteoir d\u00e9n\u00e1rtha triom\u00fa mopa Roborock imithe i l\u00e9ig"
+        }
+    },
+    "options": {
+        "step": {
+            "drawables": {
+                "data": {
+                    "charger": "Luchtaire",
+                    "cleaned_area": "Limist\u00e9ar glanta",
+                    "goto_path": "T\u00e9igh go cos\u00e1n",
+                    "ignored_obstacles": "Constaic\u00ed neamhaird",
+                    "ignored_obstacles_with_photo": "Neamhaird d\u00e9anta ar chonstaic\u00ed le grianghraf",
+                    "mop_path": "Cos\u00e1n mop\u00e1la",
+                    "no_carpet_zones": "Gan criosanna cairp\u00e9ad",
+                    "no_go_zones": "Criosanna gan cead dul",
+                    "no_mopping_zones": "Gan criosanna mop\u00e1la",
+                    "obstacles": "Constaic\u00ed",
+                    "obstacles_with_photo": "Constaic\u00ed le grianghraf",
+                    "path": "Cos\u00e1n",
+                    "predicted_path": "Cos\u00e1n r\u00e9amh-mheasta",
+                    "room_names": "Ainmneacha seomra\u00ed",
+                    "show_background": "Taispe\u00e1in c\u00falra",
+                    "show_rooms": "Seomra\u00ed taispe\u00e1ntais",
+                    "show_walls": "Taispe\u00e1in balla\u00ed",
+                    "vacuum_position": "Seasamh fol\u00fais",
+                    "virtual_walls": "Balla\u00ed f\u00edor\u00fala",
+                    "zones": "Criosanna"
+                },
+                "data_description": {
+                    "charger": "Taispe\u00e1in an luchtaire ar an l\u00e9arsc\u00e1il.",
+                    "cleaned_area": "Taispe\u00e1in an limist\u00e9ar a glanadh ar an l\u00e9arsc\u00e1il.",
+                    "goto_path": "Taispe\u00e1in an cos\u00e1n tosaigh ar an l\u00e9arsc\u00e1il.",
+                    "ignored_obstacles": "Taispe\u00e1in constaic\u00ed a ndearnadh neamhaird orthu ar an l\u00e9arsc\u00e1il.",
+                    "ignored_obstacles_with_photo": "Taispe\u00e1in constaic\u00ed a ndearnadh neamhaird orthu le grianghraif ar an l\u00e9arsc\u00e1il.",
+                    "mop_path": "Taispe\u00e1in cos\u00e1n an mhapa ar an l\u00e9arsc\u00e1il.",
+                    "no_carpet_zones": "Taispe\u00e1in na criosanna gan cairp\u00e9ad ar an l\u00e9arsc\u00e1il.",
+                    "no_go_zones": "Taispe\u00e1in na criosanna gan dul ar an l\u00e9arsc\u00e1il.",
+                    "no_mopping_zones": "Taispe\u00e1in na criosanna gan mop\u00e1il ar an l\u00e9arsc\u00e1il.",
+                    "obstacles": "Taispe\u00e1in constaic\u00ed ar an l\u00e9arsc\u00e1il.",
+                    "obstacles_with_photo": "Taispe\u00e1in constaic\u00ed le grianghraif ar an l\u00e9arsc\u00e1il.",
+                    "path": "Taispe\u00e1in an cos\u00e1n ar an l\u00e9arsc\u00e1il.",
+                    "predicted_path": "Taispe\u00e1in an cos\u00e1n tuartha ar an l\u00e9arsc\u00e1il.",
+                    "room_names": "Taispe\u00e1in ainmneacha na seomra\u00ed ar an l\u00e9arsc\u00e1il.",
+                    "show_background": "Cuir c\u00falra leis an l\u00e9arsc\u00e1il.",
+                    "show_rooms": "Taispe\u00e1in na seomra\u00ed ar an l\u00e9arsc\u00e1il.",
+                    "show_walls": "Taispe\u00e1in na balla\u00ed ar an l\u00e9arsc\u00e1il.",
+                    "vacuum_position": "Taispe\u00e1in su\u00edomh an fhol\u00fas\u00f3ra ar an l\u00e9arsc\u00e1il.",
+                    "virtual_walls": "Taispe\u00e1in balla\u00ed f\u00edor\u00fala ar an l\u00e9arsc\u00e1il.",
+                    "zones": "Taispe\u00e1in criosanna ar an l\u00e9arsc\u00e1il."
+                },
+                "description": "Sonraigh c\u00e9 na gn\u00e9ithe at\u00e1 le tarraingt ar an l\u00e9arsc\u00e1il."
+            }
+        }
+    },
+    "selector": {
+        "region": {
+            "options": {
+                "auto": "Uathoibr\u00edoch",
+                "cn": "CN",
+                "custom": "L\u00e1mhleabhar",
+                "eu": "AE",
+                "ru": "RU",
+                "us": "SAM"
+            }
+        }
+    },
+    "services": {
+        "get_maps": {
+            "description": "Aisghabhann s\u00e9 faisn\u00e9is l\u00e9arsc\u00e1ile agus seomra do ghl\u00e9is.",
+            "name": "Faigh l\u00e9arsc\u00e1ileanna"
+        },
+        "get_vacuum_current_position": {
+            "description": "Aisghabhann s\u00e9 su\u00edomh reatha an fhol\u00fasghlanad\u00f3ra.",
+            "name": "Faigh an seasamh reatha"
+        },
+        "set_vacuum_goto_position": {
+            "description": "Seolann s\u00e9 an fol\u00fasghlant\u00f3ir chuig su\u00edomh ar leith.",
+            "fields": {
+                "x": {
+                    "description": "T\u00e1 na comhordan\u00e1id\u00ed i gcoibhneas leis an duga. Is \u00e9 x=25500, y=25500 su\u00edomh an duga.",
+                    "name": "Comhordan\u00e1id X"
+                },
+                "y": {
+                    "description": "T\u00e1 na comhordan\u00e1id\u00ed i gcoibhneas leis an duga. Is \u00e9 x=25500, y=25500 su\u00edomh an duga.",
+                    "name": "Comhordan\u00e1id Y"
+                }
+            },
+            "name": "T\u00e9igh go dt\u00ed an su\u00edomh"
+        },
+        "set_vacuum_zoned_cleaning": {
+            "description": "Tosa\u00edonn s\u00e9 ag glanadh an chrios shonraithe.",
+            "fields": {
+                "repeats": {
+                    "description": "L\u00edon na n-uaireanta a dh\u00e9antar an glanadh crios a athdh\u00e9anamh. N\u00edl i gceist le '0' ach glanadh uair amh\u00e1in.",
+                    "name": "Athdh\u00e9antar"
+                },
+                "x1": {
+                    "description": "An ch\u00e9ad chomhordan\u00e1id-x den chrios.",
+                    "name": "Comhordan\u00e1id X1"
+                },
+                "x2": {
+                    "description": "An dara comhordan\u00e1id-x den chrios.",
+                    "name": "Comhordan\u00e1id X2"
+                },
+                "y1": {
+                    "description": "An ch\u00e9ad chomhordan\u00e1id y den chrios.",
+                    "name": "Comhordan\u00e1id Y1"
+                },
+                "y2": {
+                    "description": "An dara comhordan\u00e1id y den chrios.",
+                    "name": "Comhordan\u00e1id Y2"
+                }
+            },
+            "name": "Crios glan"
+        }
+    }
+}
