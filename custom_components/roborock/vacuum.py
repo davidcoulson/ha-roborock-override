@@ -386,6 +386,54 @@ class RoborockVacuum(RoborockCoordinatedEntityV1, StateVacuumEntity):
             "y": robot_position.y,
         }
 
+    async def get_vacuum_map_rooms(self) -> ServiceResponse:
+        """Get the current map's rooms, dock and robot position, in map units.
+
+        Every coordinate is in the map's own frame (millimetres), the frame
+        get_vacuum_current_position and set_vacuum_goto_position use. Room
+        bounds are the rectangle each room's pixels cover; names come from
+        the home data, keyed by the same segment ids. This is what an
+        integration needs to line the vacuum's map up with its own floor plan.
+        """
+        map_content_trait = self.coordinator.properties_api.map_content
+        try:
+            await map_content_trait.refresh()
+        except RoborockException as err:
+            _LOGGER.debug("Failed to refresh map content: %s", err)
+            raise HomeAssistantError(
+                translation_domain=DOMAIN,
+                translation_key="map_failure",
+            ) from err
+        map_data = map_content_trait.map_data
+        if map_data is None:
+            raise HomeAssistantError(
+                translation_domain=DOMAIN,
+                translation_key="map_failure",
+            )
+        current = self.coordinator.properties_api.home.current_map_data
+        names = {room.segment_id: room.name for room in current.rooms} if current is not None else {}
+
+        def _point(p: Any) -> dict[str, float] | None:
+            return None if p is None else {"x": p.x, "y": p.y}
+
+        return {
+            "map_flag": current.map_flag if current is not None else None,
+            "map_name": current.name if current is not None else None,
+            "charger": _point(map_data.charger),
+            "vacuum": _point(map_data.vacuum_position),
+            "rooms": [
+                {
+                    "segment_id": number,
+                    "name": names.get(number),
+                    "x0": room.x0,
+                    "y0": room.y0,
+                    "x1": room.x1,
+                    "y1": room.y1,
+                }
+                for number, room in sorted((map_data.rooms or {}).items())
+            ],
+        }
+
 
 class RoborockQ7Vacuum(RoborockCoordinatedEntityB01Q7, StateVacuumEntity):
     """General Representation of a Roborock vacuum."""
@@ -556,6 +604,10 @@ class RoborockQ7Vacuum(RoborockCoordinatedEntityB01Q7, StateVacuumEntity):
     async def get_vacuum_current_position(self) -> ServiceResponse:
         """Get the current position of the vacuum from the map."""
         raise ServiceNotSupported(DOMAIN, "get_vacuum_current_position", self.entity_id)
+
+    async def get_vacuum_map_rooms(self) -> ServiceResponse:
+        """Get the current map's rooms, dock and robot position."""
+        raise ServiceNotSupported(DOMAIN, "get_vacuum_map_rooms", self.entity_id)
 
     async def async_set_vacuum_goto_position(self, x: int, y: int) -> None:
         """Set the vacuum to go to a specific position."""
@@ -780,6 +832,10 @@ class RoborockQ10Vacuum(RoborockCoordinatedEntityB01Q10, StateVacuumEntity):
     async def get_vacuum_current_position(self) -> ServiceResponse:
         """Get the current position of the vacuum from the map."""
         raise ServiceNotSupported(DOMAIN, "get_vacuum_current_position", self.entity_id)
+
+    async def get_vacuum_map_rooms(self) -> ServiceResponse:
+        """Get the current map's rooms, dock and robot position."""
+        raise ServiceNotSupported(DOMAIN, "get_vacuum_map_rooms", self.entity_id)
 
     async def async_set_vacuum_goto_position(self, x: int, y: int) -> None:
         """Set the vacuum to go to a specific position."""

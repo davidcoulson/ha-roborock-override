@@ -28,6 +28,6 @@
     "python-roborock==7.4.2",
     "vacuum-map-parser-roborock==0.1.5"
   ],
-  "version": "2026.9.3.1",
+  "version": "2026.9.3.2",
   "issue_tracker": "https://github.com/davidcoulson/core/tree/roborock-map-refresh-2026.9.3"
 }

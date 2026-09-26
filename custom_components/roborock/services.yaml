@@ -64,3 +64,8 @@ get_vacuum_current_position:
     entity:
       integration: roborock
       domain: vacuum
+get_vacuum_map_rooms:
+  target:
+    entity:
+      integration: roborock
+      domain: vacuum

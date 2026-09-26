@@ -852,6 +852,10 @@
             "description": "Retrieves the current position of the vacuum.",
             "name": "Get current position"
         },
+        "get_vacuum_map_rooms": {
+            "description": "Retrieves the current map's rooms, dock and robot position, in map units.",
+            "name": "Get map rooms"
+        },
         "set_vacuum_goto_position": {
             "description": "Sends the vacuum to a specific position.",
             "fields": {

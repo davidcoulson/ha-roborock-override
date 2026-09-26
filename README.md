@@ -22,7 +22,17 @@ Here:
   cleaning vacuum costs nothing. A change of vacuum state still refreshes
   once, so room names stay current.
 
-Three files differ from core: `coordinator.py`, `image.py`, `sensor.py`.
+And one addition: a **`roborock.get_vacuum_map_rooms`** action (response
+only) that returns the current map's rooms - name, segment id and bounds -
+with the dock (`charger`) and the robot's position, all in the map's own
+millimetre frame, the one `get_vacuum_current_position` uses. It is what
+[Sextant](https://github.com/davidcoulson/sextant) lines a vacuum's map up
+with its floor plan from. It parses the map once per call, like
+`get_vacuum_current_position`.
+
+The fix touches three files from core: `coordinator.py`, `image.py`,
+`sensor.py`; the action adds to `vacuum.py`, `services.py`,
+`services.yaml`, `strings.json` and the English translation.
 Source branch with tests: `roborock-map-refresh-2026.9.3` of
 [davidcoulson/core](https://github.com/davidcoulson/core/tree/roborock-map-refresh-2026.9.3).
 
