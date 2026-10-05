@@ -1,0 +1,206 @@
+--- roborock/coordinator.py
++++ roborock/coordinator.py
+@@ -171,6 +171,11 @@
+         # Keep track of last attempt to refresh maps/rooms to know when to try again.
+         self._last_home_update_attempt = dt_util.utcnow()
+         self.last_home_update: datetime | None = None
++        # How many enabled entities show live map content (the map images and
++        # the current room sensor). Parsing a map takes a few hundred
++        # milliseconds on the event loop, so while cleaning it is only
++        # refreshed on a timer when something is there to show it.
++        self.map_consumers = 0
+         # Tracks the last successful update to control when we report failure
+         # to the base class. This is reset on successful data update.
+         self._last_update_success_time: datetime | None = None
+@@ -244,7 +249,9 @@
+     async def update_map(self) -> None:
+         """Update the currently selected map."""
+         try:
+-            await self.properties_api.home.discover_home()
++            # `refresh` runs home discovery itself until it has completed.
++            # Calling `discover_home` here as well re-parsed every cached map
++            # on each update, doubling the time spent blocking the event loop.
+             await self.properties_api.home.refresh()
+         except RoborockException as ex:
+             raise HomeAssistantError(
+@@ -319,9 +326,12 @@
+ 
+         # If the vacuum is currently cleaning and it has been IMAGE_CACHE_INTERVAL
+         # since the last map update, you can update the map.
++        # A state change always refreshes (it keeps rooms current and is
++        # rare); the timer only runs while an entity is showing the map.
+         new_status = self.properties_api.status
+         if (
+             new_status.in_cleaning
++            and self.map_consumers > 0
+             and (dt_util.utcnow() - self._last_home_update_attempt)
+             > IMAGE_CACHE_INTERVAL
+         ) or self.last_update_state != new_status.state_name:
+--- roborock/image.py
++++ roborock/image.py
+@@ -144,7 +144,14 @@
+         await super().async_added_to_hass()
+         self._attr_image_last_updated = self.coordinator.last_home_update
+         self.async_write_ha_state()
++        self.coordinator.map_consumers += 1
+ 
++    @override
++    async def async_will_remove_from_hass(self) -> None:
++        """Stop asking for live map updates."""
++        await super().async_will_remove_from_hass()
++        self.coordinator.map_consumers -= 1
++
+     @property
+     def _map_content(self) -> MapContent | None:
+         if self._home_trait.home_map_content and (
+--- roborock/sensor.py
++++ roborock/sensor.py
+@@ -656,6 +656,18 @@
+         )
+         self._home_trait = coordinator.properties_api.home
+         self._map_content_trait = coordinator.properties_api.map_content
++
++    @override
++    async def async_added_to_hass(self) -> None:
++        """The room comes from the parsed map: ask for live map updates."""
++        await super().async_added_to_hass()
++        self.coordinator.map_consumers += 1
++
++    @override
++    async def async_will_remove_from_hass(self) -> None:
++        """Stop asking for live map updates."""
++        await super().async_will_remove_from_hass()
++        self.coordinator.map_consumers -= 1
+ 
+     @property
+     @override
+--- roborock/vacuum.py
++++ roborock/vacuum.py
+@@ -385,6 +385,54 @@
+         return {
+             "x": robot_position.x,
+             "y": robot_position.y,
++        }
++
++    async def get_vacuum_map_rooms(self) -> ServiceResponse:
++        """Get the current map's rooms, dock and robot position, in map units.
++
++        Every coordinate is in the map's own frame (millimetres), the frame
++        get_vacuum_current_position and set_vacuum_goto_position use. Room
++        bounds are the rectangle each room's pixels cover; names come from
++        the home data, keyed by the same segment ids. This is what an
++        integration needs to line the vacuum's map up with its own floor plan.
++        """
++        map_content_trait = self.coordinator.properties_api.map_content
++        try:
++            await map_content_trait.refresh()
++        except RoborockException as err:
++            _LOGGER.debug("Failed to refresh map content: %s", err)
++            raise HomeAssistantError(
++                translation_domain=DOMAIN,
++                translation_key="map_failure",
++            ) from err
++        map_data = map_content_trait.map_data
++        if map_data is None:
++            raise HomeAssistantError(
++                translation_domain=DOMAIN,
++                translation_key="map_failure",
++            )
++        current = self.coordinator.properties_api.home.current_map_data
++        names = {room.segment_id: room.name for room in current.rooms} if current is not None else {}
++
++        def _point(p: Any) -> dict[str, float] | None:
++            return None if p is None else {"x": p.x, "y": p.y}
++
++        return {
++            "map_flag": current.map_flag if current is not None else None,
++            "map_name": current.name if current is not None else None,
++            "charger": _point(map_data.charger),
++            "vacuum": _point(map_data.vacuum_position),
++            "rooms": [
++                {
++                    "segment_id": number,
++                    "name": names.get(number),
++                    "x0": room.x0,
++                    "y0": room.y0,
++                    "x1": room.x1,
++                    "y1": room.y1,
++                }
++                for number, room in sorted((map_data.rooms or {}).items())
++            ],
+         }
+ 
+ 
+@@ -670,6 +718,10 @@
+         """Get the current position of the vacuum from the map."""
+         raise ServiceNotSupported(DOMAIN, "get_vacuum_current_position", self.entity_id)
+ 
++    async def get_vacuum_map_rooms(self) -> ServiceResponse:
++        """Get the current map's rooms, dock and robot position."""
++        raise ServiceNotSupported(DOMAIN, "get_vacuum_map_rooms", self.entity_id)
++
+     async def async_set_vacuum_goto_position(self, x: int, y: int) -> None:
+         """Set the vacuum to go to a specific position."""
+         raise ServiceNotSupported(DOMAIN, "set_vacuum_goto_position", self.entity_id)
+@@ -898,6 +950,10 @@
+                 translation_key="position_not_found",
+             )
+         return {"x": position.x, "y": position.y}
++
++    async def get_vacuum_map_rooms(self) -> ServiceResponse:
++        """Get the current map's rooms, dock and robot position."""
++        raise ServiceNotSupported(DOMAIN, "get_vacuum_map_rooms", self.entity_id)
+ 
+     async def async_set_vacuum_goto_position(self, x: int, y: int) -> None:
+         """Move the Q10 to a position using the library goto operation."""
+--- roborock/services.py
++++ roborock/services.py
+@@ -12,6 +12,7 @@
+ SET_VACUUM_ZONED_CLEANING_SERVICE_NAME = "set_vacuum_zoned_cleaning"
+ SET_VACUUM_GOTO_POSITION_SERVICE_NAME = "set_vacuum_goto_position"
+ GET_VACUUM_CURRENT_POSITION_SERVICE_NAME = "get_vacuum_current_position"
++GET_VACUUM_MAP_ROOMS_SERVICE_NAME = "get_vacuum_map_rooms"
+ 
+ 
+ @callback
+@@ -41,6 +42,16 @@
+     service.async_register_platform_entity_service(
+         hass,
+         DOMAIN,
++        GET_VACUUM_MAP_ROOMS_SERVICE_NAME,
++        entity_domain=VACUUM_DOMAIN,
++        schema=None,
++        func="get_vacuum_map_rooms",
++        supports_response=SupportsResponse.ONLY,
++    )
++
++    service.async_register_platform_entity_service(
++        hass,
++        DOMAIN,
+         SET_VACUUM_GOTO_POSITION_SERVICE_NAME,
+         entity_domain=VACUUM_DOMAIN,
+         schema=cv.make_entity_service_schema(
+--- roborock/services.yaml
++++ roborock/services.yaml
+@@ -64,3 +64,8 @@
+     entity:
+       integration: roborock
+       domain: vacuum
++get_vacuum_map_rooms:
++  target:
++    entity:
++      integration: roborock
++      domain: vacuum
+--- roborock/strings.json
++++ roborock/strings.json
+@@ -856,6 +856,10 @@
+     "get_vacuum_current_position": {
+       "description": "Retrieves the current position of the vacuum.",
+       "name": "Get current position"
++    },
++    "get_vacuum_map_rooms": {
++      "description": "Retrieves the current map's rooms, dock and robot position, in map units.",
++      "name": "Get map rooms"
+     },
+     "set_vacuum_goto_position": {
+       "description": "Sends the vacuum to a specific position.",

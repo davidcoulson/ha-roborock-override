@@ -1,8 +1,5 @@
 {
     "config": {
-        "abort": {
-            "reauth_successful": "Uudelleen todennus onnistui"
-        },
         "error": {
             "invalid_code": "Antamasi koodi oli virheellinen, tarkista se ja yrit\u00e4 uudelleen.",
             "invalid_email": "Antamaasi s\u00e4hk\u00f6postiosoitteeseen ei ole liitetty tili\u00e4. Yrit\u00e4 uudelleen.",

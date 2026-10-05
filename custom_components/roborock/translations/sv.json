@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "Kontot \u00e4r redan konfigurerat",
-            "reauth_successful": "\u00c5terautentisering lyckades",
             "wrong_account": "Fel konto: V\u00e4nligen autentisera med r\u00e4tt konto."
         },
         "error": {

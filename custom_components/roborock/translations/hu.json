@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "A fi\u00f3k m\u00e1r konfigur\u00e1lva van",
-            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt",
             "wrong_account": "Hib\u00e1s fi\u00f3k: K\u00e9rj\u00fck, a megfelel\u0151 fi\u00f3kkal jelentkezzen be."
         },
         "error": {

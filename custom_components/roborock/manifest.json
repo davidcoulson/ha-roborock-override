@@ -25,9 +25,9 @@
   ],
   "quality_scale": "silver",
   "requirements": [
-    "python-roborock==7.4.2",
+    "python-roborock==7.12.0",
     "vacuum-map-parser-roborock==0.1.5"
   ],
-  "version": "2026.9.3.2",
+  "version": "2026.10.0.1",
   "issue_tracker": "https://github.com/davidcoulson/core/tree/roborock-map-refresh-2026.9.3"
 }

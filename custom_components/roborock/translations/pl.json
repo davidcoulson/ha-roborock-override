@@ -1,8 +1,5 @@
 {
     "config": {
-        "abort": {
-            "reauth_successful": "Ponowne uwierzytelnienie si\u0119 powiod\u0142o"
-        },
         "error": {
             "invalid_code": "Wprowadzony kod jest nieprawid\u0142owy, sprawd\u017a go i spr\u00f3buj ponownie.",
             "invalid_email": "Z wprowadzonym adresem e-mail nie jest skojarzone \u017cadne konto, spr\u00f3buj ponownie.",

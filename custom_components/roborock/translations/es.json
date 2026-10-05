@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "La cuenta ya est\u00e1 configurada",
-            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente",
             "wrong_account": "Cuenta incorrecta: por favor, autent\u00edcate con la cuenta correcta."
         },
         "error": {
@@ -731,6 +730,12 @@
         },
         "invalid_fan_speed": {
             "message": "Velocidad del ventilador no v\u00e1lida: {fan_speed}"
+        },
+        "invalid_q10_coordinate": {
+            "message": "Las coordenadas ({x}, {y}) no son v\u00e1lidas para esta aspiradora"
+        },
+        "invalid_q10_zone": {
+            "message": "Las coordenadas de la zona no son v\u00e1lidas para esta aspiradora."
         },
         "invalid_user_agreement": {
             "message": "Debes aceptar nuevamente el acuerdo de usuario. Abre la aplicaci\u00f3n Roborock y acepta el acuerdo."

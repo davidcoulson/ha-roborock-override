@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "Hesap zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
-            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu",
             "wrong_account": "Yanl\u0131\u015f hesap: L\u00fctfen do\u011fru hesapla giri\u015f yap\u0131n."
         },
         "error": {
@@ -125,6 +124,11 @@
                 "name": "Ba\u015flat"
             }
         },
+        "image": {
+            "map": {
+                "name": "Harita"
+            }
+        },
         "number": {
             "volume": {
                 "name": "Ses"
@@ -134,7 +138,9 @@
             "cleaning_mode": {
                 "name": "Temizleme modu",
                 "state": {
+                    "custom": "Ki\u015fiselle\u015ftirilmi\u015f",
                     "mop": "Sadece paspas",
+                    "smart_mode": "Ak\u0131ll\u0131",
                     "vac_and_mop": "S\u00fcp\u00fcrme ve paspas",
                     "vacuum": "Sadece s\u00fcp\u00fcrme"
                 }
@@ -183,6 +189,7 @@
                     "pre_wash": "\u00d6n y\u0131kama",
                     "rinse_spin": "Durulay\u0131n ve s\u0131k\u0131n",
                     "spin": "Kurutma",
+                    "treatment": "Tedavi",
                     "wash": "Y\u0131kama",
                     "wash_and_dry": "Y\u0131kay\u0131n ve kurutun"
                 }
@@ -226,29 +233,45 @@
                     "anti_allergen": "Alerji \u00f6nleyici",
                     "anti_mites": "Akarlara kar\u015f\u0131",
                     "baby_care": "Bebek bak\u0131m\u0131",
+                    "bath_towel": "Banyo havlusu",
                     "bedding": "Yatak tak\u0131m\u0131",
                     "boiling_wash": "Kaynar suyla y\u0131kama",
                     "bra": "Sutyen",
                     "cotton_linen": "Pamuk/Keten",
                     "custom": "Ki\u015fiselle\u015ftirilmi\u015f",
+                    "deep_self_clean": "Derinlemesine kendi kendini temizleme",
+                    "descaling": "Kire\u00e7 \u00e7\u00f6zme",
                     "down": "A\u015fa\u011f\u0131",
                     "down_clean": "A\u015fa\u011f\u0131ya do\u011fru temizleyin",
                     "exo_40_60": "Exo 40/60",
+                    "flax": "Keten",
                     "gentle": "Nazik",
                     "intensive": "Yo\u011fun",
+                    "jeans": "Kot",
+                    "mixing": "Kar\u0131\u015f\u0131k",
                     "new_clothes": "Yeni k\u0131yafetler",
                     "night": "Gece",
+                    "outdoor_jackets": "D\u0131\u015f mekan ceketleri",
+                    "outdoors": "A\u00e7\u0131k havada",
                     "panties": "K\u00fclot",
+                    "pet_care": "Evcil hayvan bak\u0131m\u0131",
                     "quick": "H\u0131zl\u0131",
+                    "quilt_drying": "Yorgan kurutma",
+                    "rack_drying": "Raf kurutma",
                     "rinse_and_spin": "Durulay\u0131n ve s\u0131k\u0131n",
                     "sanitize": "Dezenfekte et",
                     "season": "Sezon",
                     "shirts": "G\u00f6mlekler",
                     "silk": "\u0130pek",
+                    "small_things": "K\u00fc\u00e7\u00fck \u015feyler",
+                    "small_things_drying": "K\u00fc\u00e7\u00fck e\u015fyalar\u0131n kurutulmas\u0131",
+                    "soaking": "Islatma",
                     "socks": "\u00c7orap",
+                    "sport_shoes": "Spor ayakkab\u0131lar",
                     "sportswear": "Spor giyim",
                     "stain_removal": "Leke \u00e7\u0131karma",
                     "standard": "Standart",
+                    "steam_care": "Buhar bak\u0131m\u0131",
                     "suit": "Tak\u0131m elbise",
                     "summer_quilt": "Yazl\u0131k yorgan",
                     "synthetics": "Sentetikler",
@@ -619,11 +642,26 @@
             }
         },
         "switch": {
+            "button_light": {
+                "name": "G\u00f6sterge \u0131\u015f\u0131\u011f\u0131"
+            },
             "child_lock": {
                 "name": "\u00c7o\u00e7uk kilidi"
             },
             "dnd_switch": {
                 "name": "Rahats\u0131z etmeyin"
+            },
+            "dust_collection": {
+                "name": "Toz toplama"
+            },
+            "dust_emptying": {
+                "name": "Toz bo\u015faltma"
+            },
+            "mop_drying": {
+                "name": "Paspaslan\u0131yor"
+            },
+            "mop_washing": {
+                "name": "Paspas y\u0131kama"
             },
             "off_peak_switch": {
                 "name": "Zay\u0131f \u015farj kapal\u0131"
@@ -693,6 +731,12 @@
         "invalid_fan_speed": {
             "message": "Ge\u00e7ersiz fan h\u0131z\u0131: {fan_speed}"
         },
+        "invalid_q10_coordinate": {
+            "message": "Koordinatlar ({x}, {y}) bu vakum i\u00e7in ge\u00e7erli de\u011fildir"
+        },
+        "invalid_q10_zone": {
+            "message": "Bu vakum i\u00e7in b\u00f6lge koordinatlar\u0131 ge\u00e7erli de\u011fil."
+        },
         "invalid_user_agreement": {
             "message": "Kullan\u0131c\u0131 s\u00f6zle\u015fmesinin tekrar kabul edilmesi gerekiyor. Roborock uygulaman\u0131z\u0131 a\u00e7\u0131n ve s\u00f6zle\u015fmeyi kabul edin."
         },
@@ -731,6 +775,14 @@
         "cloud_api_used": {
             "description": "Roborock entegrasyonu do\u011frudan ba\u011flanam\u0131yor {device_name} ve bulut API'sine geri d\u00f6n\u00fclmesi. Bu, h\u0131z s\u0131n\u0131rlamas\u0131na yol a\u00e7abilece\u011finden \u00f6nerilmez. L\u00fctfen elektrikli s\u00fcp\u00fcrgenizi Home Assistant \u00f6rne\u011finiz arac\u0131l\u0131\u011f\u0131yla yerel a\u011fda eri\u015filebilir hale getirin.",
             "title": "Kullan\u0131lan Bulut API'si"
+        },
+        "deprecated_mop_drying": {
+            "description": "`{entity_id}` ({entity_name}) ikili sens\u00f6r\u00fc art\u0131k kullan\u0131lmamaktad\u0131r ve ayn\u0131 durumu bildiren ve ayr\u0131ca kurutma i\u015flemini ba\u015flat\u0131p durdurabilen **Mop kurutma** anahtar\u0131 ile de\u011fi\u015ftirilmi\u015ftir.\n\nYeni anahtar \u00f6\u011fesini kullanmak \u00fczere t\u00fcm g\u00f6sterge panellerini, \u015fablonlar\u0131, otomasyonlar\u0131 veya komut dosyalar\u0131n\u0131 g\u00fcncelleyin; ard\u0131ndan `{entity_id}` \u00f6\u011fesini devre d\u0131\u015f\u0131 b\u0131rakarak kald\u0131r\u0131lmas\u0131n\u0131 sa\u011flay\u0131n.",
+            "title": "Roborock paspas kurutma ikili sens\u00f6r\u00fc art\u0131k desteklenmemektedir"
+        },
+        "deprecated_mop_drying_scripts": {
+            "description": "`{entity_id}` ({entity_name}) ikili sens\u00f6r\u00fc art\u0131k kullan\u0131lmamaktad\u0131r ve ayn\u0131 durumu bildiren, ayr\u0131ca kurutma i\u015flemini ba\u015flat\u0131p durdurabilen **Mop kurutma** anahtar\u0131 ile de\u011fi\u015ftirilmi\u015ftir.\n\nBu sens\u00f6r, a\u015fa\u011f\u0131daki otomasyonlarda veya komut dosyalar\u0131nda h\u00e2l\u00e2 kullan\u0131lmaktad\u0131r:\n{items}\n\nBunlar\u0131 yeni anahtar \u00f6\u011fesini kullanacak \u015fekilde g\u00fcncelleyin, ard\u0131ndan `{entity_id}` \u00f6\u011fesini devre d\u0131\u015f\u0131 b\u0131rakarak kald\u0131r\u0131n.",
+            "title": "Roborock paspas kurutma ikili sens\u00f6r\u00fc art\u0131k desteklenmemektedir"
         }
     },
     "options": {
@@ -818,6 +870,32 @@
                 }
             },
             "name": "Pozisyona git"
+        },
+        "set_vacuum_zoned_cleaning": {
+            "description": "Belirtilen b\u00f6lgenin temizli\u011fine ba\u015flar.",
+            "fields": {
+                "repeats": {
+                    "description": "B\u00f6lge temizli\u011finin tekrarlanma say\u0131s\u0131. '0', sadece bir kez temizlik yap\u0131laca\u011f\u0131 anlam\u0131na gelir.",
+                    "name": "Tekrarlar"
+                },
+                "x1": {
+                    "description": "B\u00f6lgenin ilk x koordinat\u0131.",
+                    "name": "X1 koordinat\u0131"
+                },
+                "x2": {
+                    "description": "B\u00f6lgenin ikinci x koordinat\u0131.",
+                    "name": "X2 koordinat\u0131"
+                },
+                "y1": {
+                    "description": "B\u00f6lgenin ilk y koordinat\u0131.",
+                    "name": "Y1 koordinat\u0131"
+                },
+                "y2": {
+                    "description": "B\u00f6lgenin ikinci y koordinat\u0131.",
+                    "name": "Y2 koordinat\u0131"
+                }
+            },
+            "name": "Temiz b\u00f6lge"
         }
     }
 }

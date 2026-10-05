@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "\u00da\u010det je u\u017e nakonfigurovan\u00fd",
-            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9",
             "wrong_account": "Nespr\u00e1vny \u00fa\u010det: Pros\u00edm, overte sa pomocou spr\u00e1vneho \u00fa\u010dtu."
         },
         "error": {
@@ -731,6 +730,12 @@
         },
         "invalid_fan_speed": {
             "message": "Neplatn\u00e1 r\u00fdchlos\u0165 ventil\u00e1tora: {fan_speed}"
+        },
+        "invalid_q10_coordinate": {
+            "message": "S\u00faradnice ({x}, {y}) nie s\u00fa platn\u00e9 pre toto v\u00e1kuum"
+        },
+        "invalid_q10_zone": {
+            "message": "S\u00faradnice z\u00f3ny nie s\u00fa pre toto v\u00e1kuum platn\u00e9."
         },
         "invalid_user_agreement": {
             "message": "Pou\u017e\u00edvate\u013esk\u00e1 zmluva mus\u00ed by\u0165 znovu prijat\u00e1. Otvorte aplik\u00e1ciu Roborock a prijmite dohodu."

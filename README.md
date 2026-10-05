@@ -1,6 +1,6 @@
 # Roborock, with the map refresh fix
 
-Home Assistant's built-in `roborock` integration at **2026.9.3**, with one
+Home Assistant's built-in `roborock` integration at **2026.10.0b0**, with one
 change. Installed as a custom component it takes the place of the built-in
 one and keeps the same config entry, devices and entities.
 
@@ -33,8 +33,10 @@ with its floor plan from. It parses the map once per call, like
 The fix touches three files from core: `coordinator.py`, `image.py`,
 `sensor.py`; the action adds to `vacuum.py`, `services.py`,
 `services.yaml`, `strings.json` and the English translation.
-Source branch with tests: `roborock-map-refresh-2026.9.3` of
-[davidcoulson/core](https://github.com/davidcoulson/core/tree/roborock-map-refresh-2026.9.3).
+`override.patch` is the exact difference from Home Assistant's files, and
+`core-tests.patch` adds the two tests for the fix to Home Assistant's own
+`tests/components/roborock/test_image.py`. With both applied to 2026.10.0b0,
+Home Assistant's Roborock test suite passes: 286 tests, against 284 unpatched.
 
 ## Install
 
@@ -48,9 +50,18 @@ over again.
 
 ## Upgrading Home Assistant
 
-This copy is frozen at 2026.9.3 and pins `python-roborock==7.4.2`. After a
-Home Assistant upgrade, update this component to a release matching the new
-version, or remove it if the fix has landed upstream.
+Each release is built on one Home Assistant version and pins the same
+`python-roborock` as that version (2026.10: 7.12.0; the 2026.9.3.x releases:
+7.4.2). Running a release on a different Home Assistant makes it install the
+other library version and run that version's code. After a Home Assistant
+upgrade, update this component to the matching release, or remove it if the
+fix has landed upstream.
+
+To rebuild it for a new version: copy the new
+`homeassistant/components/roborock` over `custom_components/roborock`, apply
+`override.patch`, copy `translations/` from the running container, add the
+`get_vacuum_map_rooms` strings to `translations/en.json`, and set `"version"`
+in `manifest.json`.
 
 ## Licence
 

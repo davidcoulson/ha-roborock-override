@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "Nalog je ve\u0107 pode\u0161en",
-            "reauth_successful": "Ponovna prijava je uspe\u0161na",
             "wrong_account": "Pogre\u0161an nalog: Potvrdite identitet pomo\u0107u ispravnog naloga."
         },
         "error": {
@@ -550,7 +549,7 @@
                     "cliff_sensor_error": "Gre\u0161ka senzora za ivicu",
                     "collect_dust_error_3": "O\u010distite bazu za automatsko pra\u017enjenje",
                     "collect_dust_error_4": "Gre\u0161ka napona na bazi za samopra\u017enjenje",
-                    "compass_error": "Otkriveno jako magnetno polje",
+                    "compass_error": "Detektovano jako magnetno polje",
                     "dirty_water_box_hoare": "Proverite rezervoar za prljavu vodu",
                     "dock": "Baza nije povezana na napajanje",
                     "dock_locator_error": "Gre\u0161ka lokatora baze",
@@ -731,6 +730,12 @@
         },
         "invalid_fan_speed": {
             "message": "Neispravna brzina ventilatora: {fan_speed}"
+        },
+        "invalid_q10_coordinate": {
+            "message": "Koordinate ({x}, {y}) nisu validne za ovaj usisiva\u010d"
+        },
+        "invalid_q10_zone": {
+            "message": "Koordinate zone nisu validne za ovaj usisiva\u010d"
         },
         "invalid_user_agreement": {
             "message": "Korisni\u010dki ugovor mora ponovo biti prihva\u0107en. Otvorite Roborock aplikaciju i prihvatite ugovor."

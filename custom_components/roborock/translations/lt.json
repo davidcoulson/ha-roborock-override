@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "Paskyra jau sukonfig\u016bruota",
-            "reauth_successful": "Pakartotinis autentifikavimas buvo s\u0117kmingas",
             "wrong_account": "Neteisinga paskyra: patvirtinkite tapatyb\u0119 naudodami tinkam\u0105 paskyr\u0105."
         },
         "error": {
@@ -731,6 +730,12 @@
         },
         "invalid_fan_speed": {
             "message": "Neteisingas ventiliatoriaus greitis: {fan_speed}"
+        },
+        "invalid_q10_coordinate": {
+            "message": "Koordinat\u0117s ({x}, {y}) \u0161iam vakuumui negalioja"
+        },
+        "invalid_q10_zone": {
+            "message": "\u0160iam dulki\u0173 siurbliui zonos koordinat\u0117s negalioja"
         },
         "invalid_user_agreement": {
             "message": "Naudotojo sutartis turi b\u016bti priimta dar kart\u0105. Atidarykite Roborock program\u0105 ir sutikite su sutartimi."

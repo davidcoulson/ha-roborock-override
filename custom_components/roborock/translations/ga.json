@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "T\u00e1 an cuntas cumraithe cheana f\u00e9in",
-            "reauth_successful": "D'\u00e9irigh leis an athfh\u00edordheimhni\u00fa",
             "wrong_account": "Cuntas m\u00edcheart: F\u00edordheimhnigh leis an gcuntas ceart le do thoil."
         },
         "error": {
@@ -720,6 +719,12 @@
         },
         "invalid_fan_speed": {
             "message": "Luas neamhbhail\u00ed lucht lean\u00fana: {fan_speed}"
+        },
+        "invalid_q10_coordinate": {
+            "message": "N\u00edl na comhordan\u00e1id\u00ed ({x}, {y}) bail\u00ed don fhol\u00fas seo."
+        },
+        "invalid_q10_zone": {
+            "message": "N\u00edl comhordan\u00e1id\u00ed na criose bail\u00ed don fhol\u00fas seo."
         },
         "invalid_user_agreement": {
             "message": "N\u00ed m\u00f3r glacadh leis an gcomhaont\u00fa \u00fas\u00e1ideora ar\u00eds. Oscail d'aip Roborock agus glac leis an gcomhaont\u00fa."

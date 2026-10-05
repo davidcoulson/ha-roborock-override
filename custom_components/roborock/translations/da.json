@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "Kontoen er allerede konfigureret",
-            "reauth_successful": "Genautentificering lykkedes",
             "wrong_account": "Forkert konto: Log venligst ind med den rigtige konto."
         },
         "error": {

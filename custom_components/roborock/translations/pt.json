@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "Conta j\u00e1 configurada",
-            "reauth_successful": "Reautentica\u00e7\u00e3o bem sucedida",
             "wrong_account": "Conta errada: Por favor, autentique-se com a conta certa."
         },
         "error": {

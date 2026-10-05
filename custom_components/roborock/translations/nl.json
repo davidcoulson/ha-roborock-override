@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "Account is al geconfigureerd",
-            "reauth_successful": "Herauthenticatie geslaagd",
             "wrong_account": "Verkeerd account: Meld je aan met het juiste account."
         },
         "error": {

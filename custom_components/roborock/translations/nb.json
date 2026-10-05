@@ -1,8 +1,5 @@
 {
     "config": {
-        "abort": {
-            "reauth_successful": "Autentisering p\u00e5 nytt var vellykket"
-        },
         "error": {
             "invalid_url_format": "URL-en m\u00e5 starte med http:// eller https:// og inneholde en gyldig vert.",
             "too_frequent_code_requests": "Du har fors\u00f8kt \u00e5 be om for mange koder. Pr\u00f8v igjen senere.",

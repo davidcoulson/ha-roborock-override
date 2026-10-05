@@ -1,8 +1,7 @@
 {
     "config": {
         "abort": {
-            "already_configured_account": "Kontua dagoeneko konfiguratuta dago",
-            "reauth_successful": "Berrautortzea arrakastatsua izan da"
+            "already_configured_account": "Kontua dagoeneko konfiguratuta dago"
         },
         "error": {
             "unknown": "Ustekabeko errorea"

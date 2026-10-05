@@ -1,8 +1,7 @@
 {
     "config": {
         "abort": {
-            "already_configured_account": "Akun sudah dikonfigurasi",
-            "reauth_successful": "Autentikasi ulang berhasil"
+            "already_configured_account": "Akun sudah dikonfigurasi"
         },
         "error": {
             "invalid_code": "Kode yang Anda masukkan salah, silakan periksa dan coba lagi.",

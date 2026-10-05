@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "\u00da\u010det je ji\u017e nastaven",
-            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9",
             "wrong_account": "\u0160patn\u00fd \u00fa\u010det: Ov\u011b\u0159te se pomoc\u00ed spr\u00e1vn\u00e9ho \u00fa\u010dtu."
         },
         "error": {
@@ -61,7 +60,7 @@
                 "name": "\u010cistic\u00ed kapalina"
             },
             "detergent_empty": {
-                "name": "Prac\u00ed prost\u0159edek",
+                "name": "\u010cist\u00edc\u00ed prost\u0159edek",
                 "state": {
                     "off": "Dostupn\u00fd",
                     "on": "Pr\u00e1zdn\u00e9"
@@ -77,12 +76,12 @@
                 "name": "Mop je p\u0159ipojen"
             },
             "mop_drying_status": {
-                "name": "Mop schne"
+                "name": "Vysou\u0161en\u00ed mopu"
             },
             "softener_empty": {
-                "name": "Aviv\u00e1\u017e",
+                "name": "Zm\u011bk\u010dova\u010d",
                 "state": {
-                    "off": "Dostupn\u00e1",
+                    "off": "Dostupn\u00e9",
                     "on": "Pr\u00e1zdn\u00e9"
                 }
             },
@@ -150,15 +149,15 @@
                 "name": "Trasa \u00faklidu",
                 "state": {
                     "balanced": "Vyv\u00e1\u017een\u00e9",
-                    "deep": "Hlubok\u00fd"
+                    "deep": "Hlubok\u00e9"
                 }
             },
             "detergent_type": {
                 "name": "Typ prost\u0159edku",
                 "state": {
                     "empty": "Pr\u00e1zdn\u00e9",
-                    "high": "Vysok\u00e1",
-                    "low": "N\u00edzk\u00e1",
+                    "high": "Vysok\u00e9",
+                    "low": "N\u00edzk\u00e9",
                     "medium": "St\u0159edn\u00ed"
                 }
             },
@@ -201,9 +200,9 @@
                     "custom": "Vlastn\u00ed",
                     "custom_water_flow": "Vlastn\u00ed pr\u016ftok vody",
                     "extreme": "Extr\u00e9mn\u00ed",
-                    "high": "Vysok\u00e1",
+                    "high": "Vysok\u00e9",
                     "intense": "Intenzivn\u00ed",
-                    "low": "N\u00edzk\u00e1",
+                    "low": "N\u00edzk\u00e9",
                     "max": "Max",
                     "medium": "St\u0159edn\u00ed",
                     "mild": "Lehk\u00e1",
@@ -220,9 +219,9 @@
                 "name": "Re\u017eim mopov\u00e1n\u00ed",
                 "state": {
                     "custom": "Vlastn\u00ed",
-                    "deep": "Hlubok\u00fd",
-                    "deep_plus": "Hlubok\u00fd+",
-                    "fast": "Rychl\u00fd",
+                    "deep": "Hlubok\u00e9",
+                    "deep_plus": "Hlubok\u00e9+",
+                    "fast": "Rychl\u00e9",
                     "smart_mode": "SmartPlan",
                     "standard": "Standardn\u00ed"
                 }
@@ -305,8 +304,8 @@
                 "name": "Typ aviv\u00e1\u017ee",
                 "state": {
                     "empty": "Pr\u00e1zdn\u00e9",
-                    "high": "Vysok\u00e1",
-                    "low": "N\u00edzk\u00e1",
+                    "high": "Vysok\u00e9",
+                    "low": "N\u00edzk\u00e9",
                     "medium": "St\u0159edn\u00ed"
                 }
             },
@@ -336,8 +335,8 @@
             "water_flow": {
                 "name": "Pr\u016ftok vody",
                 "state": {
-                    "high": "Vysok\u00e1",
-                    "low": "N\u00edzk\u00e1",
+                    "high": "Vysok\u00e9",
+                    "low": "N\u00edzk\u00e9",
                     "medium": "St\u0159edn\u00ed"
                 }
             }
@@ -449,7 +448,7 @@
                 "state": {
                     "charging": "Nab\u00edjen\u00ed",
                     "docking": "Dokov\u00e1n\u00ed",
-                    "mop_airdrying": "Su\u0161en\u00ed mopu na vzduchu",
+                    "mop_airdrying": "Su\u0161en\u00ed mopu vzduchem",
                     "mop_cleaning": "\u010ci\u0161t\u011bn\u00ed mopu",
                     "moping": "Mopov\u00e1n\u00ed",
                     "paused": "Pozastaveno",
@@ -492,7 +491,7 @@
                     "error": "Chyba",
                     "going_to_target": "P\u0159echod k c\u00edli",
                     "going_to_wash_the_mop": "Jde vyprat mop",
-                    "idle": "Ne\u010dinn\u00e1",
+                    "idle": "Ne\u010dinn\u00e9",
                     "locked": "Zam\u010deno",
                     "manual_mode": "Ru\u010dn\u00ed re\u017eim",
                     "mapping": "Mapov\u00e1n\u00ed",
@@ -731,6 +730,12 @@
         },
         "invalid_fan_speed": {
             "message": "Neplatn\u00e1 rychlost ventil\u00e1toru: {fan_speed}"
+        },
+        "invalid_q10_coordinate": {
+            "message": "Sou\u0159adnice ({x}, {y}) neplat\u00ed pro tento vysava\u010d"
+        },
+        "invalid_q10_zone": {
+            "message": "Sou\u0159adnice z\u00f3ny neplat\u00ed pro tento vysava\u010d"
         },
         "invalid_user_agreement": {
             "message": "U\u017eivatelsk\u00e1 smlouva mus\u00ed b\u00fdt znovu p\u0159ijata. Otev\u0159ete aplikaci Roborock a p\u0159ijm\u011bte smlouvu."

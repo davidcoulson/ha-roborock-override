@@ -1,8 +1,7 @@
 {
     "config": {
         "abort": {
-            "already_configured_account": "Ra\u010dun \u017ee nastavljen",
-            "reauth_successful": "Ponovna avtentikacija je bila uspe\u0161na"
+            "already_configured_account": "Ra\u010dun \u017ee nastavljen"
         },
         "error": {
             "unknown": "Nepri\u010dakovana napaka"

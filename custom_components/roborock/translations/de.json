@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "Konto ist bereits konfiguriert",
-            "reauth_successful": "Die erneute Authentifizierung war erfolgreich",
             "wrong_account": "Falsches Konto: Bitte authentifiziere dich mit dem richtigen Konto."
         },
         "error": {
@@ -731,6 +730,12 @@
         },
         "invalid_fan_speed": {
             "message": "Ung\u00fcltige Saugkraft: {fan_speed}"
+        },
+        "invalid_q10_coordinate": {
+            "message": "Koordinaten ({x}, {y}) sind f\u00fcr diesen Staubsauger ung\u00fcltig"
+        },
+        "invalid_q10_zone": {
+            "message": "Die Zonenkoordinaten sind f\u00fcr diesen Staubsauger ung\u00fcltig"
         },
         "invalid_user_agreement": {
             "message": "Die Benutzervereinbarung muss erneut akzeptiert werden. \u00d6ffne deine Roborock-App und akzeptiere die Vereinbarung."

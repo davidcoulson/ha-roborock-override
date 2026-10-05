@@ -1,8 +1,7 @@
 {
     "config": {
         "abort": {
-            "already_configured_account": "El compte ja est\u00e0 configurat",
-            "reauth_successful": "Re-autenticaci\u00f3 realitzada correctament"
+            "already_configured_account": "El compte ja est\u00e0 configurat"
         },
         "error": {
             "invalid_code": "El codi introdu\u00eft \u00e9s incorrecte, comprova'l i torna-ho a provar.",

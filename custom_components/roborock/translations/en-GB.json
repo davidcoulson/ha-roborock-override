@@ -2,7 +2,6 @@
     "config": {
         "abort": {
             "already_configured_account": "Account is already configured",
-            "reauth_successful": "Re-authentication was successful",
             "wrong_account": "Wrong account: Please authenticate with the right account."
         },
         "error": {
