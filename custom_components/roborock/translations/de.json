@@ -458,7 +458,7 @@
                     "unknown": "Unbekannt",
                     "updating": "Aktualisierung",
                     "waiting_for_orders": "Warten auf Befehle",
-                    "working_sleep": "Schlafen w\u00e4hrend der Arbeit"
+                    "working_sleep": "Ruhezustand im Betrieb"
                 }
             },
             "sensor_life": {
@@ -720,7 +720,7 @@
             "message": "Fehler beim Aufruf von {command}"
         },
         "home_data_fail": {
-            "message": "Roborock-Heimdaten konnten nicht abgerufen werden"
+            "message": "Roborock-Daten zum Zuhause konnten nicht abgerufen werden"
         },
         "invalid_command": {
             "message": "Ung\u00fcltiger Befehl {command}"
@@ -773,7 +773,7 @@
     },
     "issues": {
         "cloud_api_used": {
-            "description": "Die Roborock-Integration ist nicht in der Lage, eine direkte Verbindung zu {device_name} herzustellen und greift auf die Cloud-API zur\u00fcck. Dies wird nicht empfohlen, da es zu Ratenbegrenzungen f\u00fchren kann. Bitte stelle sicher, dass dein Staubsauger \u00fcber das lokale Netzwerk f\u00fcr deine Home Assistant-Instanz erreichbar ist.",
+            "description": "Die Roborock-Integration ist nicht in der Lage, eine direkte Verbindung zu {device_name} herzustellen und greift auf die Cloud-API zur\u00fcck. Dies wird nicht empfohlen, da es zu Ratenbegrenzungen f\u00fchren kann. Bitte stelle sicher, dass dein Staubsauger \u00fcber das lokale Netzwerk f\u00fcr deine Home-Assistant-Instanz erreichbar ist.",
             "title": "Cloud-API in Verwendung"
         },
         "deprecated_mop_drying": {
