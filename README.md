@@ -1,5 +1,12 @@
 # Roborock, with the map refresh fix
 
+## TL;DR
+
+- **Stops a cleaning Roborock from slowing Home Assistant down.** While a vacuum cleans, the built-in integration reprocesses its map twice every 30 seconds, briefly freezing Home Assistant each time, even if no dashboard shows the map.
+- **This version only refreshes the map when something actually shows it**, and processes it once.
+- **Adds one action** that lists the map's rooms and the dock position, which [Sextant](https://github.com/davidcoulson/sextant) uses to line the vacuum's map up with your floor plan.
+- **Drop-in and reversible:** it keeps your existing Roborock setup, devices and entities. Remove it in HACS and the built-in integration takes over again.
+
 Home Assistant's built-in `roborock` integration at **2026.10.0b0**, with one
 change. Installed as a custom component it takes the place of the built-in
 one and keeps the same config entry, devices and entities.
