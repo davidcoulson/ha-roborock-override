@@ -32,6 +32,7 @@ from roborock.exceptions import RoborockDeviceBusy, RoborockException
 from roborock.roborock_message import (
     RoborockB01Props,
     RoborockDyadDataProtocol,
+    RoborockMessage,
     RoborockZeoProtocol,
 )
 
@@ -788,6 +789,24 @@ class RoborockB01Q10UpdateCoordinator(DataUpdateCoordinator[None]):
         self._device = device
         self.api = api
         self.device_info = get_device_info(device)
+        self._last_device_message = dt_util.utcnow()
+        self._unsub_message: Callable[[], None] | None = None
+
+    @callback
+    def _handle_message(self, message: RoborockMessage) -> None:
+        """Restore availability on receipt, including unchanged or partial pushes."""
+        self._last_device_message = dt_util.utcnow()
+        self.last_update_success = True
+        self.last_exception = None
+        self.async_update_listeners()
+
+    @override
+    async def async_shutdown(self) -> None:
+        """Unsubscribe the device receipt listener."""
+        if self._unsub_message is not None:
+            self._unsub_message()
+            self._unsub_message = None
+        await super().async_shutdown()
 
     @override
     async def _async_update_data(self) -> None:
@@ -797,6 +816,9 @@ class RoborockB01Q10UpdateCoordinator(DataUpdateCoordinator[None]):
         push messages are asynchronous and not guaranteed to contain every
         field. Entities subscribe to trait updates and update as values arrive.
         """
+        if self._unsub_message is None:
+            # Trait listeners only report changed values, not every device message.
+            self._unsub_message = await self.api._channel.subscribe(self._handle_message)
         try:
             await self.api.refresh()
         except RoborockException as ex:
@@ -805,6 +827,12 @@ class RoborockB01Q10UpdateCoordinator(DataUpdateCoordinator[None]):
                 translation_domain=DOMAIN,
                 translation_key="request_fail",
             ) from ex
+
+        if dt_util.utcnow() - self._last_device_message > MIN_UNAVAILABLE_DURATION:
+            raise UpdateFailed(
+                translation_domain=DOMAIN,
+                translation_key="request_fail",
+            )
 
     @cached_property
     def duid(self) -> str:

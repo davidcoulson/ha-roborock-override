@@ -1,3 +1,14 @@
+--- tests/components/roborock/conftest.py
++++ tests/components/roborock/conftest.py
+@@ -282,6 +282,8 @@
+     q10_trait.vacuum = AsyncMock()
+     q10_trait.command = AsyncMock()
+     q10_trait.refresh = AsyncMock()
++    q10_trait._channel = Mock()
++    q10_trait._channel.subscribe = AsyncMock(return_value=Mock())
+     q10_trait.do_not_disturb = make_q10_switch_trait(
+         on_change=lambda value: setattr(q10_trait.status, "not_disturb", value)
+     )
 --- tests/components/roborock/test_image.py
 +++ tests/components/roborock/test_image.py
 @@ -4,7 +4,7 @@
@@ -257,3 +268,53 @@
 +    await coordinator.async_refresh()
 +    api.home.refresh.assert_awaited_once()
 +    assert coordinator.last_home_update is not None
+--- /dev/null
++++ tests/components/roborock/test_review_q10.py
+@@ -0,0 +1,47 @@
++"""Q10 availability follows received device messages."""
++
++from datetime import timedelta
++
++from freezegun.api import FrozenDateTimeFactory
++import pytest
++from roborock.roborock_message import RoborockMessage
++
++from homeassistant.const import Platform
++from homeassistant.core import HomeAssistant
++
++from .conftest import FakeDevice
++
++from tests.common import MockConfigEntry, async_fire_time_changed
++
++
++@pytest.mark.parametrize("platforms", [[Platform.VACUUM]])
++async def test_silent_q10_and_recovery(
++    hass: HomeAssistant,
++    setup_entry: MockConfigEntry,
++    fake_q10_vacuum: FakeDevice,
++    freezer: FrozenDateTimeFactory,
++) -> None:
++    """Broker publishes cannot keep a silent robot available indefinitely."""
++    api = fake_q10_vacuum.b01_q10_properties
++    coordinator = setup_entry.runtime_data.b01_q10[0]
++    api.refresh.reset_mock()
++    freezer.tick(timedelta(minutes=10))
++    async_fire_time_changed(hass)
++    await hass.async_block_till_done()
++    api.refresh.assert_awaited()
++    assert not coordinator.last_update_success
++    assert hass.states.get("vacuum.roborock_q10_s5").state == "unavailable"
++    receive = api._channel.subscribe.call_args.args[0]
++    receive(RoborockMessage(protocol=102, payload=b"{}"))
++    assert coordinator.last_update_success
++    assert coordinator.last_exception is None
++    await hass.async_block_till_done()
++    assert hass.states.get("vacuum.roborock_q10_s5").state == "docked"
++    freezer.tick(timedelta(seconds=90))
++    receive(RoborockMessage(protocol=102, payload=b"{}"))
++    freezer.tick(timedelta(seconds=90))
++    await coordinator.async_refresh()
++    assert coordinator.last_update_success
++    unsubscribe = api._channel.subscribe.return_value
++    await hass.config_entries.async_unload(setup_entry.entry_id)
++    unsubscribe.assert_called_once()
