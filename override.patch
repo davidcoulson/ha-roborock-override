@@ -1,36 +1,6 @@
 --- roborock/binary_sensor.py
 +++ roborock/binary_sensor.py
-@@ -3,11 +3,6 @@
- from collections.abc import Callable
- from dataclasses import dataclass
- from typing import override
--
--from roborock.data import CleanFluidStatus, RoborockStateCode
--from roborock.data.v1.v1_containers import StatusField, StatusV2
--from roborock.devices.traits.v1 import PropertiesApi
--from roborock.roborock_message import RoborockZeoProtocol
- 
- from homeassistant.components.binary_sensor import (
-     BinarySensorDeviceClass,
-@@ -16,10 +11,16 @@
- )
- from homeassistant.const import ATTR_BATTERY_CHARGING, EntityCategory, Platform
- from homeassistant.core import HomeAssistant, callback
--from homeassistant.helpers import entity_registry as er, issue_registry as ir
-+from homeassistant.helpers import entity_registry as er
-+from homeassistant.helpers import issue_registry as ir
- from homeassistant.helpers.dispatcher import async_dispatcher_connect
- from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
- from homeassistant.helpers.typing import StateType
-+
-+from roborock.data import CleanFluidStatus, RoborockStateCode
-+from roborock.data.v1.v1_containers import StatusField, StatusV2
-+from roborock.devices.traits.v1 import PropertiesApi
-+from roborock.roborock_message import RoborockZeoProtocol
- 
- from .const import DOMAIN
- from .coordinator import (
-@@ -258,7 +259,8 @@
+@@ -258,7 +258,8 @@
      def is_on(self) -> bool | None:
          """Return the value reported by the sensor."""
          if (data := self.coordinator.data) is not None:
@@ -42,57 +12,22 @@
  
 --- roborock/coordinator.py
 +++ roborock/coordinator.py
-@@ -1,23 +1,9 @@
+@@ -1,5 +1,6 @@
  """Roborock Coordinator."""
  
-+import logging
++import asyncio
  from collections.abc import Callable
  from datetime import datetime, timedelta
--import logging
- from typing import Any, override
--
--from propcache.api import cached_property
--from roborock import B01Props
--from roborock.data import HomeDataScene
--from roborock.devices.device import RoborockDevice
--from roborock.devices.traits.a01 import DyadApi, ZeoApi
--from roborock.devices.traits.b01 import Q7PropertiesApi, Q10PropertiesApi
--from roborock.devices.traits.v1 import PropertiesApi
--from roborock.exceptions import RoborockDeviceBusy, RoborockException
--from roborock.roborock_message import (
--    RoborockB01Props,
--    RoborockDyadDataProtocol,
--    RoborockZeoProtocol,
--)
- 
- from homeassistant.config_entries import ConfigEntry
- from homeassistant.const import ATTR_CONNECTIONS
-@@ -32,7 +18,23 @@
- )
- from homeassistant.helpers.typing import StateType
- from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
--from homeassistant.util import dt as dt_util, slugify
-+from homeassistant.util import dt as dt_util
-+from homeassistant.util import slugify
-+from propcache.api import cached_property
-+
-+from roborock import B01Props
-+from roborock.data import HomeDataScene
-+from roborock.devices.device import RoborockDevice
-+from roborock.devices.traits.a01 import DyadApi, ZeoApi
-+from roborock.devices.traits.b01 import Q7PropertiesApi, Q10PropertiesApi
-+from roborock.devices.traits.v1 import PropertiesApi
-+from roborock.exceptions import RoborockDeviceBusy, RoborockException
-+from roborock.roborock_message import (
-+    RoborockB01Props,
-+    RoborockDyadDataProtocol,
+ import logging
+@@ -16,6 +17,7 @@
+ from roborock.roborock_message import (
+     RoborockB01Props,
+     RoborockDyadDataProtocol,
 +    RoborockMessage,
-+    RoborockZeoProtocol,
-+)
+     RoborockZeoProtocol,
+ )
  
- from .const import (
-     A01_UPDATE_INTERVAL,
-@@ -171,6 +173,13 @@
+@@ -171,6 +173,14 @@
          # Keep track of last attempt to refresh maps/rooms to know when to try again.
          self._last_home_update_attempt = dt_util.utcnow()
          self.last_home_update: datetime | None = None
@@ -103,12 +38,17 @@
 +        # milliseconds on the event loop, so while cleaning it is only
 +        # refreshed on a timer when something is there to show it.
 +        self.map_consumers = 0
++        self.map_lock = asyncio.Lock()
          # Tracks the last successful update to control when we report failure
          # to the base class. This is reset on successful data update.
          self._last_update_success_time: datetime | None = None
-@@ -218,13 +227,11 @@
+@@ -216,15 +226,14 @@
+         # we'll retry later in `update_map` and in the mean time we won't have
+         # all map/room information.
          try:
-             await self.properties_api.home.discover_home()
+-            await self.properties_api.home.discover_home()
++            async with self.map_lock:
++                await self.properties_api.home.discover_home()
          except RoborockDeviceBusy:
 +            self._map_refresh_pending = True
              _LOGGER.info("Home discovery skipped while device is busy/cleaning")
@@ -122,11 +62,18 @@
          else:
              # Force a map refresh on first setup
              self.last_home_update = dt_util.utcnow() - IMAGE_CACHE_INTERVAL
-@@ -244,14 +251,19 @@
+@@ -243,15 +252,25 @@
+ 
      async def update_map(self) -> None:
          """Update the currently selected map."""
-         try:
+-        try:
 -            await self.properties_api.home.discover_home()
++        async with self.map_lock:
++            await self._update_map()
++
++    async def _update_map(self) -> None:
++        """Refresh the home while holding the map lock."""
++        try:
 +            # `refresh` runs home discovery itself until it has completed.
 +            # Calling `discover_home` here as well re-parsed every cached map
 +            # on each update, doubling the time spent blocking the event loop.
@@ -143,7 +90,7 @@
              self.last_home_update = dt_util.utcnow()
  
      async def _verify_api(self) -> None:
-@@ -319,17 +331,33 @@
+@@ -319,17 +338,33 @@
  
          # If the vacuum is currently cleaning and it has been IMAGE_CACHE_INTERVAL
          # since the last map update, you can update the map.
@@ -180,7 +127,7 @@
  
          if self.properties_api.status.in_cleaning:
              if self._device.is_local_connected:
-@@ -376,9 +404,11 @@
+@@ -376,9 +411,11 @@
      def _handle_trait_update(self) -> None:
          """Handle trait updates from push notifications."""
          _LOGGER.debug("Trait updated, updating coordinator data")
@@ -195,27 +142,7 @@
  
      @override
      async def async_shutdown(self) -> None:
-@@ -453,8 +483,8 @@
- 
- 
- class RoborockDataUpdateCoordinatorA01[
--    _V: RoborockDyadDataProtocol | RoborockZeoProtocol
--](DataUpdateCoordinator[dict[_V, StateType]]):
-+    V: RoborockDyadDataProtocol | RoborockZeoProtocol
-+](DataUpdateCoordinator[dict[V, StateType]]):
-     """Class to manage fetching data from the API for A01 devices."""
- 
-     config_entry: RoborockConfigEntry
-@@ -475,7 +505,7 @@
-         )
-         self._device = device
-         self.device_info = get_device_info(device)
--        self.request_protocols: list[_V] = []
-+        self.request_protocols: list[V] = []
- 
-     @cached_property
-     def duid(self) -> str:
-@@ -759,6 +789,24 @@
+@@ -759,6 +796,24 @@
          self._device = device
          self.api = api
          self.device_info = get_device_info(device)
@@ -240,17 +167,19 @@
  
      @override
      async def _async_update_data(self) -> None:
-@@ -768,6 +816,9 @@
+@@ -768,6 +823,11 @@
          push messages are asynchronous and not guaranteed to contain every
          field. Entities subscribe to trait updates and update as values arrive.
          """
 +        if self._unsub_message is None:
 +            # Trait listeners only report changed values, not every device message.
-+            self._unsub_message = await self.api._channel.subscribe(self._handle_message)
++            self._unsub_message = await self.api._channel.subscribe(  # noqa: SLF001
++                self._handle_message
++            )
          try:
              await self.api.refresh()
          except RoborockException as ex:
-@@ -776,6 +827,12 @@
+@@ -776,6 +836,12 @@
                  translation_domain=DOMAIN,
                  translation_key="request_fail",
              ) from ex
@@ -292,6 +221,20 @@
  
      @property
      def _map_content(self) -> MapContent | None:
+--- roborock/select.py
++++ roborock/select.py
+@@ -458,6 +458,11 @@
+     @override
+     async def async_select_option(self, option: str) -> None:
+         """Set the option."""
++        async with self.coordinator.map_lock:
++            await self._async_select_map(option)
++
++    async def _async_select_map(self, option: str) -> None:
++        """Select and refresh a map while holding the coordinator lock."""
+         for map_id, map_name in self._available_map_names.items():
+             if map_name == option:
+                 try:
 --- roborock/sensor.py
 +++ roborock/sensor.py
 @@ -657,6 +657,18 @@
@@ -366,10 +309,22 @@
        "fields": {
 --- roborock/vacuum.py
 +++ roborock/vacuum.py
-@@ -387,6 +387,54 @@
+@@ -365,7 +365,8 @@
+         """Get the current position of the vacuum from the map."""
+         map_content_trait = self.coordinator.properties_api.map_content
+         try:
+-            await map_content_trait.refresh()
++            async with self.coordinator.map_lock:
++                await map_content_trait.refresh()
+         except RoborockException as err:
+             _LOGGER.debug("Failed to refresh map content: %s", err)
+             raise HomeAssistantError(
+@@ -385,6 +386,62 @@
+         return {
+             "x": robot_position.x,
              "y": robot_position.y,
-         }
- 
++        }
++
 +    async def get_vacuum_map_rooms(self) -> ServiceResponse:
 +        """Get the current map's rooms, dock and robot position, in map units.
 +
@@ -379,23 +334,31 @@
 +        the home data, keyed by the same segment ids. This is what an
 +        integration needs to line the vacuum's map up with its own floor plan.
 +        """
-+        map_content_trait = self.coordinator.properties_api.map_content
-+        try:
-+            await map_content_trait.refresh()
-+        except RoborockException as err:
-+            _LOGGER.debug("Failed to refresh map content: %s", err)
-+            raise HomeAssistantError(
-+                translation_domain=DOMAIN,
-+                translation_key="map_failure",
-+            ) from err
-+        map_data = map_content_trait.map_data
-+        if map_data is None:
-+            raise HomeAssistantError(
-+                translation_domain=DOMAIN,
-+                translation_key="map_failure",
-+            )
-+        current = self.coordinator.properties_api.home.current_map_data
-+        names = {room.segment_id: room.name for room in current.rooms} if current is not None else {}
++        api = self.coordinator.properties_api
++        async with self.coordinator.map_lock:
++            try:
++                await api.status.refresh()
++                map_flag = api.status.current_map
++                await api.home.refresh()
++                current = api.home.current_map_data
++                content = (api.home.home_map_content or {}).get(map_flag)
++                await api.status.refresh()
++            except RoborockException as err:
++                raise HomeAssistantError(
++                    translation_domain=DOMAIN, translation_key="map_failure"
++                ) from err
++            if (
++                map_flag is None
++                or api.status.current_map != map_flag
++                or current is None
++                or current.map_flag != map_flag
++                or content is None
++                or (map_data := content.map_data) is None
++            ):
++                raise HomeAssistantError(
++                    translation_domain=DOMAIN, translation_key="map_failure"
++                )
++            names = {room.segment_id: room.name for room in current.rooms}
 +
 +        def _point(p: Any) -> dict[str, float] | None:
 +            return None if p is None else {"x": p.x, "y": p.y}
@@ -416,12 +379,10 @@
 +                }
 +                for number, room in sorted((map_data.rooms or {}).items())
 +            ],
-+        }
-+
+         }
  
- class RoborockQ7Vacuum(RoborockCoordinatedEntityB01Q7, StateVacuumEntity):
-     """General Representation of a Roborock vacuum."""
-@@ -670,6 +718,10 @@
+ 
+@@ -670,6 +727,10 @@
          """Get the current position of the vacuum from the map."""
          raise ServiceNotSupported(DOMAIN, "get_vacuum_current_position", self.entity_id)
  
@@ -432,7 +393,7 @@
      async def async_set_vacuum_goto_position(self, x: int, y: int) -> None:
          """Set the vacuum to go to a specific position."""
          raise ServiceNotSupported(DOMAIN, "set_vacuum_goto_position", self.entity_id)
-@@ -899,6 +951,10 @@
+@@ -899,6 +960,10 @@
              )
          return {"x": position.x, "y": position.y}
  

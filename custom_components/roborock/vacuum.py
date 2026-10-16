@@ -365,7 +365,8 @@ class RoborockVacuum(RoborockCoordinatedEntityV1, StateVacuumEntity):
         """Get the current position of the vacuum from the map."""
         map_content_trait = self.coordinator.properties_api.map_content
         try:
-            await map_content_trait.refresh()
+            async with self.coordinator.map_lock:
+                await map_content_trait.refresh()
         except RoborockException as err:
             _LOGGER.debug("Failed to refresh map content: %s", err)
             raise HomeAssistantError(
@@ -396,23 +397,31 @@ class RoborockVacuum(RoborockCoordinatedEntityV1, StateVacuumEntity):
         the home data, keyed by the same segment ids. This is what an
         integration needs to line the vacuum's map up with its own floor plan.
         """
-        map_content_trait = self.coordinator.properties_api.map_content
-        try:
-            await map_content_trait.refresh()
-        except RoborockException as err:
-            _LOGGER.debug("Failed to refresh map content: %s", err)
-            raise HomeAssistantError(
-                translation_domain=DOMAIN,
-                translation_key="map_failure",
-            ) from err
-        map_data = map_content_trait.map_data
-        if map_data is None:
-            raise HomeAssistantError(
-                translation_domain=DOMAIN,
-                translation_key="map_failure",
-            )
-        current = self.coordinator.properties_api.home.current_map_data
-        names = {room.segment_id: room.name for room in current.rooms} if current is not None else {}
+        api = self.coordinator.properties_api
+        async with self.coordinator.map_lock:
+            try:
+                await api.status.refresh()
+                map_flag = api.status.current_map
+                await api.home.refresh()
+                current = api.home.current_map_data
+                content = (api.home.home_map_content or {}).get(map_flag)
+                await api.status.refresh()
+            except RoborockException as err:
+                raise HomeAssistantError(
+                    translation_domain=DOMAIN, translation_key="map_failure"
+                ) from err
+            if (
+                map_flag is None
+                or api.status.current_map != map_flag
+                or current is None
+                or current.map_flag != map_flag
+                or content is None
+                or (map_data := content.map_data) is None
+            ):
+                raise HomeAssistantError(
+                    translation_domain=DOMAIN, translation_key="map_failure"
+                )
+            names = {room.segment_id: room.name for room in current.rooms}
 
         def _point(p: Any) -> dict[str, float] | None:
             return None if p is None else {"x": p.x, "y": p.y}

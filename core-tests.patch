@@ -1,3 +1,14 @@
+--- tests/components/roborock/conftest.py
++++ tests/components/roborock/conftest.py
+@@ -282,6 +282,8 @@
+     q10_trait.vacuum = AsyncMock()
+     q10_trait.command = AsyncMock()
+     q10_trait.refresh = AsyncMock()
++    q10_trait._channel = Mock()
++    q10_trait._channel.subscribe = AsyncMock(return_value=Mock())
+     q10_trait.do_not_disturb = make_q10_switch_trait(
+         on_change=lambda value: setattr(q10_trait.status, "not_disturb", value)
+     )
 --- tests/components/roborock/snapshots/test_binary_sensor.ambr
 +++ tests/components/roborock/snapshots/test_binary_sensor.ambr
 @@ -200,7 +200,7 @@
@@ -18,17 +29,6 @@
    })
  # ---
  # name: test_binary_sensors[binary_sensor.roborock_s7_maxv_dock_dirty_water_box-entry]
---- tests/components/roborock/conftest.py
-+++ tests/components/roborock/conftest.py
-@@ -282,6 +282,8 @@
-     q10_trait.vacuum = AsyncMock()
-     q10_trait.command = AsyncMock()
-     q10_trait.refresh = AsyncMock()
-+    q10_trait._channel = Mock()
-+    q10_trait._channel.subscribe = AsyncMock(return_value=Mock())
-     q10_trait.do_not_disturb = make_q10_switch_trait(
-         on_change=lambda value: setattr(q10_trait.status, "not_disturb", value)
-     )
 --- tests/components/roborock/snapshots/test_diagnostics.ambr
 +++ tests/components/roborock/snapshots/test_diagnostics.ambr
 @@ -33,18 +33,7 @@
@@ -366,6 +366,143 @@
 +        "b0:4a:33:33:33:33",
 +    ):
 +        assert secret not in result
+--- /dev/null
++++ tests/components/roborock/test_review_map_action.py
+@@ -0,0 +1,134 @@
++"""Map action snapshot regressions."""
++
++import asyncio
++from unittest.mock import AsyncMock
++
++import pytest
++from roborock.data import CombinedMapInfo, NamedRoomMapping
++from roborock.devices.traits.v1.map_content import MapContent
++from vacuum_map_parser_base.map_data import MapData, Point, Room
++
++from homeassistant.const import Platform
++from homeassistant.core import HomeAssistant
++from homeassistant.exceptions import HomeAssistantError
++
++from .conftest import FakeDevice
++
++from tests.common import MockConfigEntry
++
++
++@pytest.mark.parametrize("platforms", [[Platform.VACUUM]])
++@pytest.mark.parametrize("initial_metadata", [True, False])
++async def test_map_action_refreshes_snapshot(
++    hass: HomeAssistant,
++    setup_entry: MockConfigEntry,
++    fake_vacuum: FakeDevice,
++    initial_metadata: bool,
++) -> None:
++    """An external floor switch refreshes labels and geometry together."""
++    api = fake_vacuum.v1_properties
++    api.status.current_map = 0
++    api.home.current_map_data = (
++        CombinedMapInfo(map_flag=0, name="Old floor", rooms=[])
++        if initial_metadata
++        else None
++    )
++    data = MapData()
++    data.rooms = {16: Room(1000, 2000, 3000, 4000, 16)}
++    data.vacuum_position = Point(2000, 3000)
++    fresh = CombinedMapInfo(
++        map_flag=1,
++        name="New floor",
++        rooms=[NamedRoomMapping(segment_id=16, iot_id="1", raw_name="Renamed room")],
++    )
++
++    async def status() -> None:
++        api.status.current_map = 1
++
++    async def home() -> None:
++        api.home.current_map_data = fresh
++        api.home.home_map_content = {1: MapContent(map_data=data, image_content=b"")}
++
++    api.status.refresh = AsyncMock(side_effect=status)
++    api.home.refresh = AsyncMock(side_effect=home)
++    api.map_content.map_data = data
++    api.map_content.refresh.reset_mock()
++    response = await hass.services.async_call(
++        "roborock",
++        "get_vacuum_map_rooms",
++        {"entity_id": "vacuum.roborock_s7_maxv"},
++        blocking=True,
++        return_response=True,
++    )
++    result = response["vacuum.roborock_s7_maxv"]
++    assert result["map_flag"] == 1
++    assert result["map_name"] == "New floor"
++    assert result["vacuum"] == {"x": 2000, "y": 3000}
++    assert result["rooms"] == [
++        {
++            "segment_id": 16,
++            "name": "Renamed room",
++            "x0": 1000,
++            "y0": 2000,
++            "x1": 3000,
++            "y1": 4000,
++        }
++    ]
++    assert api.status.refresh.await_count == 2
++    api.home.refresh.assert_awaited_once()
++    api.map_content.refresh.assert_not_awaited()
++
++
++@pytest.mark.parametrize("platforms", [[Platform.VACUUM]])
++async def test_map_switch_during_collection(
++    hass: HomeAssistant,
++    setup_entry: MockConfigEntry,
++    fake_vacuum: FakeDevice,
++) -> None:
++    """Reject a floor switch observed while collecting the snapshot."""
++    api = fake_vacuum.v1_properties
++    api.status.current_map = 0
++
++    async def switch() -> None:
++        api.status.current_map = 1
++
++    api.status.refresh = AsyncMock()
++    api.home.refresh = AsyncMock(side_effect=switch)
++    with pytest.raises(HomeAssistantError):
++        await hass.services.async_call(
++            "roborock",
++            "get_vacuum_map_rooms",
++            {"entity_id": "vacuum.roborock_s7_maxv"},
++            blocking=True,
++            return_response=True,
++        )
++
++
++@pytest.mark.parametrize("platforms", [[Platform.VACUUM]])
++async def test_map_collection_waits_for_map_operation(
++    hass: HomeAssistant,
++    setup_entry: MockConfigEntry,
++    fake_vacuum: FakeDevice,
++) -> None:
++    """Map collection waits for an in-progress integration map operation."""
++    coordinator = setup_entry.runtime_data.v1[0]
++    api = fake_vacuum.v1_properties
++    api.status.current_map = None
++    api.status.refresh = AsyncMock()
++    await coordinator.map_lock.acquire()
++    task = hass.async_create_task(
++        hass.services.async_call(
++            "roborock",
++            "get_vacuum_map_rooms",
++            {"entity_id": "vacuum.roborock_s7_maxv"},
++            blocking=True,
++            return_response=True,
++        )
++    )
++    await asyncio.sleep(0)
++    api.status.refresh.assert_not_awaited()
++    assert not task.done()
++    coordinator.map_lock.release()
++    # The default fixture has no status map flag, so collection fails safely.
++    with pytest.raises(HomeAssistantError):
++        await task
 --- /dev/null
 +++ tests/components/roborock/test_review_polling.py
 @@ -0,0 +1,119 @@

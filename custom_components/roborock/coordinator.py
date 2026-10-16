@@ -1,9 +1,25 @@
 """Roborock Coordinator."""
 
-import logging
+import asyncio
 from collections.abc import Callable
 from datetime import datetime, timedelta
+import logging
 from typing import Any, override
+
+from propcache.api import cached_property
+from roborock import B01Props
+from roborock.data import HomeDataScene
+from roborock.devices.device import RoborockDevice
+from roborock.devices.traits.a01 import DyadApi, ZeoApi
+from roborock.devices.traits.b01 import Q7PropertiesApi, Q10PropertiesApi
+from roborock.devices.traits.v1 import PropertiesApi
+from roborock.exceptions import RoborockDeviceBusy, RoborockException
+from roborock.roborock_message import (
+    RoborockB01Props,
+    RoborockDyadDataProtocol,
+    RoborockMessage,
+    RoborockZeoProtocol,
+)
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_CONNECTIONS
@@ -18,23 +34,7 @@ from homeassistant.helpers.issue_registry import (
 )
 from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-from homeassistant.util import dt as dt_util
-from homeassistant.util import slugify
-from propcache.api import cached_property
-
-from roborock import B01Props
-from roborock.data import HomeDataScene
-from roborock.devices.device import RoborockDevice
-from roborock.devices.traits.a01 import DyadApi, ZeoApi
-from roborock.devices.traits.b01 import Q7PropertiesApi, Q10PropertiesApi
-from roborock.devices.traits.v1 import PropertiesApi
-from roborock.exceptions import RoborockDeviceBusy, RoborockException
-from roborock.roborock_message import (
-    RoborockB01Props,
-    RoborockDyadDataProtocol,
-    RoborockMessage,
-    RoborockZeoProtocol,
-)
+from homeassistant.util import dt as dt_util, slugify
 
 from .const import (
     A01_UPDATE_INTERVAL,
@@ -180,6 +180,7 @@ class RoborockDataUpdateCoordinator(DataUpdateCoordinator[DeviceState | None]):
         # milliseconds on the event loop, so while cleaning it is only
         # refreshed on a timer when something is there to show it.
         self.map_consumers = 0
+        self.map_lock = asyncio.Lock()
         # Tracks the last successful update to control when we report failure
         # to the base class. This is reset on successful data update.
         self._last_update_success_time: datetime | None = None
@@ -225,7 +226,8 @@ class RoborockDataUpdateCoordinator(DataUpdateCoordinator[DeviceState | None]):
         # we'll retry later in `update_map` and in the mean time we won't have
         # all map/room information.
         try:
-            await self.properties_api.home.discover_home()
+            async with self.map_lock:
+                await self.properties_api.home.discover_home()
         except RoborockDeviceBusy:
             self._map_refresh_pending = True
             _LOGGER.info("Home discovery skipped while device is busy/cleaning")
@@ -250,6 +252,11 @@ class RoborockDataUpdateCoordinator(DataUpdateCoordinator[DeviceState | None]):
 
     async def update_map(self) -> None:
         """Update the currently selected map."""
+        async with self.map_lock:
+            await self._update_map()
+
+    async def _update_map(self) -> None:
+        """Refresh the home while holding the map lock."""
         try:
             # `refresh` runs home discovery itself until it has completed.
             # Calling `discover_home` here as well re-parsed every cached map
@@ -483,8 +490,8 @@ async def _refresh_traits(traits: list[Any]) -> None:
 
 
 class RoborockDataUpdateCoordinatorA01[
-    V: RoborockDyadDataProtocol | RoborockZeoProtocol
-](DataUpdateCoordinator[dict[V, StateType]]):
+    _V: RoborockDyadDataProtocol | RoborockZeoProtocol
+](DataUpdateCoordinator[dict[_V, StateType]]):
     """Class to manage fetching data from the API for A01 devices."""
 
     config_entry: RoborockConfigEntry
@@ -505,7 +512,7 @@ class RoborockDataUpdateCoordinatorA01[
         )
         self._device = device
         self.device_info = get_device_info(device)
-        self.request_protocols: list[V] = []
+        self.request_protocols: list[_V] = []
 
     @cached_property
     def duid(self) -> str:
@@ -818,7 +825,9 @@ class RoborockB01Q10UpdateCoordinator(DataUpdateCoordinator[None]):
         """
         if self._unsub_message is None:
             # Trait listeners only report changed values, not every device message.
-            self._unsub_message = await self.api._channel.subscribe(self._handle_message)
+            self._unsub_message = await self.api._channel.subscribe(  # noqa: SLF001
+                self._handle_message
+            )
         try:
             await self.api.refresh()
         except RoborockException as ex:

@@ -458,6 +458,11 @@ class RoborockCurrentMapSelectEntity(RoborockCoordinatedEntityV1, SelectEntity):
     @override
     async def async_select_option(self, option: str) -> None:
         """Set the option."""
+        async with self.coordinator.map_lock:
+            await self._async_select_map(option)
+
+    async def _async_select_map(self, option: str) -> None:
+        """Select and refresh a map while holding the coordinator lock."""
         for map_id, map_name in self._available_map_names.items():
             if map_name == option:
                 try:
