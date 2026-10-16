@@ -1,23 +1,9 @@
 """Roborock Coordinator."""
 
+import logging
 from collections.abc import Callable
 from datetime import datetime, timedelta
-import logging
 from typing import Any, override
-
-from propcache.api import cached_property
-from roborock import B01Props
-from roborock.data import HomeDataScene
-from roborock.devices.device import RoborockDevice
-from roborock.devices.traits.a01 import DyadApi, ZeoApi
-from roborock.devices.traits.b01 import Q7PropertiesApi, Q10PropertiesApi
-from roborock.devices.traits.v1 import PropertiesApi
-from roborock.exceptions import RoborockDeviceBusy, RoborockException
-from roborock.roborock_message import (
-    RoborockB01Props,
-    RoborockDyadDataProtocol,
-    RoborockZeoProtocol,
-)
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_CONNECTIONS
@@ -32,7 +18,22 @@ from homeassistant.helpers.issue_registry import (
 )
 from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
-from homeassistant.util import dt as dt_util, slugify
+from homeassistant.util import dt as dt_util
+from homeassistant.util import slugify
+from propcache.api import cached_property
+
+from roborock import B01Props
+from roborock.data import HomeDataScene
+from roborock.devices.device import RoborockDevice
+from roborock.devices.traits.a01 import DyadApi, ZeoApi
+from roborock.devices.traits.b01 import Q7PropertiesApi, Q10PropertiesApi
+from roborock.devices.traits.v1 import PropertiesApi
+from roborock.exceptions import RoborockDeviceBusy, RoborockException
+from roborock.roborock_message import (
+    RoborockB01Props,
+    RoborockDyadDataProtocol,
+    RoborockZeoProtocol,
+)
 
 from .const import (
     A01_UPDATE_INTERVAL,
@@ -171,6 +172,8 @@ class RoborockDataUpdateCoordinator(DataUpdateCoordinator[DeviceState | None]):
         # Keep track of last attempt to refresh maps/rooms to know when to try again.
         self._last_home_update_attempt = dt_util.utcnow()
         self.last_home_update: datetime | None = None
+        self._map_refresh_pending = False
+        self._map_retry_interval = IMAGE_CACHE_INTERVAL
         # How many enabled entities show live map content (the map images and
         # the current room sensor). Parsing a map takes a few hundred
         # milliseconds on the event loop, so while cleaning it is only
@@ -223,13 +226,11 @@ class RoborockDataUpdateCoordinator(DataUpdateCoordinator[DeviceState | None]):
         try:
             await self.properties_api.home.discover_home()
         except RoborockDeviceBusy:
+            self._map_refresh_pending = True
             _LOGGER.info("Home discovery skipped while device is busy/cleaning")
         except RoborockException as err:
             _LOGGER.debug("Failed to get maps: %s", err)
-            raise UpdateFailed(
-                translation_domain=DOMAIN,
-                translation_key="map_failure",
-            ) from err
+            self._map_refresh_pending = True
         else:
             # Force a map refresh on first setup
             self.last_home_update = dt_util.utcnow() - IMAGE_CACHE_INTERVAL
@@ -254,11 +255,14 @@ class RoborockDataUpdateCoordinator(DataUpdateCoordinator[DeviceState | None]):
             # on each update, doubling the time spent blocking the event loop.
             await self.properties_api.home.refresh()
         except RoborockException as ex:
+            self._map_refresh_pending = True
             raise HomeAssistantError(
                 translation_domain=DOMAIN,
                 translation_key="map_failure",
             ) from ex
         else:
+            self._map_refresh_pending = False
+            self._map_retry_interval = IMAGE_CACHE_INTERVAL
             self.last_home_update = dt_util.utcnow()
 
     async def _verify_api(self) -> None:
@@ -330,16 +334,29 @@ class RoborockDataUpdateCoordinator(DataUpdateCoordinator[DeviceState | None]):
         # rare); the timer only runs while an entity is showing the map.
         new_status = self.properties_api.status
         if (
-            new_status.in_cleaning
-            and self.map_consumers > 0
-            and (dt_util.utcnow() - self._last_home_update_attempt)
-            > IMAGE_CACHE_INTERVAL
+            self.map_consumers > 0
+            and (
+                (
+                    self._map_refresh_pending
+                    and dt_util.utcnow() - self._last_home_update_attempt
+                    >= self._map_retry_interval
+                )
+                or (
+                    not self._map_refresh_pending
+                    and new_status.in_cleaning
+                    and dt_util.utcnow() - self._last_home_update_attempt
+                    > IMAGE_CACHE_INTERVAL
+                )
+            )
         ) or self.last_update_state != new_status.state_name:
             self._last_home_update_attempt = dt_util.utcnow()
             try:
                 await self.update_map()
             except HomeAssistantError as err:
                 _LOGGER.debug("Failed to update map: %s", err)
+                self._map_retry_interval = min(
+                    self._map_retry_interval * 2, timedelta(minutes=5)
+                )
 
         if self.properties_api.status.in_cleaning:
             if self._device.is_local_connected:
@@ -386,9 +403,11 @@ class RoborockDataUpdateCoordinator(DataUpdateCoordinator[DeviceState | None]):
     def _handle_trait_update(self) -> None:
         """Handle trait updates from push notifications."""
         _LOGGER.debug("Trait updated, updating coordinator data")
-        self.async_set_updated_data(self._device_state)
-        # We optimize streaming updates to catch state transitions immediately, but
-        # secondary updates (like refreshing the map) can happen on their own interval.
+        self.data = self._device_state
+        self.last_update_success = True
+        self.last_exception = None
+        self._last_update_success_time = dt_util.utcnow()
+        self.async_update_listeners()
 
     @override
     async def async_shutdown(self) -> None:
@@ -463,8 +482,8 @@ async def _refresh_traits(traits: list[Any]) -> None:
 
 
 class RoborockDataUpdateCoordinatorA01[
-    _V: RoborockDyadDataProtocol | RoborockZeoProtocol
-](DataUpdateCoordinator[dict[_V, StateType]]):
+    V: RoborockDyadDataProtocol | RoborockZeoProtocol
+](DataUpdateCoordinator[dict[V, StateType]]):
     """Class to manage fetching data from the API for A01 devices."""
 
     config_entry: RoborockConfigEntry
@@ -485,7 +504,7 @@ class RoborockDataUpdateCoordinatorA01[
         )
         self._device = device
         self.device_info = get_device_info(device)
-        self.request_protocols: list[_V] = []
+        self.request_protocols: list[V] = []
 
     @cached_property
     def duid(self) -> str:

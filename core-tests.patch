@@ -135,3 +135,125 @@
 +    setattr(fake_vacuum.v1_properties.status, field, None)
 +    description = next(d for d in BINARY_SENSOR_DESCRIPTIONS if d.key == key)
 +    assert RoborockBinarySensorEntity(coordinator, description).is_on is None
+--- /dev/null
++++ tests/components/roborock/test_review_polling.py
+@@ -0,0 +1,119 @@
++"""Regression tests for independent status and map polling."""
++
++from datetime import timedelta
++
++from freezegun.api import FrozenDateTimeFactory
++import pytest
++from roborock.data import RoborockStateCode
++from roborock.exceptions import RoborockException
++from roborock.roborock_message import RoborockDataProtocol
++
++from homeassistant.const import Platform
++from homeassistant.core import HomeAssistant
++
++from .conftest import FakeDevice
++
++from tests.common import MockConfigEntry, async_fire_time_changed
++
++
++@pytest.fixture
++def platforms() -> list[Platform]:
++    """Enable live map consumers."""
++    return [Platform.SENSOR, Platform.IMAGE, Platform.VACUUM]
++
++
++async def test_pushes_preserve_poll_deadline(
++    hass: HomeAssistant,
++    setup_entry: MockConfigEntry,
++    fake_vacuum: FakeDevice,
++    freezer: FrozenDateTimeFactory,
++) -> None:
++    """Frequent status pushes must not starve polling or map updates."""
++    api = fake_vacuum.v1_properties
++    coordinator = setup_entry.runtime_data.v1[0]
++
++    async def cleaning() -> None:
++        api.status.state = RoborockStateCode.cleaning
++        api.status.state_name = "cleaning"
++        api.status.in_cleaning = 1
++
++    api.status.refresh.side_effect = cleaning
++    await coordinator.async_refresh()
++    api.home.refresh.reset_mock()
++    api.status.refresh.reset_mock()
++    for battery in range(90, 78, -1):
++        freezer.tick(timedelta(seconds=10))
++        api.status.update_from_dps({RoborockDataProtocol.BATTERY: battery})
++        async_fire_time_changed(hass)
++        await hass.async_block_till_done()
++    assert api.status.refresh.await_count >= 3
++    assert api.home.refresh.await_count >= 1
++    coordinator.last_update_success = False
++    coordinator.last_exception = RoborockException("old failure")
++    api.status.update_from_dps({RoborockDataProtocol.BATTERY: 77})
++    assert coordinator.last_update_success
++    assert coordinator.last_exception is None
++
++
++async def test_idle_map_retry(
++    hass: HomeAssistant,
++    setup_entry: MockConfigEntry,
++    fake_vacuum: FakeDevice,
++    freezer: FrozenDateTimeFactory,
++) -> None:
++    """A failed final map refresh recovers without a further state change."""
++    api = fake_vacuum.v1_properties
++    coordinator = setup_entry.runtime_data.v1[0]
++
++    async def idle() -> None:
++        api.status.in_cleaning = 0
++        api.status.state = RoborockStateCode.idle
++        api.status.state_name = "idle"
++
++    api.status.refresh.side_effect = idle
++    api.home.refresh.reset_mock()
++    api.home.refresh.side_effect = RoborockException("temporary map outage")
++    await coordinator.async_refresh()
++    assert api.home.refresh.await_count == 1
++    await coordinator.async_refresh()
++    assert api.home.refresh.await_count == 1
++    freezer.tick(timedelta(minutes=1))
++    await coordinator.async_refresh()
++    assert api.home.refresh.await_count == 2
++    api.home.refresh.side_effect = None
++    freezer.tick(timedelta(minutes=2))
++    await coordinator.async_refresh()
++    assert api.home.refresh.await_count == 3
++    freezer.tick(timedelta(minutes=5))
++    await coordinator.async_refresh()
++    assert api.home.refresh.await_count == 3
++    assert coordinator.last_update_success
++
++
++@pytest.mark.parametrize("platforms", [[Platform.VACUUM]])
++async def test_initial_map_failure_keeps_status_available(
++    hass: HomeAssistant,
++    mock_roborock_entry: MockConfigEntry,
++    fake_vacuum: FakeDevice,
++    freezer: FrozenDateTimeFactory,
++) -> None:
++    """Status setup completes even with no map consumers and broken maps."""
++    api = fake_vacuum.v1_properties
++    api.home.discover_home.side_effect = RoborockException("map outage")
++    api.home.refresh.side_effect = RoborockException("map outage")
++    await hass.config_entries.async_setup(mock_roborock_entry.entry_id)
++    await hass.async_block_till_done()
++    coordinator = mock_roborock_entry.runtime_data.v1[0]
++    assert coordinator.data is not None
++    assert coordinator.last_update_success
++    assert hass.states.get("vacuum.roborock_s7_maxv").state != "unavailable"
++    assert coordinator.map_consumers == 0
++    api.home.refresh.reset_mock()
++    freezer.tick(timedelta(minutes=5))
++    await coordinator.async_refresh()
++    api.home.refresh.assert_not_awaited()
++    coordinator.map_consumers = 1
++    api.home.refresh.side_effect = None
++    await coordinator.async_refresh()
++    api.home.refresh.assert_awaited_once()
++    assert coordinator.last_home_update is not None
