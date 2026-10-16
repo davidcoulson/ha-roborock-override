@@ -17,12 +17,10 @@
  from homeassistant.util import dt as dt_util
  
  from .conftest import FakeDevice, make_home_trait
-@@ -360,8 +361,80 @@
-     # Assert first map entity is removed, second still exists
-     assert hass.states.get("image.roborock_s7_maxv_main_floor") is None
+@@ -362,6 +363,78 @@
      assert hass.states.get("image.roborock_s7_maxv_upstairs") is not None
-+
-+
+ 
+ 
 +async def _clean_for_an_hour(
 +    hass: HomeAssistant, fake_devices: list[FakeDevice]
 +) -> None:
@@ -31,11 +29,11 @@
 +    for fake_vacuum in fake_devices:
 +        if fake_vacuum.v1_properties is not None:
 +            status = fake_vacuum.v1_properties.status
- 
++
 +            # The mock status re-applies its template on refresh; keep it cleaning.
 +            async def _still_cleaning(status: AsyncMock = status) -> None:
 +                status.in_cleaning = 1
- 
++
 +            status.refresh = AsyncMock(side_effect=_still_cleaning)
 +            status.in_cleaning = 1
 +            fake_vacuum.v1_properties.home.refresh.reset_mock()
@@ -98,3 +96,42 @@
  async def test_q7_map_image(
      hass: HomeAssistant,
      setup_entry: MockConfigEntry,
+--- /dev/null
++++ tests/components/roborock/test_review_binary_sensor.py
+@@ -0,0 +1,36 @@
++"""Regression coverage for missing V1 problem values."""
++
++import pytest
++
++from homeassistant.components.roborock.binary_sensor import (
++    BINARY_SENSOR_DESCRIPTIONS,
++    RoborockBinarySensorEntity,
++)
++from homeassistant.core import HomeAssistant
++
++from .conftest import FakeDevice
++
++from tests.common import MockConfigEntry
++
++
++@pytest.mark.parametrize(
++    ("key", "field"),
++    [
++        ("water_shortage", "water_shortage_status"),
++        ("dirty_box_full", "dirty_water_box_status"),
++        ("clean_box_empty", "clear_water_box_status"),
++        ("clean_fluid_empty", "clean_fluid_status"),
++    ],
++)
++async def test_missing_problem_value(
++    hass: HomeAssistant,
++    setup_entry: MockConfigEntry,
++    fake_vacuum: FakeDevice,
++    key: str,
++    field: str,
++) -> None:
++    """A missing field is unknown, including comparison based descriptions."""
++    coordinator = setup_entry.runtime_data.v1[0]
++    setattr(fake_vacuum.v1_properties.status, field, None)
++    description = next(d for d in BINARY_SENSOR_DESCRIPTIONS if d.key == key)
++    assert RoborockBinarySensorEntity(coordinator, description).is_on is None

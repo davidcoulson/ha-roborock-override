@@ -4,11 +4,6 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import override
 
-from roborock.data import CleanFluidStatus, RoborockStateCode
-from roborock.data.v1.v1_containers import StatusField, StatusV2
-from roborock.devices.traits.v1 import PropertiesApi
-from roborock.roborock_message import RoborockZeoProtocol
-
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
@@ -16,10 +11,16 @@ from homeassistant.components.binary_sensor import (
 )
 from homeassistant.const import ATTR_BATTERY_CHARGING, EntityCategory, Platform
 from homeassistant.core import HomeAssistant, callback
-from homeassistant.helpers import entity_registry as er, issue_registry as ir
+from homeassistant.helpers import entity_registry as er
+from homeassistant.helpers import issue_registry as ir
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.typing import StateType
+
+from roborock.data import CleanFluidStatus, RoborockStateCode
+from roborock.data.v1.v1_containers import StatusField, StatusV2
+from roborock.devices.traits.v1 import PropertiesApi
+from roborock.roborock_message import RoborockZeoProtocol
 
 from .const import DOMAIN
 from .coordinator import (
@@ -258,7 +259,8 @@ class RoborockBinarySensorEntity(RoborockCoordinatedEntityV1, BinarySensorEntity
     def is_on(self) -> bool | None:
         """Return the value reported by the sensor."""
         if (data := self.coordinator.data) is not None:
-            return bool(self.entity_description.value_fn(data))
+            value = self.entity_description.value_fn(data)
+            return None if value is None else bool(value)
         return None
 
 

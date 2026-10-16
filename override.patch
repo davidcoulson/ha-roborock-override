@@ -1,3 +1,45 @@
+--- roborock/binary_sensor.py
++++ roborock/binary_sensor.py
+@@ -3,11 +3,6 @@
+ from collections.abc import Callable
+ from dataclasses import dataclass
+ from typing import override
+-
+-from roborock.data import CleanFluidStatus, RoborockStateCode
+-from roborock.data.v1.v1_containers import StatusField, StatusV2
+-from roborock.devices.traits.v1 import PropertiesApi
+-from roborock.roborock_message import RoborockZeoProtocol
+ 
+ from homeassistant.components.binary_sensor import (
+     BinarySensorDeviceClass,
+@@ -16,10 +11,16 @@
+ )
+ from homeassistant.const import ATTR_BATTERY_CHARGING, EntityCategory, Platform
+ from homeassistant.core import HomeAssistant, callback
+-from homeassistant.helpers import entity_registry as er, issue_registry as ir
++from homeassistant.helpers import entity_registry as er
++from homeassistant.helpers import issue_registry as ir
+ from homeassistant.helpers.dispatcher import async_dispatcher_connect
+ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+ from homeassistant.helpers.typing import StateType
++
++from roborock.data import CleanFluidStatus, RoborockStateCode
++from roborock.data.v1.v1_containers import StatusField, StatusV2
++from roborock.devices.traits.v1 import PropertiesApi
++from roborock.roborock_message import RoborockZeoProtocol
+ 
+ from .const import DOMAIN
+ from .coordinator import (
+@@ -258,7 +259,8 @@
+     def is_on(self) -> bool | None:
+         """Return the value reported by the sensor."""
+         if (data := self.coordinator.data) is not None:
+-            return bool(self.entity_description.value_fn(data))
++            value = self.entity_description.value_fn(data)
++            return None if value is None else bool(value)
+         return None
+ 
+ 
 --- roborock/coordinator.py
 +++ roborock/coordinator.py
 @@ -171,6 +171,11 @@
@@ -38,28 +80,26 @@
          ) or self.last_update_state != new_status.state_name:
 --- roborock/image.py
 +++ roborock/image.py
-@@ -144,7 +144,14 @@
+@@ -144,6 +144,13 @@
          await super().async_added_to_hass()
          self._attr_image_last_updated = self.coordinator.last_home_update
          self.async_write_ha_state()
 +        self.coordinator.map_consumers += 1
- 
++
 +    @override
 +    async def async_will_remove_from_hass(self) -> None:
 +        """Stop asking for live map updates."""
 +        await super().async_will_remove_from_hass()
 +        self.coordinator.map_consumers -= 1
-+
+ 
      @property
      def _map_content(self) -> MapContent | None:
-         if self._home_trait.home_map_content and (
 --- roborock/sensor.py
 +++ roborock/sensor.py
-@@ -656,6 +656,18 @@
-         )
+@@ -657,6 +657,18 @@
          self._home_trait = coordinator.properties_api.home
          self._map_content_trait = coordinator.properties_api.map_content
-+
+ 
 +    @override
 +    async def async_added_to_hass(self) -> None:
 +        """The room comes from the parsed map: ask for live map updates."""
@@ -71,17 +111,67 @@
 +        """Stop asking for live map updates."""
 +        await super().async_will_remove_from_hass()
 +        self.coordinator.map_consumers -= 1
- 
++
      @property
      @override
+     def options(self) -> list[str]:
+--- roborock/services.py
++++ roborock/services.py
+@@ -12,6 +12,7 @@
+ SET_VACUUM_ZONED_CLEANING_SERVICE_NAME = "set_vacuum_zoned_cleaning"
+ SET_VACUUM_GOTO_POSITION_SERVICE_NAME = "set_vacuum_goto_position"
+ GET_VACUUM_CURRENT_POSITION_SERVICE_NAME = "get_vacuum_current_position"
++GET_VACUUM_MAP_ROOMS_SERVICE_NAME = "get_vacuum_map_rooms"
+ 
+ 
+ @callback
+@@ -35,6 +36,16 @@
+         entity_domain=VACUUM_DOMAIN,
+         schema=None,
+         func="get_vacuum_current_position",
++        supports_response=SupportsResponse.ONLY,
++    )
++
++    service.async_register_platform_entity_service(
++        hass,
++        DOMAIN,
++        GET_VACUUM_MAP_ROOMS_SERVICE_NAME,
++        entity_domain=VACUUM_DOMAIN,
++        schema=None,
++        func="get_vacuum_map_rooms",
+         supports_response=SupportsResponse.ONLY,
+     )
+ 
+--- roborock/services.yaml
++++ roborock/services.yaml
+@@ -64,3 +64,8 @@
+     entity:
+       integration: roborock
+       domain: vacuum
++get_vacuum_map_rooms:
++  target:
++    entity:
++      integration: roborock
++      domain: vacuum
+--- roborock/strings.json
++++ roborock/strings.json
+@@ -857,6 +857,10 @@
+       "description": "Retrieves the current position of the vacuum.",
+       "name": "Get current position"
+     },
++    "get_vacuum_map_rooms": {
++      "description": "Retrieves the current map's rooms, dock and robot position, in map units.",
++      "name": "Get map rooms"
++    },
+     "set_vacuum_goto_position": {
+       "description": "Sends the vacuum to a specific position.",
+       "fields": {
 --- roborock/vacuum.py
 +++ roborock/vacuum.py
-@@ -385,6 +385,54 @@
-         return {
-             "x": robot_position.x,
+@@ -387,6 +387,54 @@
              "y": robot_position.y,
-+        }
-+
+         }
+ 
 +    async def get_vacuum_map_rooms(self) -> ServiceResponse:
 +        """Get the current map's rooms, dock and robot position, in map units.
 +
@@ -128,9 +218,11 @@
 +                }
 +                for number, room in sorted((map_data.rooms or {}).items())
 +            ],
-         }
++        }
++
  
- 
+ class RoborockQ7Vacuum(RoborockCoordinatedEntityB01Q7, StateVacuumEntity):
+     """General Representation of a Roborock vacuum."""
 @@ -670,6 +718,10 @@
          """Get the current position of the vacuum from the map."""
          raise ServiceNotSupported(DOMAIN, "get_vacuum_current_position", self.entity_id)
@@ -142,65 +234,14 @@
      async def async_set_vacuum_goto_position(self, x: int, y: int) -> None:
          """Set the vacuum to go to a specific position."""
          raise ServiceNotSupported(DOMAIN, "set_vacuum_goto_position", self.entity_id)
-@@ -898,6 +950,10 @@
-                 translation_key="position_not_found",
+@@ -899,6 +951,10 @@
              )
          return {"x": position.x, "y": position.y}
-+
+ 
 +    async def get_vacuum_map_rooms(self) -> ServiceResponse:
 +        """Get the current map's rooms, dock and robot position."""
 +        raise ServiceNotSupported(DOMAIN, "get_vacuum_map_rooms", self.entity_id)
- 
++
      async def async_set_vacuum_goto_position(self, x: int, y: int) -> None:
          """Move the Q10 to a position using the library goto operation."""
---- roborock/services.py
-+++ roborock/services.py
-@@ -12,6 +12,7 @@
- SET_VACUUM_ZONED_CLEANING_SERVICE_NAME = "set_vacuum_zoned_cleaning"
- SET_VACUUM_GOTO_POSITION_SERVICE_NAME = "set_vacuum_goto_position"
- GET_VACUUM_CURRENT_POSITION_SERVICE_NAME = "get_vacuum_current_position"
-+GET_VACUUM_MAP_ROOMS_SERVICE_NAME = "get_vacuum_map_rooms"
- 
- 
- @callback
-@@ -41,6 +42,16 @@
-     service.async_register_platform_entity_service(
-         hass,
-         DOMAIN,
-+        GET_VACUUM_MAP_ROOMS_SERVICE_NAME,
-+        entity_domain=VACUUM_DOMAIN,
-+        schema=None,
-+        func="get_vacuum_map_rooms",
-+        supports_response=SupportsResponse.ONLY,
-+    )
-+
-+    service.async_register_platform_entity_service(
-+        hass,
-+        DOMAIN,
-         SET_VACUUM_GOTO_POSITION_SERVICE_NAME,
-         entity_domain=VACUUM_DOMAIN,
-         schema=cv.make_entity_service_schema(
---- roborock/services.yaml
-+++ roborock/services.yaml
-@@ -64,3 +64,8 @@
-     entity:
-       integration: roborock
-       domain: vacuum
-+get_vacuum_map_rooms:
-+  target:
-+    entity:
-+      integration: roborock
-+      domain: vacuum
---- roborock/strings.json
-+++ roborock/strings.json
-@@ -856,6 +856,10 @@
-     "get_vacuum_current_position": {
-       "description": "Retrieves the current position of the vacuum.",
-       "name": "Get current position"
-+    },
-+    "get_vacuum_map_rooms": {
-+      "description": "Retrieves the current map's rooms, dock and robot position, in map units.",
-+      "name": "Get map rooms"
-     },
-     "set_vacuum_goto_position": {
-       "description": "Sends the vacuum to a specific position.",
+         try:
