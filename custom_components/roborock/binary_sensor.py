@@ -4,6 +4,11 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import override
 
+from roborock.data import CleanFluidStatus, RoborockStateCode
+from roborock.data.v1.v1_containers import StatusField, StatusV2
+from roborock.devices.traits.v1 import PropertiesApi
+from roborock.roborock_message import RoborockZeoProtocol
+
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
@@ -11,16 +16,10 @@ from homeassistant.components.binary_sensor import (
 )
 from homeassistant.const import ATTR_BATTERY_CHARGING, EntityCategory, Platform
 from homeassistant.core import HomeAssistant, callback
-from homeassistant.helpers import entity_registry as er
-from homeassistant.helpers import issue_registry as ir
+from homeassistant.helpers import entity_registry as er, issue_registry as ir
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.typing import StateType
-
-from roborock.data import CleanFluidStatus, RoborockStateCode
-from roborock.data.v1.v1_containers import StatusField, StatusV2
-from roborock.devices.traits.v1 import PropertiesApi
-from roborock.roborock_message import RoborockZeoProtocol
 
 from .const import DOMAIN
 from .coordinator import (

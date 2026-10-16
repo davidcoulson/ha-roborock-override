@@ -1,3 +1,23 @@
+--- tests/components/roborock/snapshots/test_binary_sensor.ambr
++++ tests/components/roborock/snapshots/test_binary_sensor.ambr
+@@ -200,7 +200,7 @@
+     'last_changed': <ANY>,
+     'last_reported': <ANY>,
+     'last_updated': <ANY>,
+-    'state': 'off',
++    'state': 'unknown',
+   })
+ # ---
+ # name: test_binary_sensors[binary_sensor.roborock_s7_2_dock_dirty_water_box-entry]
+@@ -608,7 +608,7 @@
+     'last_changed': <ANY>,
+     'last_reported': <ANY>,
+     'last_updated': <ANY>,
+-    'state': 'off',
++    'state': 'unknown',
+   })
+ # ---
+ # name: test_binary_sensors[binary_sensor.roborock_s7_maxv_dock_dirty_water_box-entry]
 --- tests/components/roborock/conftest.py
 +++ tests/components/roborock/conftest.py
 @@ -282,6 +282,8 @@
