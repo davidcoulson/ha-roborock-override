@@ -9,6 +9,175 @@
      q10_trait.do_not_disturb = make_q10_switch_trait(
          on_change=lambda value: setattr(q10_trait.status, "not_disturb", value)
      )
+--- tests/components/roborock/snapshots/test_diagnostics.ambr
++++ tests/components/roborock/snapshots/test_diagnostics.ambr
+@@ -33,18 +33,7 @@
+       '**REDACTED-0**': dict({
+         'device': dict({
+           'activeTime': 1672364449,
+-          'deviceStatus': dict({
+-            '120': 0,
+-            '121': 8,
+-            '122': 100,
+-            '123': 102,
+-            '124': 203,
+-            '125': 94,
+-            '126': 90,
+-            '127': 87,
+-            '128': 0,
+-            '133': 1,
+-          }),
++          'deviceStatus': '**REDACTED**',
+           'duid': '******bc123',
+           'extra': '{"RRPhotoPrivacyVersion": "1"}',
+           'featureSet': '2234201184108543',
+@@ -256,18 +245,7 @@
+       '**REDACTED-1**': dict({
+         'device': dict({
+           'activeTime': 1672364449,
+-          'deviceStatus': dict({
+-            '120': 0,
+-            '121': 8,
+-            '122': 100,
+-            '123': 102,
+-            '124': 203,
+-            '125': 94,
+-            '126': 90,
+-            '127': 87,
+-            '128': 0,
+-            '133': 1,
+-          }),
++          'deviceStatus': '**REDACTED**',
+           'duid': '******ice_2',
+           'extra': '{"RRPhotoPrivacyVersion": "1"}',
+           'featureSet': '2234201184108543',
+@@ -479,41 +457,7 @@
+       '**REDACTED-2**': dict({
+         'device': dict({
+           'activeTime': 1700754026,
+-          'deviceStatus': dict({
+-            '10001': '{"f":"t"}',
+-            '10002': '',
+-            '10004': '{"sid_in_use":25,"sid_version":5,"location":"de","bom":"A.03.0291","language":"en"}',
+-            '10005': '{"sn":"dyad_sn","ssid":"dyad_ssid","timezone":"Europe/Stockholm","posix_timezone":"CET-1CEST,M3.5.0,M10.5.0/3","ip":"1.123.12.1","mac":"b0:4a:33:33:33:33","oba":{"language":"en","name":"A.03.0291_CE","bom":"A.03.0291","location":"de","wifiplan":"EU","timezone":"CET-1CEST,M3.5.0,M10.5.0/3;Europe/Berlin","logserver":"awsde0","featureset":"0"}"}',
+-            '10007': '{"mqttOtaData":{"mqttOtaStatus":{"status":"IDLE"}}}',
+-            '200': 0,
+-            '201': 3,
+-            '202': 0,
+-            '203': 2,
+-            '204': 1,
+-            '205': 1,
+-            '206': 3,
+-            '207': 4,
+-            '208': 1,
+-            '209': 100,
+-            '210': 0,
+-            '212': 1,
+-            '213': 1,
+-            '214': 513,
+-            '215': 513,
+-            '216': 0,
+-            '221': 100,
+-            '222': 0,
+-            '223': 2,
+-            '224': 1,
+-            '225': 360,
+-            '226': 0,
+-            '227': 1320,
+-            '228': 360,
+-            '229': '000,000,003,000,005,000,000,000,003,000,005,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,012,003,000,000',
+-            '230': 352,
+-            '235': 0,
+-            '237': 0,
+-          }),
++          'deviceStatus': '**REDACTED**',
+           'duid': '******_duid',
+           'f': False,
+           'fv': '01.12.34',
+@@ -836,38 +780,7 @@
+       '**REDACTED-3**': dict({
+         'device': dict({
+           'activeTime': 1699964128,
+-          'deviceStatus': dict({
+-            '10001': '{"f":"t"}',
+-            '10005': '{"sn":"zeo_sn","ssid":"internet","timezone":"Europe/Berlin","posix_timezone":"CET-1CEST,M3.5.0,M10.5.0/3","ip":"192.111.11.11","mac":"b0:4a:00:00:00:00","rssi":-57,"oba":{"language":"en","name":"A.03.0403_CE","bom":"A.03.0403","location":"de","wifiplan":"EU","timezone":"CET-1CEST,M3.5.0,M10.5.0/3;Europe/Berlin","logserver":"awsde0","loglevel":"4","featureset":"0"}}',
+-            '10007': '{"mqttOtaData":{"mqttOtaStatus":{"status":"IDLE"}}}',
+-            '200': 1,
+-            '201': 0,
+-            '202': 1,
+-            '203': 7,
+-            '204': 1,
+-            '205': 33,
+-            '206': 0,
+-            '207': 4,
+-            '208': 2,
+-            '209': 7,
+-            '210': 1,
+-            '211': 1,
+-            '212': 1,
+-            '213': 2,
+-            '214': 2,
+-            '217': 0,
+-            '218': 227,
+-            '219': 0,
+-            '220': 0,
+-            '221': 0,
+-            '222': 347414,
+-            '223': 0,
+-            '224': 21,
+-            '225': 0,
+-            '226': 0,
+-            '227': 1,
+-            '232': 0,
+-          }),
++          'deviceStatus': '**REDACTED**',
+           'duid': '******_duid',
+           'f': False,
+           'featureSet': '0',
+@@ -1181,23 +1094,7 @@
+           'activeTime': 1749513705,
+           'cid': 'DE',
+           'createTime': 1749513706,
+-          'deviceStatus': dict({
+-            '120': 0,
+-            '121': 8,
+-            '122': 100,
+-            '123': 4,
+-            '124': 2,
+-            '125': 77,
+-            '126': 4294965348,
+-            '127': 54,
+-            '135': 0,
+-            '136': 1,
+-            '137': 1,
+-            '138': 0,
+-            '139': 0,
+-            '141': 0,
+-            '142': 0,
+-          }),
++          'deviceStatus': '**REDACTED**',
+           'duid': '******_duid',
+           'extra': '{"1749518432": "0", "1753581557": "0", "clean_finish": "{}"}',
+           'f': False,
+@@ -1455,17 +1352,7 @@
+           'activeTime': 1767044247,
+           'cid': '4C',
+           'createTime': 1767044139,
+-          'deviceStatus': dict({
+-            '121': 8,
+-            '122': 100,
+-            '123': 2,
+-            '124': 1,
+-            '135': 0,
+-            '136': 1,
+-            '137': 1,
+-            '138': 0,
+-            '139': 5,
+-          }),
++          'deviceStatus': '**REDACTED**',
+           'duid': '******_duid',
+           'f': False,
+           'fv': '03.10.0',
 --- tests/components/roborock/test_image.py
 +++ tests/components/roborock/test_image.py
 @@ -4,7 +4,7 @@
@@ -146,6 +315,37 @@
 +    setattr(fake_vacuum.v1_properties.status, field, None)
 +    description = next(d for d in BINARY_SENSOR_DESCRIPTIONS if d.key == key)
 +    assert RoborockBinarySensorEntity(coordinator, description).is_on is None
+--- /dev/null
++++ tests/components/roborock/test_review_diagnostics.py
+@@ -0,0 +1,28 @@
++"""Diagnostics must not expose opaque serialized device identifiers."""
++
++import json
++
++from homeassistant.components.roborock.diagnostics import (
++    async_get_config_entry_diagnostics,
++)
++from homeassistant.core import HomeAssistant
++
++from tests.common import MockConfigEntry
++
++
++async def test_embedded_identifiers_are_redacted(
++    hass: HomeAssistant, setup_entry: MockConfigEntry
++) -> None:
++    """Check identifiers inside JSON strings, including malformed JSON."""
++    result = json.dumps(await async_get_config_entry_diagnostics(hass, setup_entry))
++    for secret in (
++        "zeo_sn",
++        "internet",
++        "192.111.11.11",
++        "b0:4a:00:00:00:00",
++        "dyad_sn",
++        "dyad_ssid",
++        "1.123.12.1",
++        "b0:4a:33:33:33:33",
++    ):
++        assert secret not in result
 --- /dev/null
 +++ tests/components/roborock/test_review_polling.py
 @@ -0,0 +1,119 @@

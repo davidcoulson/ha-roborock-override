@@ -263,6 +263,19 @@
  
      @cached_property
      def duid(self) -> str:
+--- roborock/diagnostics.py
++++ roborock/diagnostics.py
+@@ -38,7 +38,9 @@
+     return {
+         "config_entry": async_redact_data(config_entry.data, TO_REDACT_CONFIG),
+         "coordinators": {
+-            f"**REDACTED-{i}**": coordinator.device.diagnostic_data()
++            f"**REDACTED-{i}**": async_redact_data(
++                coordinator.device.diagnostic_data(), {"deviceStatus"}
++            )
+             for i, coordinator in enumerate(coordinators.values())
+         },
+     }
 --- roborock/image.py
 +++ roborock/image.py
 @@ -144,6 +144,13 @@

@@ -38,7 +38,9 @@ async def async_get_config_entry_diagnostics(
     return {
         "config_entry": async_redact_data(config_entry.data, TO_REDACT_CONFIG),
         "coordinators": {
-            f"**REDACTED-{i}**": coordinator.device.diagnostic_data()
+            f"**REDACTED-{i}**": async_redact_data(
+                coordinator.device.diagnostic_data(), {"deviceStatus"}
+            )
             for i, coordinator in enumerate(coordinators.values())
         },
     }
