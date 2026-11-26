@@ -178,6 +178,9 @@
     "get_vacuum_current_position": {
       "service": "mdi:map-marker"
     },
+    "reload_code": {
+      "service": "mdi:code-braces"
+    },
     "set_vacuum_goto_position": {
       "service": "mdi:map-marker"
     },
