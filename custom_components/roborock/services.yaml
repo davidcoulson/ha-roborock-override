@@ -69,3 +69,5 @@ get_vacuum_map_rooms:
     entity:
       integration: roborock
       domain: vacuum
+
+reload_code:
